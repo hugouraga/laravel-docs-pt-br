@@ -20,7 +20,7 @@ Para criar um novo comando, você pode usar o comando Artisan `make:console`, qu
 
 	php artisan make:console FooCommand
 
-O comando acima irá gerar a classe em `app/Console/FooCommand.php`.
+O comando acima irá gerar a classe em `app/Console/Commands/FooCommand.php`.
 
 Quando nos estamos criando um comando, a opção `--command` pode ser usada para atribuir o nome do comando no terminal:
 
@@ -39,17 +39,21 @@ Ambos os métodos retornam um array de comandos, que são descritos por uma list
 
 Quando se está definindo `arguments` (parâmetros), os valores de definição do array representam o seguinte.  
 
-	array($name, $mode, $description, $defaultValue)
+	[$name, $mode, $description, $defaultValue]
 
 O parâmetro `mode` oide ser qualquer um dos seguintes:`InputArgument::REQUIRED` ou `InputArgument::OPTIONAL`.
 
 Quando estamos definindo `options`, o valores de definição do array representam o seguinte: 
 
-	array($name, $shortcut, $mode, $description, $defaultValue)
+	[$name, $shortcut, $mode, $description, $defaultValue]
 
 Para opções, o parâmetro `mode` pode ser: `InputOption::VALUE_REQUIRED`, `InputOption::VALUE_OPTIONAL`, `InputOption::VALUE_IS_ARRAY`, `InputOption::VALUE_NONE`.
 
 O modo `VALUE_IS_ARRAY` indica que a chave pode ser usado várias vezes ao chamar o comando:
+
+	InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY
+	
+Would then allow for this command:
 
 	php artisan foo --option=bar --option=baz
 
@@ -123,4 +127,10 @@ Algumas vezes você pode desejar chamar outros comandos a partir do seu. Você p
 
 #### Registrando o Comando Artisan
 
-Uma vez que seu comando estiver pronto, você precisa registrar o mesmo com Artisan então ele ficará disponível para uso. Isto é geralmente feito no arquivo `app/Console/Kernel.php`. Dentro deste arquivo, você irá encontrar uma lista de comandos na propriedade `commands`. Para registrar o seu comando, você simplesmente deve adiciona-lo à esta lista. Quando o Artisan inicializar, todos os comandos listados na propriedade `commands` que serão resolvidos pelo [IoC container](/docs/5.0/container) e registrados no Artisan. 
+Uma vez que seu comando estiver pronto, você precisa registrar o mesmo com Artisan então ele ficará disponível para uso. Isto é geralmente feito no arquivo `app/Console/Kernel.php`. Dentro deste arquivo, você irá encontrar uma lista de comandos na propriedade `commands`. Para registrar o seu comando, você simplesmente deve adiciona-lo à esta lista. 
+
+	protected $commands = [
+		'App\Console\Commands\FooCommand'
+	];
+
+Quando o Artisan inicializar, todos os comandos listados na propriedade `commands` que serão resolvidos pelo [service container](/docs/5.0/container) e registrados no Artisan. 

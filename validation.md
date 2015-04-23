@@ -18,8 +18,8 @@ Laravel ships with a simple, convenient facility for validating data and retriev
 #### Basic Validation Example
 
 	$validator = Validator::make(
-		array('name' => 'Dayle'),
-		array('name' => 'required|min:5')
+		['name' => 'Dayle'],
+		['name' => 'required|min:5']
 	);
 
 The first argument passed to the `make` method is the data under validation. The second argument is the validation rules that should be applied to the data.
@@ -29,24 +29,24 @@ The first argument passed to the `make` method is the data under validation. The
 Multiple rules may be delimited using either a "pipe" character, or as separate elements of an array.
 
 	$validator = Validator::make(
-		array('name' => 'Dayle'),
-		array('name' => array('required', 'min:5'))
+		['name' => 'Dayle'],
+		['name' => ['required', 'min:5']]
 	);
 
 #### Validating Multiple Fields
 
-    $validator = Validator::make(
-        array(
-            'name' => 'Dayle',
-            'password' => 'lamepassword',
-            'email' => 'email@example.com'
-        ),
-        array(
-            'name' => 'required',
-            'password' => 'required|min:8',
-            'email' => 'required|email|unique:users'
-        )
-    );
+	$validator = Validator::make(
+		[
+			'name' => 'Dayle',
+			'password' => 'lamepassword',
+			'email' => 'email@example.com'
+		],
+		[
+			'name' => 'required',
+			'password' => 'required|min:8',
+			'email' => 'required|email|unique:users'
+		]
+	);
 
 Once a `Validator` instance has been created, the `fails` (or `passes`) method may be used to perform the validation.
 
@@ -224,7 +224,7 @@ If you plan to have authorization logic in another part of your application, sim
 
 ### Customizing The Flashed Error Format
 
-If you wish to customize the format of the validation errors that are flashed to the session when validation fails, override the `formatValidationErrors` on your base request (`App\Http\Requests\Request`). Don't forget to import the `Illuminate\Validation\Validator` class at the top of the file:
+If you wish to customize the format of the validation errors that are flashed to the session when validation fails, override the `formatErrors` on your base request (`App\Http\Requests\Request`). Don't forget to import the `Illuminate\Validation\Validator` class at the top of the file:
 
 	/**
 	 * {@inheritdoc}
@@ -289,7 +289,7 @@ Once you have performed validation, you will need an easy way to get the error m
 
 	Route::post('register', function()
 	{
-		$rules = array(...);
+		$rules = [...];
 
 		$validator = Validator::make(Input::all(), $rules);
 
@@ -366,7 +366,7 @@ Below is a list of all available validation rules and their function:
 <a name="rule-accepted"></a>
 #### accepted
 
-The field under validation must be _yes_, _on_, or _1_. This is useful for validating "Terms of Service" acceptance.
+The field under validation must be _yes_, _on_, _1_, or _true_. This is useful for validating "Terms of Service" acceptance.
 
 <a name="rule-active-url"></a>
 #### active_url
@@ -580,6 +580,20 @@ The field under validation must be a valid timezone identifier according to the 
 
 The field under validation must be unique on a given database table. If the `column` option is not specified, the field name will be used.
 
+Occasionally, you may need to set a custom connection for database queries made by the Validator. As seen above, setting `unique:users` as a validation rule will use the default database connection to query the database. To override this, do the following:
+
+	$verifier = App::make('validation.presence');
+
+	$verifier->setConnection('connectionName');
+
+	$validator = Validator::make($input, [
+		'name' => 'required',
+		'password' => 'required|min:8',
+		'email' => 'required|email|unique:users',
+	]);
+
+	$validator->setPresenceVerifier($verifier);
+
 #### Basic Usage Of Unique Rule
 
 	'email' => 'unique:users'
@@ -612,9 +626,9 @@ The field under validation must be formatted as an URL.
 
 In some situations, you may wish to run validation checks against a field **only** if that field is present in the input array. To quickly accomplish this, add the `sometimes` rule to your rule list:
 
-	$v = Validator::make($data, array(
+	$v = Validator::make($data, [
 		'email' => 'sometimes|required|email',
-	));
+	]);
 
 In the example above, the `email` field will only be validated if it is present in the `$data` array.
 
@@ -622,10 +636,10 @@ In the example above, the `email` field will only be validated if it is present 
 
 Sometimes you may wish to require a given field only if another field has a greater value than 100. Or you may need two fields to have a given value only when another field is present. Adding these validation rules doesn't have to be a pain. First, create a `Validator` instance with your _static rules_ that never change:
 
-	$v = Validator::make($data, array(
+	$v = Validator::make($data, [
 		'email' => 'required|email',
 		'games' => 'required|numeric',
-	));
+	]);
 
 Let's assume our web application is for game collectors. If a game collector registers with our application and they own more than 100 games, we want them to explain why they own so many games. For example, perhaps they run a game re-sell shop, or maybe they just enjoy collecting. To conditionally add this requirement, we can use the `sometimes` method on the `Validator` instance.
 
@@ -636,7 +650,7 @@ Let's assume our web application is for game collectors. If a game collector reg
 
 The first argument passed to the `sometimes` method is the name of the field we are conditionally validating. The second argument is the rules we want to add. If the `Closure` passed as the third argument returns `true`, the rules will be added. This method makes it a breeze to build complex conditional validations. You may even add conditional validations for several fields at once:
 
-	$v->sometimes(array('reason', 'cost'), 'required', function($input)
+	$v->sometimes(['reason', 'cost'], 'required', function($input)
 	{
 		return $input->games >= 100;
 	});
@@ -650,9 +664,9 @@ If needed, you may use custom error messages for validation instead of the defau
 
 #### Passing Custom Messages Into Validator
 
-	$messages = array(
+	$messages = [
 		'required' => 'The :attribute field is required.',
-	);
+	];
 
 	$validator = Validator::make($input, $rules, $messages);
 
@@ -660,31 +674,31 @@ If needed, you may use custom error messages for validation instead of the defau
 
 #### Other Validation Place-Holders
 
-	$messages = array(
+	$messages = [
 		'same'    => 'The :attribute and :other must match.',
 		'size'    => 'The :attribute must be exactly :size.',
 		'between' => 'The :attribute must be between :min - :max.',
 		'in'      => 'The :attribute must be one of the following types: :values',
-	);
+	];
 
 #### Specifying A Custom Message For A Given Attribute
 
 Sometimes you may wish to specify a custom error messages only for a specific field:
 
-	$messages = array(
+	$messages = [
 		'email.required' => 'We need to know your e-mail address!',
-	);
+	];
 
 <a name="localization"></a>
 #### Specifying Custom Messages In Language Files
 
 In some cases, you may wish to specify your custom messages in a language file instead of passing them directly to the `Validator`. To do so, add your messages to `custom` array in the `resources/lang/xx/validation.php` language file.
 
-	'custom' => array(
-		'email' => array(
+	'custom' => [
+		'email' => [
 			'required' => 'We need to know your e-mail address!',
-		),
-	),
+		],
+	],
 
 <a name="custom-validation-rules"></a>
 ## Custom Validation Rules

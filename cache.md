@@ -4,7 +4,10 @@
 - [Uso do Cache](#cache-usage)
 - [Incrementação & Decrementação](#increments-and-decrements)
 - [Marcações de Cache](#cache-tags)
+- [Cache Events](#cache-events)
 - [Cache no banco de dados](#database-cache)
+- [Memcached Cache](#memcached-cache)
+- [Redis Cache](#redis-cache)
 
 <a name="configuration"></a>
 ## Configuração
@@ -80,6 +83,12 @@ Se você precisar recuperar um item do cache e, em seguida, deletá-lo, você po
 
 	Cache::forget('key');
 
+#### Access Specific Cache Stores
+
+When using multiple cache stores, you may access them via the `store` method:
+
+	$value = Cache::store('foo')->get('key');
+
 <a name="increments-and-decrements"></a>
 ## Incrementando & Desincrementando
 
@@ -110,7 +119,7 @@ Você pode armazenar um cache passando um array dos nomes das marcações como a
 
 	Cache::tags('people', 'authors')->put('John', $john, $minutes);
 
-	Cache::tags(array('people', 'artists'))->put('Anne', $anne, $minutes);
+	Cache::tags(['people', 'artists'])->put('Anne', $anne, $minutes);
 
 Você pode usar qualquer método de armazenamento de cache em combinação com as marcações, incluindo `remember`, `forever` e `rememberForever`. Você também pode acessar itens que estão no cache oriundos das marcações de cache, também pode usar outros métodos de cache como `increment` e `decrement`. 
 
@@ -120,7 +129,7 @@ Para acessar um cache marcado, passe o array das tags usadas anteriormente para 
 
 	$anne = Cache::tags('people', 'artists')->get('Anne');
 
-	$john = Cache::tags(array('people', 'authors'))->get('John');
+	$john = Cache::tags(['people', 'authors'])->get('John');
 
 Você pode limpar todos os itens marcados com um nome ou array de nomes. Por exemplo, nesta declaração removeremos todas as marcações de cache com  `people`, `author` ou ambos. Então, "Anne" e "John" seriam removidos do cache:
 
@@ -129,6 +138,27 @@ Você pode limpar todos os itens marcados com um nome ou array de nomes. Por exe
 Sendo assim, este outro código removerá somente caches marcados com `authors`. Então "John" será removido, mas "Anne", não.
 
 	Cache::tags('authors')->flush();
+
+<a name="cache-events"></a>
+## Cache Events
+
+To execute code on every cache operation, you may listen for the events fired by the cache:
+
+	Event::listen('cache.hit', function($key, $value) {
+		//
+	});
+
+	Event::listen('cache.missed', function($key) {
+		//
+	});
+
+	Event::listen('cache.write', function($key, $value, $minutes) {
+		//
+	});
+
+	Event::listen('cache.delete', function($key) {
+		//
+	});
 
 <a name="database-cache"></a>
 ## Cache do banco de dados
@@ -141,3 +171,25 @@ Quando usar o drive de cache `database` , você precisará configurar uma tabela
 		$table->text('value');
 		$table->integer('expiration');
 	});
+
+<a name="memcached-cache"></a>
+#### Memcached Cache
+
+Using the Memcached cache requires the [Memcached PECL package](http://pecl.php.net/package/memcached) to be installed.
+
+The default [configuration](#configuration) uses TCP/IP based on [Memcached::addServer](http://php.net/manual/en/memcached.addserver.php):
+
+	'memcached' => array(
+		array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 100),
+	),
+
+You may also set the `host` option to a UNIX socket path. If you do this, the `port` option should be set to `0`:
+
+	'memcached' => array(
+		array('host' => '/var/run/memcached/memcached.sock', 'port' => 0, 'weight' => 100),
+	),
+
+<a name="redis-cache"></a>
+#### Redis Cache
+
+See [Redis Configuration](/docs/redis#configuration)

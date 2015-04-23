@@ -54,7 +54,12 @@ A nova classe gerada será alocada no diretório `app/Commands`. Por padrão, o 
 		}
 
 	}
+<<<<<<< HEAD
 O méotodo `handle` também pode tipar tipar dependencias, e elas irão ser automaticamente injetadoas pelo [IoC container](/docs/5.0/container). Por exemplo:
+=======
+
+The `handle` method may also type-hint dependencies, and they will be automatically injected by the [service container](/docs/5.0/container). For example:
+>>>>>>> upstream/5.0
 
 		/**
 		 * Execute the command.
@@ -135,7 +140,7 @@ O comando pipe é definido com o método `handle`, apenas como um middleware:
 			return DB::transaction(function() use ($command, $next)
 			{
 				return $next($command);
-			}
+			});
 		}
 
 	}
@@ -149,5 +154,5 @@ Você pode até mesmo definir um `Closure` como um comando pipe:
 		return DB::transaction(function() use ($command, $next)
 		{
 			return $next($command);
-		}
+		});
 	}]);

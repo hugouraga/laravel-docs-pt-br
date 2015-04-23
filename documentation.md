@@ -32,6 +32,7 @@
     - [Erros & Logging](/docs/5.0/errors)
     - [Eventos](/docs/5.0/events)
     - [Filesystem / Armazenamento Cloud](/docs/5.0/filesystem)
+    - [Envoy](/docs/5.0/envoy)
     - [Hashing](/docs/5.0/hashing)
     - [Helpers](/docs/5.0/helpers)
     - [Localização](/docs/5.0/localization)

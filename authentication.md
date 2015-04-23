@@ -72,10 +72,10 @@ A função de redirecionamento `intended` redirecionará o usuário para a URL q
 
 Você também pode adicionar condições extrar para a query de autenticação:
 
-    if (Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1]))
-    {
-        // The user is active, not suspended, and exists.
-    }
+	if (Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1]))
+	{
+		// The user is active, not suspended, and exists.
+	}
 
 #### Determinando se um usuário está autenticado
 
@@ -138,7 +138,7 @@ This is equivalent to logging in a user via credentials using the `attempt` meth
 
 	Auth::logout();
 
-Of course, if you are using the built-in Laravel authentication controllers, a controller method that handles logging uers out of the application is provided out of the box.
+Of course, if you are using the built-in Laravel authentication controllers, a controller method that handles logging users out of the application is provided out of the box.
 
 #### Authentication Events
 
@@ -166,7 +166,7 @@ First, you may access the user from the `Auth` facade:
 		{
 			if (Auth::user())
 			{
-				// $request->user() returns an instance of the authenticated user...
+				// Auth::user() returns an instance of the authenticated user...
 			}
 		}
 
@@ -268,7 +268,7 @@ If you are using PHP FastCGI, HTTP Basic authentication may not work correctly o
 
 Most web applications provide a way for users to reset their forgotten passwords. Rather than forcing you to re-implement this on each application, Laravel provides convenient methods for sending password reminders and performing password resets.
 
-To get started, verify that your `User` model implements the `Illuminate\Contracts\Auth\Remindable` contract. Of course, the `User` model included with the framework already implements this interface, and uses the `Illuminate\Auth\Reminders\Remindable` trait to include the methods needed to implement the interface.
+To get started, verify that your `User` model implements the `Illuminate\Contracts\Auth\CanResetPassword` contract. Of course, the `User` model included with the framework already implements this interface, and uses the `Illuminate\Auth\Passwords\CanResetPassword` trait to include the methods needed to implement the interface.
 
 #### Generating The Reminder Table Migration
 
@@ -284,12 +284,12 @@ Your user will receive an e-mail with a link that points to the `getReset` metho
 
 	protected $redirectTo = '/dashboard';
 
-> **Note:** By default, password reset tokens expire after one hour. You may change this via the `reminder.expire` option of your `config/auth.php` file.
+> **Note:** By default, password reset tokens expire after one hour. You may change this via the `reminder.expire` option in your `config/auth.php` file.
 
 <a name="social-authentication"></a>
 ## Social Authentication
 
-In addition to typical, form based authentication, Laravel also provides a simple, convenient way to authenticate with OAuth providers using [Laravel Socialite](https://github.com/laravel/socialite). **Socialite currently supports authentication with Facebook, Twitter, Google, and GitHub.**
+In addition to typical, form based authentication, Laravel also provides a simple, convenient way to authenticate with OAuth providers using [Laravel Socialite](https://github.com/laravel/socialite). **Socialite currently supports authentication with Facebook, Twitter, Google, GitHub and Bitbucket.**
 
 To get started with Socialite, include the package in your `composer.json` file:
 
@@ -339,6 +339,7 @@ Once you have a user instance, you can grab a few more details about the user:
 	$tokenSecret = $user->tokenSecret;
 
 	// All Providers
+	$user->getId();
 	$user->getNickname();
 	$user->getName();
 	$user->getEmail();

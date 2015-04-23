@@ -27,7 +27,7 @@ The following dependencies are needed for the listed queue drivers:
 
 - Amazon SQS: `aws/aws-sdk-php`
 - Beanstalkd: `pda/pheanstalk ~3.0`
-- IronMQ: `iron-io/iron_mq`
+- IronMQ: `iron-io/iron_mq ~1.5`
 - Redis: `predis/predis ~1.0`
 
 <a name="basic-usage"></a>
@@ -45,7 +45,7 @@ To push a new job onto the queue, use the `Queue::push` method:
 
 > **Note:** In this example, we are using the `Queue` facade directly; however, typically you would dispatch queued command via the [Command Bus](/docs/5.0/bus). We will continue to use the `Queue` facade throughout this page; however, familiarize with the command bus as well, since it is used to dispatch both queued and synchronous commands for your application.
 
-By default, the `make:command` Artisan command generates a "self-handling" command, meaning a `handle` method is added to the command itself. This method will be called when the job is executed by the queue. You may type-hint any dependencies you need on the `handle` method and the [IoC container](/docs/5.0/container) will automatically inject them:
+By default, the `make:command` Artisan command generates a "self-handling" command, meaning a `handle` method is added to the command itself. This method will be called when the job is executed by the queue. You may type-hint any dependencies you need on the `handle` method and the [service container](/docs/5.0/container) will automatically inject them:
 
 	public function handle(UserRepository $users)
 	{
@@ -68,7 +68,7 @@ You may also specify the queue / tube a job should be sent to:
 
 If you need to pass the same data to several queue jobs, you may use the `Queue::bulk` method:
 
-	Queue::bulk(array(new SendEmail($message), new AnotherCommand));
+	Queue::bulk([new SendEmail($message), new AnotherCommand]);
 
 #### Delaying The Execution Of A Job
 
@@ -210,11 +210,13 @@ Similarly, your database connection may disconnect when being used by long-runni
 <a name="push-queues"></a>
 ## Push Queues
 
-Push queues allow you to utilize the powerful Laravel 4 queue facilities without running any daemons or background listeners. Currently, push queues are only supported by the [Iron.io](http://iron.io) driver. Before getting started, create an Iron.io account, and add your Iron credentials to the `config/queue.php` configuration file.
+Push queues allow you to utilize the powerful Laravel 5 queue facilities without running any daemons or background listeners. Currently, push queues are only supported by the [Iron.io](http://iron.io) driver. Before getting started, create an Iron.io account, and add your Iron credentials to the `config/queue.php` configuration file.
 
 #### Registering A Push Queue Subscriber
 
 Next, you may use the `queue:subscribe` Artisan command to register a URL end-point that will receive newly pushed queue jobs:
+
+	php artisan queue:subscribe queue_name queue/receive
 
 	php artisan queue:subscribe queue_name http://foo.com/queue/receive
 

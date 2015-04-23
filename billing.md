@@ -1,8 +1,10 @@
 # Laravel Cashier
 
+<<<<<<< HEAD
 - [Introdução](#introduction)
 - [Configuração](#configuration)
 - [Inscrevendo-se em um Plano](#subscribing-to-a-plan)
+- [Single Charges](#single-charges)
 - [Não requerer cartão de crédito no período Trial](#no-card-up-front)
 - [Trocando a assinatura de Plano](#swapping-subscriptions)
 - [Subscription Quantity](#subscription-quantity)
@@ -26,7 +28,9 @@ Laravel Cashier oferece uma interface expressiva e fluente para [Stripe's](https
 
 Primiero, adicione o pacote Cashier em seu arquivo  `composer.json`:
 
-	"laravel/cashier": "~3.0"
+	"laravel/cashier": "~5.0" (For Stripe SDK ~2.0, and Stripe APIs on 2015-02-18 version and later)
+	"laravel/cashier": "~4.0" (For Stripe APIs on 2015-02-18 version and later)
+	"laravel/cashier": "~3.0" (For Stripe APIs up to and including 2015-02-16 version)
 
 #### Fornecedor de Serviços (Service Provider)
 
@@ -46,7 +50,7 @@ Após isso, adicione a trait `Billable` e os mutator de dados a definição do s
 	use Laravel\Cashier\Billable;
 	use Laravel\Cashier\Contracts\Billable as BillableContract;
 
-	class User extends Eloquent implements BillableContract {
+	class User extends Model implements BillableContract {
 
 		use Billable;
 
@@ -56,7 +60,16 @@ Após isso, adicione a trait `Billable` e os mutator de dados a definição do s
 
 #### Chave Stripe
 
-Por fim, defina sua chave Stripe em um dos seus arquivos do bootstrap ou nos fornecedores de serviço, como o `AppServiceProvider`: 
+<<<<<<< HEAD
+Por fim, defina sua chave Stripe em seu arquivo de configuração `services.php`:
+
+	'stripe' => [
+		'model'  => 'User',
+		'secret' => env('STRIPE_API_SECRET'),
+	],
+
+
+Alternativamente você pode armazenar isto em um dos seu arquivos bootstrap ou provedores de serviço, como o `AppServiceProvider`:
 
 	User::setStripeKey('stripe-key');
 
@@ -93,6 +106,31 @@ Se você gostar de especificar detalhes adicionais dos clientes, você pode faze
 
 Para aprender mais sobre os campos adicionais suportados pelo Stripe, dê uma olhada na documentação do Stripe [documentation on customer creation](https://stripe.com/docs/api#create_customer).
 
+<a name="single-charges"></a>
+## Single Charges
+
+If you would like to make a "one off" charge against a subscribed customer's credit card, you may use the `charge` method:
+
+	$user->charge(100);
+
+The `charge` method accepts the amount you would like to charge in the **lowest denominator of the currency**. So, for example, the example above will charge 100 cents, or $1.00, against the user's credit card.
+
+The `charge` method accepts an array as its second argument, allowing you to pass any options you wish to the underlying Stripe charge creation:
+
+	$user->charge(100, [
+		'source' => $token,
+		'receipt_email' => $user->email,
+	]);
+
+The `charge` method will return `false` if the charge fails. This typically indicates the charge was denied:
+
+	if ( ! $user->charge(100))
+	{
+		// The charge was denied...
+	}
+
+If the charge is successful, the full Stripe response will be returned from the method.
+
 <a name="no-card-up-front"></a>
 ## Não requerer cartão de crédito no período Trial
 
@@ -127,7 +165,7 @@ Algumas vezes a inscrições dos planos são afetadas pela "quatidade". Por exem
 	// Add five to the subscription's current quantity...
 	$user->subscription()->increment(5);
 
-	$user->subscription->decrement();
+	$user->subscription()->decrement();
 
 	// Subtract five to the subscription's current quantity...
 	$user->subscription()->decrement(5);
@@ -153,8 +191,7 @@ Se  o usuário cancelar a assinatura e, em seguida, reativar a assinatura anteri
 <a name="checking-subscription-status"></a>
 ## Verifiacando o Status Da Assinatura
 
-
-Para verificar ser o usuário é inscrito na sua aplicação, user o método `subscribed`:
+Para verificar se o usuário é inscrito na sua aplicação, user o método `subscribed`:
 
 	if ($user->subscribed())
 	{
@@ -204,6 +241,7 @@ O método `onPlan` pode ser usado para determinar se o usuário é inscrito em d
 		//
 	}
 
+
 <a name="handling-failed-payments"></a>
 ## Lidando com Falha de Pagamentos 
 
@@ -212,7 +250,7 @@ Se o cartão de crédito do cliente experar? Não se preocupe - Cashier inclui c
 	Route::post('stripe/webhook', 'Laravel\Cashier\WebhookController@handleWebhook');
 
 
-É isto! Falhas de pagamento irão ser capturadas e manipula-las pelo controlador. O controlador irá cancelar a assinatura do cliente depois de três tentativas falhas. A URI `stripe/webhook` neste exemplo é apenas ilustrativa. Você precisará configurar a URI nas suas configurações do Stripe. 
+É isto! Falhas de pagamento irão ser capturadas e manipula-las pelo controlador. O controlador irá cancelar a assinatura do cliente quando o Stripe determinar qua a inscrição falhou (geralmente depois de três tentativas falhas). A URI `stripe/webhook` neste exemplo é apenas ilustrativa. Você precisará configurar a URI nas suas configurações do Stripe. 
 
 <a name="handling-other-stripe-webhooks"></a>
 ## Lidando com Outros Stripes Webhooks

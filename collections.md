@@ -15,7 +15,7 @@ A classe `Illuminate\Support\Collection` um nativo, conveniente wrapper para tra
 	})
 	->reject(function($name)
 	{
-		return is_null($value);
+		return empty($name);
 	});
 
 

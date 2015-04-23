@@ -22,7 +22,7 @@ The migration will be placed in your `database/migrations` folder, and will cont
 
 The `--table` and `--create` options may also be used to indicate the name of the table, and whether the migration will be creating a new table:
 
-	php artisan make:migration add_votes_to_user_table --table=users
+	php artisan make:migration add_votes_to_users_table --table=users
 
 	php artisan make:migration create_users_table --create=users
 
@@ -37,7 +37,7 @@ The `--table` and `--create` options may also be used to indicate the name of th
 
 ### Forcing Migrations In Production
 
-Some migration operations are destructive, meaning they may cause you to lose data. In order to protect you from running these commands against your production database, you will prompted for confirmation before these commands are executed. To force the commands to run without a prompt, use the `--force` flag:
+Some migration operations are destructive, meaning they may cause you to lose data. In order to protect you from running these commands against your production database, you will be prompted for confirmation before these commands are executed. To force the commands to run without a prompt, use the `--force` flag:
 
 	php artisan migrate --force
 
@@ -82,7 +82,7 @@ Laravel also includes a simple way to seed your database with test data using se
 		{
 			DB::table('users')->delete();
 
-			User::create(array('email' => 'foo@bar.com'));
+			User::create(['email' => 'foo@bar.com']);
 		}
 
 	}

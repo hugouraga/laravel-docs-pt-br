@@ -86,7 +86,7 @@ You may also pass arguments to the `environment` method to check if the environm
 
 To obtain an instance of the application, resolve the `Illuminate\Contracts\Foundation\Application` contract via the [service container](/docs/5.0/container). Of course, if you are within a [service provider](/docs/5.0/providers), the application instance is available via the `$this->app` instance variable.
 
-An application instance may also be accessed via the `app` helper of the `App` facade:
+An application instance may also be accessed via the `app` helper or the `App` facade:
 
 	$environment = app()->environment();
 
@@ -136,12 +136,14 @@ If the `.htaccess` file that ships with Laravel does not work with your Apache i
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule ^ index.php [L]
 
+If your web host doesn't allow the `FollowSymlinks` option, try replacing it with `Options +SymLinksIfOwnerMatch`.
+
 ### Nginx
 
 On Nginx, the following directive in your site configuration will allow "pretty" URLs:
 
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
+	location / {
+		try_files $uri $uri/ /index.php?$query_string;
+	}
 
 Of course, when using [Homestead](/docs/5.0/homestead), pretty URLs will be configured automatically.

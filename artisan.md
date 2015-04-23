@@ -67,8 +67,8 @@ Seu comando agendador é armazenado no arquivo `app/Console/Kernel.php`. Dentro 
 
 	* * * * * php /path/to/artisan schedule:run 1>> /dev/null 2>&1
 
-Este Cron(tarefa agendada) chamará o comando de agendamento do Laravel todo minuto. Em seguida, Laravel avalia sua tarefa agendada e executa os que são devidos. Não poderia ser mais fácil do que isto. 
 
+Este Cron(tarefa agendada) chamará o comando de agendamento do Laravel todo minuto. Em seguida, Laravel avalia sua tarefa agendada e executa os que são devidos. Não poderia ser mais fácil do que isto. 
 
 ### Mais Exemplos de Agendamento 
 
@@ -125,6 +125,24 @@ Vamos dar uma olhada em mais alguns exemplos de agendamentos:
 
 	$schedule->command('foo')->monthly();
 
+#### Job That Runs On Specific Days
+
+	$schedule->command('foo')->mondays();
+	$schedule->command('foo')->tuesdays();
+	$schedule->command('foo')->wednesdays();
+	$schedule->command('foo')->thursdays();
+	$schedule->command('foo')->fridays();
+	$schedule->command('foo')->saturdays();
+	$schedule->command('foo')->sundays();
+
+#### Prevent Jobs From Overlapping
+
+By default, scheduled jobs will be run even if the previous instance of the job is still running. To prevent this, you may use the `withoutOverlapping` method:
+
+	$schedule->command('foo')->withoutOverlapping();
+
+In this example, the `foo` command will be run every minute if it is not already running.
+
 #### Limitando os Ambientes em que as Tarefas Devem ser Executadas 
 
 	$schedule->command('foo')->monthly()->environments('production');
@@ -139,3 +157,21 @@ Vamos dar uma olhada em mais alguns exemplos de agendamentos:
 	{
 		return true;
 	});
+
+#### E-mail The Output Of A Scheduled Job
+
+	$schedule->command('foo')->sendOutputTo($filePath)->emailOutputTo('foo@example.com');
+
+> **Note:** You must send the output to a file before it can be mailed.
+
+#### Send The Output Of The Scheduled Job To A Given Location
+
+	$schedule->command('foo')->sendOutputTo($filePath);
+
+#### Ping A Given URL After The Job Runs
+
+	$schedule->command('foo')->thenPing($url);
+
+Using the `thenPing($url)` feature requires the Guzzle HTTP library. You can add Guzzle 5 to your project by adding the following line to your `composer.json` file:
+
+	"guzzlehttp/guzzle": "~5.0"

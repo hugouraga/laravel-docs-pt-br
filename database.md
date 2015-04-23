@@ -50,6 +50,10 @@ Uma vez configurada sua conexão com o banco de dados, você pode executar consu
 
 O métodos `select` sempre retornará um `array` de resultados.
 
+You may also execute a query using named bindings:
+
+	$results = DB::select('select * from users where id = :id', ['id' => 1]);
+
 #### Executando uma consulta Insert
 
 	DB::insert('insert into users (id, name) values (?, ?)', [1, 'Dayle']);
@@ -125,10 +129,10 @@ Se você precisar se desconectar de um banco de dados por ter excedido o limite 
 <a name="query-logging"></a>
 ## Logando consultas
 
-por padrão, o Laravel mantém um log na memória de todas as counsultas que foram executadas na requisição atual. No entanto, em alguns casos, como por exemplo quando inserndo uma grande quantidade de registros, isso pode fazer com que a aplicação use memória em excesso. Para desabilitar o log, você pode usar o método `disableQueryLog`:
+O Laravel pode opcionalmente manter um log na memória de todas as consultas que foram executadas na requisição atual. No entanto, em alguns casos, como por exemplo quando inserndo uma grande quantidade de registros, isso pode fazer com que a aplicação use memória em excesso. Para desabilitar o log, você pode usar o método `disableQueryLog`:
 
-	DB::connection()->disableQueryLog();
+	DB::connection()->enableQueryLog();
 
 Para obter um array de consutlas já executadas, você pode usa ro método `getQueryLog`:
 
-       $queries = DB::getQueryLog();
+	$queries = DB::getQueryLog();
