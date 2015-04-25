@@ -125,7 +125,7 @@ Vamos dar uma olhada em mais alguns exemplos de agendamentos:
 
 	$schedule->command('foo')->monthly();
 
-#### Job That Runs On Specific Days
+#### Tarefas que são executadas em dias específicos da semana
 
 	$schedule->command('foo')->mondays();
 	$schedule->command('foo')->tuesdays();
@@ -135,9 +135,9 @@ Vamos dar uma olhada em mais alguns exemplos de agendamentos:
 	$schedule->command('foo')->saturdays();
 	$schedule->command('foo')->sundays();
 
-#### Prevent Jobs From Overlapping
+#### Previnindo que tarefas de Prevent Jobs From Overlapping
 
-By default, scheduled jobs will be run even if the previous instance of the job is still running. To prevent this, you may use the `withoutOverlapping` method:
+Por padrão, tarefas agendadas serão executadas até mesmo que a instância anterior da tarefa ainda estiver sendo executada. Para que isto não ocorra, você pode usar o método withoutOverlapping`:
 
 	$schedule->command('foo')->withoutOverlapping();
 
@@ -158,20 +158,20 @@ In this example, the `foo` command will be run every minute if it is not already
 		return true;
 	});
 
-#### E-mail The Output Of A Scheduled Job
+#### Envie um E-mail com o resultado da tarefa. 
 
 	$schedule->command('foo')->sendOutputTo($filePath)->emailOutputTo('foo@example.com');
 
 > **Note:** You must send the output to a file before it can be mailed.
 
-#### Send The Output Of The Scheduled Job To A Given Location
+#### Envie o resultado da tarefa agendada para um diretório específico
 
 	$schedule->command('foo')->sendOutputTo($filePath);
 
-#### Ping A Given URL After The Job Runs
+#### Ping uma URL depois que a tarefa executar
 
 	$schedule->command('foo')->thenPing($url);
 
-Using the `thenPing($url)` feature requires the Guzzle HTTP library. You can add Guzzle 5 to your project by adding the following line to your `composer.json` file:
+Usando a método `thenPing($url)` requere que a biblioteca Guzzle HTTP esteja instalada. Você pode adicionar a Guzzle 5 no seu projeto adicionando no seu arquivo `composer.json a seguinte linha:
 
 	"guzzlehttp/guzzle": "~5.0"
