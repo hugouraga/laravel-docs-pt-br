@@ -86,7 +86,7 @@ Para determinar se um usuário já está autenticado (logged) em sua aplicação
 		// The user is logged in...
 	}
 
-#### Authenticating A User And "Remembering" Them
+#### Autenticando o usuário e lembrando aqueles
 
 If you would like to provide "remember me" functionality in your application, you may pass a boolean value as the second argument to the `attempt` method, which will keep the user authenticated indefinitely, or until they manually logout. Of course, your `users` table must include the string `remember_token` column, which will be used to store the "remember me" token.
 
