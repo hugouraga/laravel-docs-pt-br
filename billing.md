@@ -1,6 +1,5 @@
 # Laravel Cashier
 
-<<<<<<< HEAD
 - [Introdução](#introduction)
 - [Configuração](#configuration)
 - [Inscrevendo-se em um Plano](#subscribing-to-a-plan)
@@ -60,7 +59,7 @@ Após isso, adicione a trait `Billable` e os mutator de dados a definição do s
 
 #### Chave Stripe
 
-<<<<<<< HEAD
+
 Por fim, defina sua chave Stripe em seu arquivo de configuração `services.php`:
 
 	'stripe' => [
