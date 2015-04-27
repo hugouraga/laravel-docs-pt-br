@@ -54,12 +54,8 @@ A nova classe gerada será alocada no diretório `app/Commands`. Por padrão, o 
 		}
 
 	}
-<<<<<<< HEAD
-O méotodo `handle` também pode tipar tipar dependencias, e elas irão ser automaticamente injetadoas pelo [IoC container](/docs/5.0/container). Por exemplo:
-=======
 
-The `handle` method may also type-hint dependencies, and they will be automatically injected by the [service container](/docs/5.0/container). For example:
->>>>>>> upstream/5.0
+O méotodo `handle` também pode tipar tipar dependencias, e elas irão ser automaticamente injetadoas pelo [service container](/docs/5.0/container). Por exemplo:
 
 		/**
 		 * Execute the command.
