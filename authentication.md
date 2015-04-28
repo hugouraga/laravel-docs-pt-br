@@ -86,29 +86,29 @@ Para determinar se um usuário já está autenticado (logged) em sua aplicação
 		// The user is logged in...
 	}
 
-#### Autenticando o usuário e lembrando aqueles
+#### Autenticando o usuário e os "Relembrando" 
 
-If you would like to provide "remember me" functionality in your application, you may pass a boolean value as the second argument to the `attempt` method, which will keep the user authenticated indefinitely, or until they manually logout. Of course, your `users` table must include the string `remember_token` column, which will be used to store the "remember me" token.
+Se você quiser fornecer a funcionalidade de "remenber me"(lembre-se de mim). na sua aplicação, você pode passar um valor booleano como o segundo argumento para o método `attempt`, que manterá o usuário autenticado indefinidamente, ou até que ele deslogue manualmente da aplicação. É claro que, sua tabela de `users` deve incluir uma coluna string nomeada `remember_token`, que irá ser usada para armazenar a token da funcionalidade de "remember me" (lembre-se de mim).
 
 	if (Auth::attempt(['email' => $email, 'password' => $password], $remember))
 	{
 		// The user is being remembered...
 	}
 
-If you are "remembering" users, you may use the `viaRemember` method to determine if the user was authenticated using the "remember me" cookie:
+Se você está "remembering" (lembrando) usuário, você pode usar o método `viaRemember` (Lembre-se de via) para determinar se o usuário foi autenticado usando o cookie "remember me":
 
 	if (Auth::viaRemember())
 	{
 		//
 	}
 
-#### Authenticating Users By ID
+#### Autenticando usuários pelo ID
 
 To log a user into the application by their ID, use the `loginUsingId` method:
 
 	Auth::loginUsingId(1);
 
-#### Validating User Credentials Without Login
+#### Validando as credenciais de usuário sem Login 
 
 The `validate` method allows you to validate a user's credentials without actually logging them into the application:
 
@@ -117,7 +117,7 @@ The `validate` method allows you to validate a user's credentials without actual
 		//
 	}
 
-#### Logging A User In For A Single Request
+#### Logando o usuário em uma única requisição
 
 You may also use the `once` method to log a user into the application for a single request. No sessions or cookies will be utilized:
 
@@ -126,7 +126,7 @@ You may also use the `once` method to log a user into the application for a sing
 		//
 	}
 
-#### Manually Logging In A User
+#### Logando manualmente em um usuário
 
 If you need to log an existing user instance into your application, you may call the `login` method with the user instance:
 
@@ -134,18 +134,18 @@ If you need to log an existing user instance into your application, you may call
 
 This is equivalent to logging in a user via credentials using the `attempt` method.
 
-#### Logging A User Out Of The Application
+#### Deslogando um usuário da sua aplicação
 
 	Auth::logout();
 
 Of course, if you are using the built-in Laravel authentication controllers, a controller method that handles logging users out of the application is provided out of the box.
 
-#### Authentication Events
+#### Eventos de Autenticação
 
 When the `attempt` method is called, the `auth.attempt` [event](/docs/5.0/events) will be fired. If the authentication attempt is successful and the user is logged in, the `auth.login` event will be fired as well.
 
 <a name="retrieving-the-authenticated-user"></a>
-## Retrieving The Authenticated User
+## Recuperando um usuário Autenticado
 
 Once a user is authenticated, there are several ways to obtain an instance of the User.
 
@@ -218,7 +218,7 @@ Thirdly, you may type-hint the `Illuminate\Contracts\Auth\Authenticatable` contr
 	}
 
 <a name="protecting-routes"></a>
-## Protecting Routes
+## Protejento Rotas
 
 [Route middleware](/docs/5.0/middleware) can be used to allow only authenticated users to access a given route. Laravel provides the `auth` middleware by default, and it is defined in `app\Http\Middleware\Authenticate.php`. All you need to do is attach it to a route definition:
 
@@ -234,11 +234,11 @@ Thirdly, you may type-hint the `Illuminate\Contracts\Auth\Authenticatable` contr
 	Route::get('profile', ['middleware' => 'auth', 'uses' => 'ProfileController@show']);
 
 <a name="http-basic-authentication"></a>
-## HTTP Basic Authentication
+## Autenticação HTTP Básica
 
 HTTP Basic Authentication provides a quick way to authenticate users of your application without setting up a dedicated "login" page. To get started, attach the `auth.basic` middleware to your route:
 
-#### Protecting A Route With HTTP Basic
+#### Protejendo uma Rota com HTTP Básico
 
 	Route::get('profile', ['middleware' => 'auth.basic', function()
 	{
@@ -247,7 +247,7 @@ HTTP Basic Authentication provides a quick way to authenticate users of your app
 
 By default, the `basic` middleware will use the `email` column on the user record as the "username".
 
-#### Setting Up A Stateless HTTP Basic Filter
+#### Configurando Um filtro HTTP Básico Stateless
 
 You may also use HTTP Basic Authentication without setting a user identifier cookie in the session, which is particularly useful for API authentication. To do so, [define a middleware](/docs/5.0/middleware) that calls the `onceBasic` method:
 
@@ -262,21 +262,21 @@ If you are using PHP FastCGI, HTTP Basic authentication may not work correctly o
 	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 <a name="password-reminders-and-reset"></a>
-## Password Reminders & Reset
+## Resets e Lembretes de Senha
 
-### Model & Table
+### Modelo & Tabela
 
 Most web applications provide a way for users to reset their forgotten passwords. Rather than forcing you to re-implement this on each application, Laravel provides convenient methods for sending password reminders and performing password resets.
 
 To get started, verify that your `User` model implements the `Illuminate\Contracts\Auth\CanResetPassword` contract. Of course, the `User` model included with the framework already implements this interface, and uses the `Illuminate\Auth\Passwords\CanResetPassword` trait to include the methods needed to implement the interface.
 
-#### Generating The Reminder Table Migration
+#### Gerando a migração da tabela de lembretes
 
 Next, a table must be created to store the password reset tokens. The migration for this table is included with Laravel out of the box, and resides in the `database/migrations` directory. So all you need to do is migrate:
 
 	php artisan migrate
 
-### Password Reminder Controller
+### Controlador Do Password Reminder *(Lembrete de Senha)
 
 Laravel also includes an `Auth\PasswordController` that contains the logic necessary to reset user passwords. We've even provided views to get you started! The views are located in the `resources/views/auth` directory. You are free to modify these views as you wish to suit your own application's design.
 
@@ -287,7 +287,7 @@ Your user will receive an e-mail with a link that points to the `getReset` metho
 > **Note:** By default, password reset tokens expire after one hour. You may change this via the `reminder.expire` option in your `config/auth.php` file.
 
 <a name="social-authentication"></a>
-## Social Authentication
+## Autenticação Social
 
 In addition to typical, form based authentication, Laravel also provides a simple, convenient way to authenticate with OAuth providers using [Laravel Socialite](https://github.com/laravel/socialite). **Socialite currently supports authentication with Facebook, Twitter, Google, GitHub and Bitbucket.**
 
@@ -327,7 +327,7 @@ The `redirect` method takes care of sending the user to the OAuth provider, whil
 
 Once you have a user instance, you can grab a few more details about the user:
 
-#### Retrieving User Details
+#### Recuperando Detalhes dos Usuários
 
 	$user = Socialize::with('github')->user();
 
