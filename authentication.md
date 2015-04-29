@@ -103,14 +103,13 @@ Se você está "remembering" (lembrando) usuário, você pode usar o método `vi
 	}
 
 #### Autenticando usuários pelo ID
-
-To log a user into the application by their ID, use the `loginUsingId` method:
+Para logar o usuário na aplicação pelo seu ID, use o método `loginUsingId`:
 
 	Auth::loginUsingId(1);
 
 #### Validando as credenciais de usuário sem Login 
 
-The `validate` method allows you to validate a user's credentials without actually logging them into the application:
+O método `validate` permite que você valide as credenciais do usuário sem que você tenha que realmente loga-los na aplicação:
 
 	if (Auth::validate($credentials))
 	{
@@ -119,7 +118,7 @@ The `validate` method allows you to validate a user's credentials without actual
 
 #### Logando o usuário em uma única requisição
 
-You may also use the `once` method to log a user into the application for a single request. No sessions or cookies will be utilized:
+Você pode também usar o método `once` para logar o usuário na alicação por apenas uma requisição. Nem sessões ou cookies serão utilizados:
 
 	if (Auth::once($credentials))
 	{
@@ -128,11 +127,11 @@ You may also use the `once` method to log a user into the application for a sing
 
 #### Logando manualmente em um usuário
 
-If you need to log an existing user instance into your application, you may call the `login` method with the user instance:
+Se você precisa logar uma instância de usuário existente na sua aplicação, você pode chamar o método `login` com a instância do usuário:
 
 	Auth::login($user);
-
-This is equivalent to logging in a user via credentials using the `attempt` method.
+	
+Isto é equivalente a um usuário fazer o login por meio de credenciais usando o método `attempt`.
 
 #### Deslogando um usuário da sua aplicação
 
