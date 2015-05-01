@@ -137,7 +137,7 @@ Isto é equivalente a um usuário fazer o login por meio de credenciais usando o
 
 	Auth::logout();
 
-Of course, if you are using the built-in Laravel authentication controllers, a controller method that handles logging users out of the application is provided out of the box.
+É claro que, se você estiver usando os controladores de autenticação built-in(padrões do Laravel), o método do controlador que desconecta os usuários da aplicação é provido de fora da caixa. 
 
 #### Eventos de Autenticação
 
