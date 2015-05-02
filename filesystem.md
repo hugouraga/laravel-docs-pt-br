@@ -29,7 +29,7 @@ Quando utilizando o driver `local`, observe que todas as operações com arquivo
 <a name="basic-usage"></a>
 ## Utilização básica
 
-A facade `Storage` pode ser utilizada para interagir com qualquer um de seus discos configurados. Alternativamente, você pode usar o contrato `Illuminate\Contracts\Filesystem\Factory` em qualquer classe que ela é resolvida via [service container](/docs/5.0/container).
+The `Storage` facade may be used to interact with any of your configured disks. Alternatively, you may type-hint the `Illuminate\Contracts\Filesystem\Factory` contract on any class that is resolved via the Laravel [service container](/docs/{{version}}/container).
 
 #### Obtendo um disco específico
 

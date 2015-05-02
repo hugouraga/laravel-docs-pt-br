@@ -92,7 +92,8 @@ When using multiple cache stores, you may access them via the `store` method:
 <a name="increments-and-decrements"></a>
 ## Incrementando & Desincrementando
 
-Todos os drivers, exceto `file` e `database`, suportam as operações `increment` e `decrement`:
+
+Todos os drivers, exceto `database`, suportam as operações `increment` e `decrement`:
 
 #### Incrementando um valor
 

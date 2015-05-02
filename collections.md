@@ -34,8 +34,7 @@ Como mencionado acima, o helper `collect` retornará uma nova instância de `Ill
 
 	$collection = Collection::make([1, 2, 3]);
 
-
-É claro, que objetos de coleções [Eloquent](/docs/5.0/eloquent) sempre retornam como instâncias de `Collection`; contudo, você deve se sentir livre para usar a classe `Collection` quando isto for conveniente para sua aplicação.
+É claro, que objetos de coleções [Eloquent](/docs/{{version}}/eloquent) sempre retornam como instâncias de `Collection`; contudo, você deve se sentir livre para usar a classe `Collection` quando isto for conveniente para sua aplicação.
 
 #### Explore a Coleção
 

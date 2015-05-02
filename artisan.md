@@ -49,7 +49,8 @@ Algumas vezes você pode desejar executatar o comando Artisan de fora do CLI. Po
 		//
 	});
 
-Você pode até enfileirar comandos Artisan para que eles sejam processados em segundo plano pelo seu [queue workers](/docs/5.0/queues):
+
+Você pode até enfileirar comandos Artisan para que eles sejam processados em segundo plano pelo seu [queue workers](/docs/{{version}}/queues):
 
 	Route::get('/foo', function()
 	{

@@ -60,7 +60,7 @@ Se você optar por não utilizar a implementação do provedor `AuthController`,
 
 	}
 
-O método `attempt` aceita um array de pares  chave / valor como seu primeiro argumento. O valor de `password` (senha) será [criptografado](docs/5.0/hashing). Os demais valores no array serão utilizados para encontrar o usuário no banco de dados. Assim, no exemplo acima, o usuário será recuperado pelo valor da coluna `email`. Se o usuário for encontrado, a senha criptografada armazanada no banco de dados, será comparada com o valor criptografado da senha passado pelo método na array. Se duas senhas criptografadas combinarem com a pesquisada, uma nova seção de usuário autenticado será iniciada.
+O método `attempt` aceita um array de pares  chave / valor como seu primeiro argumento. O valor de `password` (senha) será [criptografado](/docs/{{version}}/hashing). Os demais valores no array serão utilizados para encontrar o usuário no banco de dados. Assim, no exemplo acima, o usuário será recuperado pelo valor da coluna `email`. Se o usuário for encontrado, a senha criptografada armazanada no banco de dados, será comparada com o valor criptografado da senha passado pelo método na array. Se duas senhas criptografadas combinarem com a pesquisada, uma nova seção de usuário autenticado será iniciada.
 
 O método `attempt` irá retornar `true` se a autenticação for realizada com sucesso. Caso contrário irá retornar `false`.
 
@@ -141,7 +141,8 @@ Isto é equivalente a um usuário fazer o login por meio de credenciais usando o
 
 #### Eventos de Autenticação
 
-Quando o método `attempt` é chamado, o [evento](/docs/5.0/events) `auth.attempt` será executado. Se a tentativa de autenticação for bem-sucedida e o usuário estiver logado na aplicação, o evento `auth.login` também será executado. 
+
+Quando o método `attempt` é chamado, o [event](/docs/{{version}}/events)  `auth.attempt` será executado. Se a tentativa de autenticação for bem-sucedida e o usuário estiver logado na aplicação, o evento `auth.login` também será executado. 
 
 <a name="retrieving-the-authenticated-user"></a>
 ## Recuperando um usuário Autenticado
@@ -196,7 +197,7 @@ Segundo, você pode acessar o usuário autenticado via a instância da `Illumina
 
 	}
 
-Em terceiro lugar, você pode tipar o contrato `Illuminate\Contracts\Auth\Authenticatable`. Esta tipagem pode ser adicionada ao método contrutor do controlador, métodos do controlador, ou qualquer outro construtor de uma classe resolvida pelo [container de serviços](/docs/5.0/container):
+Em terceiro lugar, você pode tipar o contrato `Illuminate\Contracts\Auth\Authenticatable`. Esta tipagem pode ser adicionada ao método contrutor do controlador, métodos do controlador, ou qualquer outro construtor de uma classe resolvida pelo [service container](/docs/{{version}}/container):
 
 	<?php namespace App\Http\Controllers;
 
@@ -220,7 +221,7 @@ Em terceiro lugar, você pode tipar o contrato `Illuminate\Contracts\Auth\Authen
 <a name="protecting-routes"></a>
 ## Protegendo Rotas
 
-[Rotas middleware](/docs/5.0/middleware) podem ser usadas para permitir que apenas usuários atenticados possam acessar a rota fornecida. Laravel provem por padrão o middleware `auth`, e isto é definido em `app\Http\Middleware\Authenticate.php`. Tudo que você precisa fazer é anexar isto as definições das rotas.
+[Rotas middleware](/docs/{{version}}/middleware) podem ser usadas para permitir que apenas usuários atenticados possam acessar a rota fornecida. Laravel provem por padrão o middleware `auth`, e isto é definido em `app\Http\Middleware\Authenticate.php`. Tudo que você precisa fazer é anexar isto as definições das rotas.
 
 	// With A Route Closure...
 
@@ -249,7 +250,8 @@ Por padrão, o midleware `basic` irá usar a coluna `email` no registro do usuá
 
 #### Configurando Um filtro HTTP Básico Stateless
 
-Você pode também usar a autenticação HTTP básica sem definir um cookie identificar do usuário na sessão, que é particularmente útil para a autenticação de API. Para fazer isso, [defina um middleware](/docs/5.0/middleware) que chama o método `onceBasic`:
+
+Você pode também usar a autenticação HTTP básica sem definir um cookie identificar do usuário na sessão, que é particularmente útil para a autenticação de API. Para fazer isso, [defina um middleware](/docs/{{version}}/middleware) que chama o método `onceBasic`:
 
 	public function handle($request, Closure $next)
 	{
@@ -296,7 +298,8 @@ Para começar com Socialite, inclua o pacote em seu arquivo `composer.json`:
 
 	"laravel/socialite": "~2.0"
 
-Em seguida, registre o `Laravel\Socialite\SocialiteServiceProvider` em seu arquivo de configuração `config/app.php`. Você também pode registrar a [fachada](/docs/5.0/facades):
+
+Em seguida, registre o `Laravel\Socialite\SocialiteServiceProvider` em seu arquivo de configuração `config/app.php`. Você também pode registrar a [fachada](/docs/{{version}}/facades):
 
 	'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 
