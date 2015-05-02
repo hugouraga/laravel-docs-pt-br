@@ -2,11 +2,11 @@
 
 - [Introdução](#introduction)
 - [Autenticação de usuários](#authenticating-users)
-- [Retrieving The Authenticated User](#retrieving-the-authenticated-user)
+- [Recuperando o Usuário Atenticado](#retrieving-the-authenticated-user)
 - [Protecting Routes](#protecting-routes)
-- [HTTP Basic Authentication](#http-basic-authentication)
-- [Password Reminders & Reset](#password-reminders-and-reset)
-- [Social Authentication](#social-authentication)
+- [Autenticação Básica HTTP](#http-basic-authentication)
+- [Lembretes de Senhas & Reset](#password-reminders-and-reset)
+- [Autenticação Social](#social-authentication)
 
 <a name="introduction"></a>
 ## Introdução
