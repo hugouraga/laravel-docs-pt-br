@@ -141,14 +141,15 @@ Isto é equivalente a um usuário fazer o login por meio de credenciais usando o
 
 #### Eventos de Autenticação
 
-When the `attempt` method is called, the `auth.attempt` [event](/docs/5.0/events) will be fired. If the authentication attempt is successful and the user is logged in, the `auth.login` event will be fired as well.
+Quando o método `attempt` é chamado, o [evento](/docs/5.0/events) `auth.attempt` será executado. Se a tentativa de autenticação for bem-sucedida e o usuário estiver logado na aplicação, o evento `auth.login` também será executado. 
 
 <a name="retrieving-the-authenticated-user"></a>
 ## Recuperando um usuário Autenticado
 
-Once a user is authenticated, there are several ways to obtain an instance of the User.
+Uma vez que o usuário é atenticado, existem várias maneiras de se obter a instância do usuário.
 
-First, you may access the user from the `Auth` facade:
+Primeiro, você pode acessar o usuário a patir da fachada `Auth`:
+
 
 	<?php namespace App\Http\Controllers;
 
@@ -171,7 +172,7 @@ First, you may access the user from the `Auth` facade:
 
 	}
 
-Second, you may access the authenticated user via an `Illuminate\Http\Request` instance:
+Segundo, você pode acessar o usuário autenticado via a instância da `Illuminate\Http\Request`:
 
 	<?php namespace App\Http\Controllers;
 
@@ -195,7 +196,7 @@ Second, you may access the authenticated user via an `Illuminate\Http\Request` i
 
 	}
 
-Thirdly, you may type-hint the `Illuminate\Contracts\Auth\Authenticatable` contract. This type-hint may be added to a controller constructor, controller method, or any other constructor of a class resolved by the [service container](/docs/5.0/container):
+Em terceiro lugar, você pode tipar o contrato `Illuminate\Contracts\Auth\Authenticatable`. Esta tipagem pode ser adicionada ao método contrutor do controlador, métodos do controlador, ou qualquer outro construtor de uma classe resolvida pelo [container de serviços](/docs/5.0/container):
 
 	<?php namespace App\Http\Controllers;
 
@@ -217,9 +218,9 @@ Thirdly, you may type-hint the `Illuminate\Contracts\Auth\Authenticatable` contr
 	}
 
 <a name="protecting-routes"></a>
-## Protejento Rotas
+## Protegendo Rotas
 
-[Route middleware](/docs/5.0/middleware) can be used to allow only authenticated users to access a given route. Laravel provides the `auth` middleware by default, and it is defined in `app\Http\Middleware\Authenticate.php`. All you need to do is attach it to a route definition:
+[Rotas middleware](/docs/5.0/middleware) podem ser usadas para permitir que apenas usuários atenticados possam acessar a rota fornecida. Laravel provem por padrão o middleware `auth`, e isto é definido em `app\Http\Middleware\Authenticate.php`. Tudo que você precisa fazer é anexar isto as definições das rotas.
 
 	// With A Route Closure...
 
@@ -235,27 +236,27 @@ Thirdly, you may type-hint the `Illuminate\Contracts\Auth\Authenticatable` contr
 <a name="http-basic-authentication"></a>
 ## Autenticação HTTP Básica
 
-HTTP Basic Authentication provides a quick way to authenticate users of your application without setting up a dedicated "login" page. To get started, attach the `auth.basic` middleware to your route:
+A atenticação HTTP básica fornece uma forma rápida para atenticação de usuário da sua aplicação sem de uma configuração dedicada a página de login. Para iniciar, anexe o middleware `auth.basic` a sua rota: 
 
-#### Protejendo uma Rota com HTTP Básico
+#### Protegendo uma Rota com HTTP Básico
 
 	Route::get('profile', ['middleware' => 'auth.basic', function()
 	{
 		// Only authenticated users may enter...
 	}]);
 
-By default, the `basic` middleware will use the `email` column on the user record as the "username".
+Por padrão, o midleware `basic` irá usar a coluna `email` no registro do usuário como o "username".
 
 #### Configurando Um filtro HTTP Básico Stateless
 
-You may also use HTTP Basic Authentication without setting a user identifier cookie in the session, which is particularly useful for API authentication. To do so, [define a middleware](/docs/5.0/middleware) that calls the `onceBasic` method:
+Você pode também usar a autenticação HTTP básica sem definir um cookie identificar do usuário na sessão, que é particularmente útil para a autenticação de API. Para fazer isso, [defina um middleware](/docs/5.0/middleware) que chama o método `onceBasic`:
 
 	public function handle($request, Closure $next)
 	{
 		return Auth::onceBasic() ?: $next($request);
 	}
 
-If you are using PHP FastCGI, HTTP Basic authentication may not work correctly out of the box. The following lines should be added to your `.htaccess` file:
+Se você estiver usando PHP FastCGI, a autenticação básica HTTP pode não funcionar corretamente fora da caixa, As linhas a seguir devem ser adicionadas ao seu arquivo `.htaccess`:
 
 	RewriteCond %{HTTP:Authorization} ^(.+)$
 	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -265,13 +266,14 @@ If you are using PHP FastCGI, HTTP Basic authentication may not work correctly o
 
 ### Modelo & Tabela
 
-Most web applications provide a way for users to reset their forgotten passwords. Rather than forcing you to re-implement this on each application, Laravel provides convenient methods for sending password reminders and performing password resets.
+A maioria das aplicações web fornecem um meio para que os usuários resetem as senhas esquecidas. Ao inves de forçar você a ré-implementar isto em cada aplicação, Laravel fornece um método conveniente para mandar lembretes das senhas e realizar resets.
 
-To get started, verify that your `User` model implements the `Illuminate\Contracts\Auth\CanResetPassword` contract. Of course, the `User` model included with the framework already implements this interface, and uses the `Illuminate\Auth\Passwords\CanResetPassword` trait to include the methods needed to implement the interface.
+Para comerçar, verifique o que o seu modelo `User` implementa o contrato `Illuminate\Contracts\Auth\CanResetPassword`. É claro que, o
+modelo `User` incluído com o framework já implementa esta interface, e usa a trait `Illuminate\Auth\Passwords\CanResetPassword` para incluir os métodos necessários para implementação da interface. 
 
 #### Gerando a migração da tabela de lembretes
 
-Next, a table must be created to store the password reset tokens. The migration for this table is included with Laravel out of the box, and resides in the `database/migrations` directory. So all you need to do is migrate:
+Em seguida, uma tabela tem que ser criada para armazenar os tokens de redefinição das senhas. A migração para esta tabela é incluida com o Laravel fora da caixa, e fica localizada no diretório `database/migrations`. Então tudo que vocêr precisar fazer é migrar: 
 
 	php artisan migrate
 
@@ -279,11 +281,11 @@ Next, a table must be created to store the password reset tokens. The migration 
 
 Laravel also includes an `Auth\PasswordController` that contains the logic necessary to reset user passwords. We've even provided views to get you started! The views are located in the `resources/views/auth` directory. You are free to modify these views as you wish to suit your own application's design.
 
-Your user will receive an e-mail with a link that points to the `getReset` method of the `PasswordController`. This method will render the password reset form and allow users to reset their passwords. After the password is reset, the user will automatically be logged into the application and redirected to `/home`. You can customize the post-reset redirect location by defining a `redirectTo` property on the `PasswordController`:
+Seu usuário irá receber um e-mail com um link que aponta para o método `getReset` do controlador `PasswordController`. Este método irá processar o form de redefinição de senha e permitir que o usuário a redefina. Depois que a senha é redefinida, o usuário irá automaticamente ser logado na aplicação e redirecionado para a rota `/home`. Você pode customizar a localização do redirecionamento da pós-redefinição definindo a propriedade `redirectTo` no `PasswordController`:
 
 	protected $redirectTo = '/dashboard';
 
-> **Note:** By default, password reset tokens expire after one hour. You may change this via the `reminder.expire` option in your `config/auth.php` file.
+> **Note:** Por padrão, tokens de redifinição de senhas expiram depois de uma hora. Você pode mudar isto na opção `reminder.expire` que fica localizado no seu arquivo `config/auth.php`.
 
 <a name="social-authentication"></a>
 ## Autenticação Social
