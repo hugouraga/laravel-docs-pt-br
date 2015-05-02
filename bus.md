@@ -55,7 +55,7 @@ A nova classe gerada será alocada no diretório `app/Commands`. Por padrão, o 
 
 	}
 
-O méotodo `handle` também pode tipar tipar dependencias, e elas irão ser automaticamente injetadoas pelo [service container](/docs/5.0/container). Por exemplo:
+O méotodo `handle` também pode tipar tipar dependencias, e elas irão ser automaticamente injetadoas pelo [service container](/docs/{{version}}/container). Por exemplo:
 
 		/**
 		 * Execute the command.
@@ -115,8 +115,7 @@ Se você desejar converter a um comando existente em um comando queued, simplesm
 
 Em seguida, apenas escreva seu comando normalmente. Quando você dispacha isto para o "bus" o bus será automaticamente enfileirado no processamento em segundo plano. Isto não tem como ser mais fácil.
 
-Para mais informações de como interagir com os comandos queued, veja a documentação completa [queue documentation](/docs/5.0/queues)..
-
+Para mais informações de como interagir com os comandos queued, veja a documentação completa [queue documentation](/docs/{{version}}/queues).
 
 <a name="command-pipeline"></a>
 ## Comandos em Pipeline
@@ -141,7 +140,7 @@ O comando pipe é definido com o método `handle`, apenas como um middleware:
 
 	}
 
-As classes comando pipe são resolvidas através do [IoC container](/docs/5.0/container), então sinta-se livre para tipar qualquer dependencia que você precisar dentro dos seus contrutores.
+As classes comando pipe são resolvidas através do [IoC container](/docs/{{version}}/container), então sinta-se livre para tipar qualquer dependencia que você precisar dentro dos seus contrutores.
 
 Você pode até mesmo definir um `Closure` como um comando pipe:
 

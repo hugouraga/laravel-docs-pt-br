@@ -6,8 +6,9 @@
 - [Single Charges](#single-charges)
 - [Não requerer cartão de crédito no período Trial](#no-card-up-front)
 - [Trocando a assinatura de Plano](#swapping-subscriptions)
-- [Subscription Quantity](#subscription-quantity)
-- [Reativando uma assinatura](#cancelling-a-subscription)
+- [Quantidade de Assinaturas](#subscription-quantity)
+- [Taxas de Assinaturas](#subscription-tax)
+- [Cancelando uma assinatura](#cancelling-a-subscription)
 - [Reativando uma assinatura](#resuming-a-subscription)
 - [Verifiacando o Status Da Assinatura](#checking-subscription-status)
 - [Lidando com Falha de Pagamentos](#handling-failed-payments)
@@ -169,6 +170,18 @@ Algumas vezes a inscrições dos planos são afetadas pela "quatidade". Por exem
 	// Subtract five to the subscription's current quantity...
 	$user->subscription()->decrement(5);
 
+<a name="subscription-tax"></a>
+## Subscription Tax
+
+With Cashier, it's easy to override the `tax_percent` value sent to Stripe. To specify the tax percentage a user pays on a subscription, implement the `getTaxPercent` method on your model, and return a numeric value between 0 and 100, with no more than 2 decimal places.
+
+	public function getTaxPercent()
+	{
+		return 20;
+	}
+
+This enables you to apply a tax rate on a model-by-model basis, which may be helpful for a user base that spans multiple countries.
+
 <a name="cancelling-a-subscription"></a>
 ## Cancelando uma Inscrição
 
@@ -197,7 +210,8 @@ Para verificar se o usuário é inscrito na sua aplicação, user o método `sub
 		//
 	}
 
-O método `subscribed` se faz um grande candidato para [route middleware](/docs/5.0/middleware):
+
+O método `subscribed` se faz um grande candidato para [route middleware](/docs/{{version}}/middleware):
 
 	public function handle($request, Closure $next)
 	{

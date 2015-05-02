@@ -52,7 +52,7 @@ Para opções, o parâmetro `mode` pode ser: `InputOption::VALUE_REQUIRED`, `Inp
 O modo `VALUE_IS_ARRAY` indica que a chave pode ser usado várias vezes ao chamar o comando:
 
 	InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY
-	
+
 Would then allow for this command:
 
 	php artisan foo --option=bar --option=baz
@@ -133,4 +133,5 @@ Uma vez que seu comando estiver pronto, você precisa registrar o mesmo com Arti
 		'App\Console\Commands\FooCommand'
 	];
 
-Quando o Artisan inicializar, todos os comandos listados na propriedade `commands` que serão resolvidos pelo [service container](/docs/5.0/container) e registrados no Artisan. 
+Quando o Artisan inicializar, todos os comandos listados na propriedade `commands` que serão resolvidos pelo [service container](/docs/{{version}}/container) e registrados no Artisan. 
+
