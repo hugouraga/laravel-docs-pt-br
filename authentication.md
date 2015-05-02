@@ -290,17 +290,17 @@ Seu usuário irá receber um e-mail com um link que aponta para o método `getRe
 <a name="social-authentication"></a>
 ## Autenticação Social
 
-In addition to typical, form based authentication, Laravel also provides a simple, convenient way to authenticate with OAuth providers using [Laravel Socialite](https://github.com/laravel/socialite). **Socialite currently supports authentication with Facebook, Twitter, Google, GitHub and Bitbucket.**
+Além da atutenticação típica, baseada em um formulário de autenticação, Laravel também fornece uma simples e conveniente modo de autenticar com provedores OAth usando using [Laravel Socialite](https://github.com/laravel/socialite).** Atualmente Socialite dá suporte a autenticação com o Facebook, Twitter, Google, Github e Bitbucket.**
 
-To get started with Socialite, include the package in your `composer.json` file:
+Para começar com Socialite, inclua o pacote em seu arquivo `composer.json`:
 
 	"laravel/socialite": "~2.0"
 
-Next, register the `Laravel\Socialite\SocialiteServiceProvider` in your `config/app.php` configuration file. You may also register a [facade](/docs/5.0/facades):
+Em seguida, registre o `Laravel\Socialite\SocialiteServiceProvider` em seu arquivo de configuração `config/app.php`. Você também pode registrar a [fachada](/docs/5.0/facades):
 
 	'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 
-You will need to add credentials for the OAuth services your application utilizes. These credentials should be placed in your `config/services.php` configuration file, and should use the key `facebook`, `twitter`, `google`, or `github`, depending on the providers your application requires. For example:
+Você precisará adicionar as credenciais para os serviços OAuth que sua aplicação utiliza. Essas credenciais devem estar localizada em seu arquivo de configuração `config/services.php`, e devem usar as chaves `facebook`, `twitter`, `google`, or `github`, dependendo dos provedores que sua aplicação requer, Por Exemplo. 
 
 	'github' => [
 		'client_id' => 'your-github-app-id',
@@ -308,7 +308,7 @@ You will need to add credentials for the OAuth services your application utilize
 		'redirect' => 'http://your-callback-url',
 	],
 
-Next, you are ready to authenticate users! You will need two routes: one for redirecting the user to the OAuth provider, and another for receiving the callback from the provider after authentication. Here's an example using the `Socialize` facade:
+Em seguida, você está pronto para autenticar usuários! Você precisar de duas rotas: uma  para redirecionar o usuário para o provedor OAuth, e outro para receber o callback do provedor após a autenticação. Aqui vai um exemplo usando a fachada `Socialize`:
 
 	public function redirectToProvider()
 	{
@@ -321,12 +321,11 @@ Next, you are ready to authenticate users! You will need two routes: one for red
 
 		// $user->token;
 	}
-
-The `redirect` method takes care of sending the user to the OAuth provider, while the `user` method will read the incoming request and retrieve the user's information from the provider. Before redirecting the user, you may also set "scopes" on the request:
+O método `redirect` fica responsável por enviar ao usuário ao provedor OAuth, enquando o método `user` lê a requisição que chega, e recupera as informações dos usuário a partir do provedor. Antes de redirecionar o usuário, você pode também definir "scopes" da requisição:
 
 	return Socialize::with('github')->scopes(['scope1', 'scope2'])->redirect();
 
-Once you have a user instance, you can grab a few more details about the user:
+Uma vez que você tenha a instância do usuário, você pode pegar um pouco mais de detalhes sobre o mesmo:
 
 #### Recuperando Detalhes dos Usuários
 
