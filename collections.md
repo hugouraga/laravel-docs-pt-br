@@ -18,15 +18,12 @@ A classe `Illuminate\Support\Collection` um nativo, conveniente wrapper para tra
 		return empty($name);
 	});
 
-
 Como você pode ver, a classe `Collection` permite que você chame encadeadamento métodos para realizar nativamente mapeamento e redução do array subjacente. Em geral, todo método `Collection` retorna uma nova instância inteira de `Collection`. Para mais detalhes, continue lendo! 
-
 
 <a name="basic-usage"></a>
 ## Uso Básico
 
 #### Criado Coleções
-
 
 Como mencionado acima, o helper `collect` retornará uma nova instância de `Illuminate\Support\Collection` para o array dado. Você pode também usar o comando `make` na classe `Collection`:
 

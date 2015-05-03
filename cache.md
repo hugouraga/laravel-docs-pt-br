@@ -92,7 +92,6 @@ When using multiple cache stores, you may access them via the `store` method:
 <a name="increments-and-decrements"></a>
 ## Incrementando & Desincrementando
 
-
 Todos os drivers, exceto `database`, suportam as operações `increment` e `decrement`:
 
 #### Incrementando um valor
@@ -141,9 +140,9 @@ Sendo assim, este outro código removerá somente caches marcados com `authors`.
 	Cache::tags('authors')->flush();
 
 <a name="cache-events"></a>
-## Cache Events
+## Eventos Cache
 
-To execute code on every cache operation, you may listen for the events fired by the cache:
+Para executar código em todas as operações de cache, você pode escutar (ou rastrear, procurar) por eventos disparados pelo cache: 
 
 	Event::listen('cache.hit', function($key, $value) {
 		//
@@ -176,21 +175,20 @@ Quando usar o drive de cache `database` , você precisará configurar uma tabela
 <a name="memcached-cache"></a>
 #### Memcached Cache
 
-Using the Memcached cache requires the [Memcached PECL package](http://pecl.php.net/package/memcached) to be installed.
+Usar o Mencached cache requere que o [Pacote Memcached PECL](http://pecl.php.net/package/memcached) seja instalado.
 
-The default [configuration](#configuration) uses TCP/IP based on [Memcached::addServer](http://php.net/manual/en/memcached.addserver.php):
-
+Por padrão [configuração](#configuration) usa TCP/IP baseado no [Memcached::addServer](http://php.net/manual/en/memcached.addserver.php):
 	'memcached' => array(
 		array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 100),
 	),
 
-You may also set the `host` option to a UNIX socket path. If you do this, the `port` option should be set to `0`:
+Você pode também definir a opção `host` para um caminho de socket UNIX. Se você fizer isto, a opção `port` deve ser definida com o valor `0`:
 
 	'memcached' => array(
 		array('host' => '/var/run/memcached/memcached.sock', 'port' => 0, 'weight' => 100),
 	),
 
 <a name="redis-cache"></a>
-#### Redis Cache
+#### Cache Redis
 
-See [Redis Configuration](/docs/redis#configuration)
+Veja [Configuração Redis](/docs/redis#configuration)
