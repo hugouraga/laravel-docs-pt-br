@@ -59,13 +59,13 @@ Você pode também usar o função helper `config`:
 
 Na maioria das vezes, é util ter diferentes valores de configurações baseados nos ambientes em que a aplicação está sendo executada. Por examplo, você pode desejar usar drivers de cache diferentes localmente do que você usa no servidor de produção. Isto é fácil, usando o ambiente baseado na configuração.  
 
-To make this a cinch, Laravel utilizes the [DotEnv](https://github.com/vlucas/phpdotenv) PHP library by Vance Lucas. In a fresh Laravel installation, the root directory of your application will contain a `.env.example` file. If you install Laravel via Composer, this file will automatically be renamed to `.env`. Otherwise, you should rename the file manually.
+Para isso ser fácil, Laravel utiliza a biblioteca PHP feita por Vance Lucar [DotEnv](https://github.com/vlucas/phpdotenv). Em uma instalação pura de laravel, o diretório rais da sua aplicação irá conter o arquivo `.env.example`. Se você instalar o Laravel via Composer, este arquvivo irá automaticamente ser renomeado por `.env`. Caso contrário, você deve renomear o arquvio manualmente. 
 
-All of the variables listed in this file will be loaded into the `$_ENV` PHP super-global when your application receives a request. You may use the `env` helper to retrieve values from these variables. In fact, if you review the Laravel configuration files, you will notice several of the options already using this helper!
+Todas as variáveis listadas neste arquvio serão carregadas na superglobal PHP `$_ENV` quando sua aplicação receber a requisição. Você pode usar o helper `env` para recuperar os valores das variáveis. Na verdade, se você revisar os arquivos de configuração do Laravel, você irá notar que várias das opções já usam este Helper!
 
-Feel free to modify your environment variables as needed for your own local server, as well as your production environment. However, your `.env` file should not be committed to your application's source control, since each developer / server using your application could require a different environment configuration.
+Sinta-se à vontade para modificar as suas variáveis de ambiente como for necessário para o seu servidor local, como também para seu ambiente de produção. No entanto, seu arquivo `.env` não deve ser commitado para sistema de controle de versionamento, desde que cada desenvolvedor / servidor que está usando sua aplicação possa requerer diferentes configurações de ambiente. 
 
-If you are developing with a team, you may wish to continue including a `.env.example` file with your application. By putting place-holder values in the example configuration file, other developers on your team can clearly see which environment variables are needed to run your application.
+Se você estiver desenvolvendo com um time, você pode querer continuar incluindo o arquivo `.env.example` na sua aplicação. Ao colocar valores place-holder no exemplo de arquivo de configuração, outros desenvolvedor no seu time podem claramente ver que o as variáveis de ambeinte são necessárias para a execução da sua aplicação. 
 
 #### Accessing The Current Application Environment
 
