@@ -25,6 +25,7 @@ Laravel Cashier oferece uma interface expressiva e fluente para [Stripe's](https
 ## Configuração 
 
 #### Composer
+Com Cas  hier, é fácil de sobreescrever o valor da 
 
 Primiero, adicione o pacote Cashier em seu arquivo  `composer.json`:
 
@@ -173,14 +174,14 @@ Algumas vezes a inscrições dos planos são afetadas pela "quatidade". Por exem
 <a name="subscription-tax"></a>
 ## Subscription Tax
 
-With Cashier, it's easy to override the `tax_percent` value sent to Stripe. To specify the tax percentage a user pays on a subscription, implement the `getTaxPercent` method on your model, and return a numeric value between 0 and 100, with no more than 2 decimal places.
+Com Cashier, é fácil de sobreescrever o valor da `tax_percent` enviada para o Stripe. Para especificar a porcetagem da taxa que o usuário paga na inscrição, implemente o método `getTaxPercent` no seu modelo, e retorne um valor numérico entre 0 e 100, com não mais do que 2 casas decimais. 
 
 	public function getTaxPercent()
 	{
 		return 20;
 	}
 
-This enables you to apply a tax rate on a model-by-model basis, which may be helpful for a user base that spans multiple countries.
+Isto possibilita que você aplique uma taxa de imposto sobre uma base model-by-model, que pode ser útil para uma base de usuários que se estendem por vários países. 
 
 <a name="cancelling-a-subscription"></a>
 ## Cancelando uma Inscrição
