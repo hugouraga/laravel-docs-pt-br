@@ -49,11 +49,11 @@ Quando estamos definindo `options`, o valores de definição do array representa
 
 Para opções, o parâmetro `mode` pode ser: `InputOption::VALUE_REQUIRED`, `InputOption::VALUE_OPTIONAL`, `InputOption::VALUE_IS_ARRAY`, `InputOption::VALUE_NONE`.
 
-O modo `VALUE_IS_ARRAY` indica que a chave pode ser usado várias vezes ao chamar o comando:
+O modo `VALUE_IS_ARRAY` indica que a chave pode ser usada várias vezes ao chamar o comando:
 
 	InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY
 
-Would then allow for this command:
+O que então permitiria este comando:
 
 	php artisan foo --option=bar --option=baz
 
