@@ -1,12 +1,12 @@
 # Configuration
 
 - [Introdução](#introduction)
-- [After Installation](#after-installation)
-- [Accessing Configuration Values](#accessing-configuration-values)
-- [Environment Configuration](#environment-configuration)
-- [Configuration Caching](#configuration-caching)
-- [Maintenance Mode](#maintenance-mode)
-- [Pretty URLs](#pretty-urls)
+- [Depois da Instalação](#after-installation)
+- [Acessando Valores de Configuração](#accessing-configuration-values)
+- [Configuração de Ambiente](#environment-configuration)
+- [Configuração de Caching](#configuration-caching)
+- [Modo de Manutenção](#maintenance-mode)
+- [URLs Amigáveis](#pretty-urls)
 
 <a name="introduction"></a>
 ## Introdução
@@ -39,25 +39,25 @@ Uma vez que o Laravel é instalado, você deve tambeḿ [configure your local en
 <a name="permissions"></a>
 ### Permissões
 
-Laravel pode requerir um conjunto de permissões para ser configurado: pastas dentro do diretório `storage` requerem permissões de acesso a escrita no servidor. 
+Laravel pode requerer um conjunto de permissões para ser configurado: pastas dentro do diretório `storage` requerem permissões de acesso a escrita no servidor. 
 
 <a name="accessing-configuration-values"></a>
-## Accessing Configuration Values
+## Acessando Valores de Configuração
 
-You may easily access your configuration values using the `Config` facade:
+Você pode facilmente acessar os valores de configurações usando a fachada `Config`:
 
 	$value = Config::get('app.timezone');
 
 	Config::set('app.timezone', 'America/Chicago');
 
-You may also use the `config` helper function:
+Você pode também usar o função helper `config`:
 
 	$value = config('app.timezone');
 
 <a name="environment-configuration"></a>
-## Environment Configuration
+## Configuração de Ambiente
 
-It is often helpful to have different configuration values based on the environment the application is running in. For example, you may wish to use a different cache driver locally than you do on your production server. It's easy using environment based configuration.
+Na maioria das vezes, é util ter diferentes valores de configurações baseados nos ambientes em que a aplicação está sendo executada. Por examplo, você pode desejar usar drivers de cache diferentes localmente do que você usa no servidor de produção. Isto é fácil, usando o ambiente baseado na configuração.  
 
 To make this a cinch, Laravel utilizes the [DotEnv](https://github.com/vlucas/phpdotenv) PHP library by Vance Lucas. In a fresh Laravel installation, the root directory of your application will contain a `.env.example` file. If you install Laravel via Composer, this file will automatically be renamed to `.env`. Otherwise, you should rename the file manually.
 
