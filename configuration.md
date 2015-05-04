@@ -67,13 +67,13 @@ Sinta-se à vontade para modificar as suas variáveis de ambiente como for neces
 
 Se você estiver desenvolvendo com um time, você pode querer continuar incluindo o arquivo `.env.example` na sua aplicação. Ao colocar valores place-holder no exemplo de arquivo de configuração, outros desenvolvedor no seu time podem claramente ver que o as variáveis de ambeinte são necessárias para a execução da sua aplicação. 
 
-#### Accessing The Current Application Environment
+#### Acessando Ambiente Atual da Aplicação 
 
-You may access the current application environment via the `environment` method on the `Application` instance:
+Você pode acessar o ambiente atual da sua aplicação por meio do método `environment` na instância de `Application`:
 
 	$environment = $app->environment();
 
-You may also pass arguments to the `environment` method to check if the environment matches a given value:
+Você pode também passar argumento para o método `environment` para checar se o ambiente tem o mesmo valor do argumento passado:
 
 	if ($app->environment('local'))
 	{
@@ -85,50 +85,50 @@ You may also pass arguments to the `environment` method to check if the environm
 		// The environment is either local OR staging...
 	}
 
-To obtain an instance of the application, resolve the `Illuminate\Contracts\Foundation\Application` contract via the [service container](/docs/{{version}}/container). Of course, if you are within a [service provider](/docs/{{version}}/providers), the application instance is available via the `$this->app` instance variable.
+Para obeter a instância da aplicação, resolva o contrato `Illuminate\Contracts\Foundation\Application` via o [container de serviços](/docs/{{version}}/container). É claro que, se você você estiver dentro de um [provedor de serviço](/docs/{{version}}/providers), a instância da aplicação é disponibilizada via a instância da variável `$this->app`.
 
-An application instance may also be accessed via the `app` helper or the `App` facade:
+A instância da aplicação pode também ser acessada via o helper `app` ou pela fachada `App`:
 
 	$environment = app()->environment();
 
 	$environment = App::environment();
 
 <a name="configuration-caching"></a>
-## Configuration Caching
+## Configuração Caching
 
-To give your application a little speed boost, you may cache all of your configuration files into a single file using the `config:cache` Artisan command. This will combine all of the configuration options for your application into a single file which can be loaded quickly by the framework.
+Para da a sua aplicação um empurrão na velocidade, você pode armazenar em cache todos os seus arquivos de configuração em um único arquivo usando o comando Artisan `config:cache`. Iso irá combinar todas as opções do configuração da sua aplicação em um único arquivo que pode ser carregado rapidamente pelo framework.
 
-You should typically run the `config:cache` command as part of your deployment routine.
+Você deve executar normalmente o comando `config:cache` como parte da sua rotina de deploy.
 
 <a name="maintenance-mode"></a>
-## Maintenance Mode
+## Modo de Manutenção
 
-When your application is in maintenance mode, a custom view will be displayed for all requests into your application. This makes it easy to "disable" your application while it is updating or when you are performing maintenance. A maintenance mode check is included in the default middleware stack for your application. If the application is in maintenance mode, an `HttpException` will be thrown with a status code of 503.
+Quando sua aplicação estier em modo de manutenção, uma view customizada será exibida para todas as requisições a aplicação. Isto faz com que seja fácil de "desativar" a sua aplicação enquanto ela é atualizada ou quando você efetuando uma manutenção. A checage se a aplicação está no modo de manutenção é incluída por padrão na pilha do middleware da sua aplicação. Se a aplicação estiver em modo de manutenção, uma `HttpException` (exceção HTTP) será lançada ao usuário com o código de status 503.
 
-To enable maintenance mode, simply execute the `down` Artisan command:
+Para ativar o modo de manutenção, simplesmente execute o comando Artisan `down`:
 
 	php artisan down
 
-To disable maintenance mode, use the `up` command:
+Para disativar o modo de manutenção, use o comando `up`:
 
 	php artisan up
 
-### Maintenance Mode Response Template
+### Template de reposta Do Modo de Manutenção
 
-The default template for maintenance mode responses is located in `resources/views/errors/503.blade.php`.
+A template padrão para reposta do modo de manutenção, é localizado no diretório `resources/views/errors/503.blade.php`.
 
-### Maintenance Mode & Queues
+### Modo de manutenção e Queues 
 
-While your application is in maintenance mode, no [queued jobs](/docs/{{version}}/queues) will be handled. The jobs will continue to be handled as normal once the application is out of maintenance mode.
+Enquanto sua aplicação estiver no modo de manutenção, nenhuma [queued jobs](/docs/{{version}}/queues) serão tratada. As queues continuarão sendo tratadas normalmente uma vez que a sua aplicação sair do modo de manutenção.
 
 <a name="pretty-urls"></a>
-## Pretty URLs
+## URLs Amigáveis
 
 ### Apache
 
-The framework ships with a `public/.htaccess` file that is used to allow URLs without `index.php`. If you use Apache to serve your Laravel application, be sure to enable the `mod_rewrite` module.
+O framework envia com o arquivo `public/.htaccess` o que é usando para permitir URLs sem `index.php`. Se você usa Apache como webserver da sua aplicação Laravel, certifique-se de ativar o módulo `mod_rewrite`.
 
-If the `.htaccess` file that ships with Laravel does not work with your Apache installation, try this one:
+Se o arquivo `.htaccess` que vem com a aplicação Laravel não function com a sua instalação do Apache, teste com esta:
 
 	Options +FollowSymLinks
 	RewriteEngine On
@@ -137,14 +137,13 @@ If the `.htaccess` file that ships with Laravel does not work with your Apache i
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule ^ index.php [L]
 
-If your web host doesn't allow the `FollowSymlinks` option, try replacing it with `Options +SymLinksIfOwnerMatch`.
+Se o seu web host não permitir a opção `FollowSymlinks`, teste substituí-lo com `Options +SymLinksIfOwnerMatch`.
 
 ### Nginx
 
-On Nginx, the following directive in your site configuration will allow "pretty" URLs:
+No Nginx, a seguinte diretiva na sua configuração de site permitira URLs "amigáveis":
 
 	location / {
 		try_files $uri $uri/ /index.php?$query_string;
 	}
-
-Of course, when using [Homestead](/docs/{{version}}/homestead), pretty URLs will be configured automatically.
+É claro que, quando estiver usando a [Homestead](/docs/{{version}}/homestead), URLs amigáveis serão configuradas automaticamente. 
