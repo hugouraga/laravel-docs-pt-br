@@ -1,21 +1,21 @@
 # Contribution Guide
 
-- [Bug Reports](#bug-reports)
-- [Core Development Discussion](#core-development-discussion)
-- [Which Branch?](#which-branch)
-- [Security Vulnerabilities](#security-vulnerabilities)
-- [Coding Style](#coding-style)
+- [Relatar Bugs](#bug-reports)
+- [Discurssão sobre o Desenvolvimento do Core](#core-development-discussion)
+- [Quial Branch?](#which-branch)
+- [Vulnerabilidades de Segurança](#security-vulnerabilities)
+- [Estilo de Código](#coding-style)
 
 <a name="bug-reports"></a>
-## Bug Reports
+## Relatar Reports
 
-To encourage active collaboration, Laravel strongly encourages pull requests, not just bug reports. "Bug reports" may also be sent in the form of a pull request containing a failing unit test.
+Para encoragar a ativa colaboração, Laravel encoraja fortemente pull requests, não apenas relatório de bugs. "Relatar Bugs" pode também ser enviada em forma de pull request contendo um teste unitário que falhou. 
 
-However, if you file a bug report, your issue should contain a title and a clear description of the issue. You should also include as much relevant information as possible and a code sample that demonstrates the issue. The goal of a bug report is to make it easy for yourself - and others - to replicate the bug and develop a fix.
+No entanto, se você enviar um relatório de bug, o problema deve conter um título e uma descrição clara do problema. Você deve incluir o máximo de informação relevante possível e uma amostra do código que mostra o problema. O objetivo de relatório de bugs é tonar mais fácil para si mesmo - e outros - replicar o bug e desenvolver a solução. 
 
-Remember, bug reports are created in the hope that others with the same problem will be able to collaborate with you on solving it. Do not expect that the bug report will automatically see any activity or that others will jump to fix it. Creating a bug report serves to help yourself and others start on the path of fixing the problem.
+Lembre-se, relatório de bugs foi criada com o intúito que outras pessoas com o seu mesmo problemas irão ser aptas de colaborar com você para resolver isto. Não espere que a relatório de bug verá qualquer atividade ou qualquer outra coisa e irá pular par resolver isto. Criar um relatório bug serve para ajudar a você mesmo e outros que começaram no caminho da solução de problemas. 
 
-The Laravel source code is managed on Github, and there are repositories for each of the Laravel projects:
+O código fonte do Laravel é gerenciado no Github, e lá existem repositórios para cada projeto Laravel:
 
 - [Laravel Framework](https://github.com/laravel/framework)
 - [Laravel Application](https://github.com/laravel/laravel)
@@ -28,18 +28,18 @@ The Laravel source code is managed on Github, and there are repositories for eac
 - [Laravel Art](https://github.com/laravel/art)
 
 <a name="core-development-discussion"></a>
-## Core Development Discussion
+## Discurssão sobre o Desenvolvimento do Core
 
-Discussion regarding bugs, new features, and implementation of existing features takes place in the `#laravel-dev` IRC channel (Freenode). Taylor Otwell, the maintainer of Laravel, is typically present in the channel on weekdays from 8am-5pm (UTC-06:00 or America/Chicago), and sporadically present in the channel at other times.
+Discurssão sobre bugs, novos recursos, e implementação de funcionalidade existentes ocorre no canal do IRC `#laravel-dev`(Freenode). Taylor Otwell, o mantenedor to Laravel, é normalmente presente no canal nos dias de semana das 8h da manhã as 5 da tarde (UTC-06:00 or America/Chicago), e esporadicamente presente no canal em outros horários. 
 
-The `#laravel-dev` IRC channel is open to all. All are welcome to join the channel either to participate or simply observe the discussions!
+O canal do IRC `#laravel-dev` é aberto da todos. Todos são bem vindo as se juntar o canal tanto seja para participar ou simplesmente observar as discussões. 
 
 <a name="which-branch"></a>
-## Which Branch?
+## Qual Branch?
 
-**All** bug fixes should be sent to the latest stable branch. Bug fixes should **never** be sent to the `master` branch unless they fix features that exist only in the upcoming release.
+**Todas** as correções de bugs devem ser enviadas para o último branch estável. Correções de bugs  **nunca** devem ser enviadas para a branch `master` a menos que enviem correçoes de funcionalidades que existem no proxímo lançamento.  
 
-**Minor** features that are **fully backwards compatible** with the current Laravel release may be sent to the latest stable branch.
+**Menores** funcionalidade que são **totalmente compatíveis com as branchs anteriores**  e também com a branch atual do Laravel poderão ser enviada para última branch estável do Laravel.
 
 **Major** new features should always be sent to the `master` branch, which contains the upcoming Laravel release.
 
