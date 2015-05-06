@@ -39,23 +39,23 @@ O canal do IRC `#laravel-dev` é aberto da todos. Todos são bem vindo as se jun
 
 **Todas** as correções de bugs devem ser enviadas para o último branch estável. Correções de bugs  **nunca** devem ser enviadas para a branch `master` a menos que enviem correçoes de funcionalidades que existem no proxímo lançamento.  
 
-**Menores** funcionalidade que são **totalmente compatíveis com as branchs anteriores**  e também com a branch atual do Laravel poderão ser enviada para última branch estável do Laravel.
+**Funcinalidades de Menor** proporção que são **totalmente compatíveis com as branchs anteriores**  e também com a branch atual do Laravel poderão ser enviada para última branch estável do Laravel.
 
-**Major** new features should always be sent to the `master` branch, which contains the upcoming Laravel release.
+**Funcionalidades de maior proporção** novos recursos devem ser sempre enviados para a branch `master`, que contém a próxima versão do Laravel.
 
-If you are unsure if your feature qualifies as a major or minor, please ask Taylor Otwell in the `#laravel-dev` IRC channel (Freenode).
+Se você incerto se sua funcionalidade é qualificada como principal ou menor, por favor pergunte a Taylor Otwell no canal do IRC `#laravel-dev` (Freenode).
 
 <a name="security-vulnerabilities"></a>
-## Security Vulnerabilities
+## Vulnerabilidades de Segurança
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at <a href="mailto:taylor@laravel.com">taylor@laravel.com</a>. All security vulnerabilities will be promptly addressed.
+Se você discobrir uma falha de segurança no Lravel, por favor mande um e-mail para Taylor Otwell no endereço <a href="mailto:taylor@laravel.com">taylor@laravel.com</a>. Todas as falhas de segurança serão prontamente corrigidas. 
 
 <a name="coding-style"></a>
-## Coding Style
+## Estilo de Código
 
-Laravel follows the [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) and [PSR-1](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md) coding standards. In addition to these standards, the following coding standards should be followed:
+Laravel segue os padrões de código [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) e a [PSR-1](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md). Em adição a estas normas, os seguintes padrões devem ser seguidos:
 
-- The class namespace declaration must be on the same line as `<?php`.
-- A class' opening `{` must be on the same line as the class name.
-- Functions and control structures must use Allman style braces.
-- Indent with tabs, align with spaces.
+- A declaração de namespace deve estar na mesma linha que `<?php`.
+- A abertura de classe `{` deve estar na mesma linha que o nome da classe. 
+- Funções e controles de estrutura devem usar chaves no estilo Allman.
+- Idente com tabs, alinhe com espaços.
