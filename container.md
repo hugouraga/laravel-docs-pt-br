@@ -1,19 +1,19 @@
 # Service Container
 
-- [Introduction](#introduction)
-- [Basic Usage](#basic-usage)
-- [Binding Interfaces To Implementations](#binding-interfaces-to-implementations)
-- [Contextual Binding](#contextual-binding)
+- [Introdução](#introduction)
+- [Uso Básico](#basic-usage)
+- [Ligação de Interfaces para Implementações](#binding-interfaces-to-implementations)
+- [Ligações Contextuais](#contextual-binding)
 - [Tagging](#tagging)
-- [Practical Applications](#practical-applications)
-- [Container Events](#container-events)
+- [Aplicações Práticas](#practical-applications)
+- [Container de Eventos](#container-events)
 
 <a name="introduction"></a>
-## Introduction
+## Introdução
 
-The Laravel service container is a powerful tool for managing class dependencies. Dependency injection is a fancy word that essentially means this: class dependencies are "injected" into the class via the constructor or, in some cases, "setter" methods.
+O serviço Laravel container é uma ferramenta poderosa para gerenciar dependencia de classes. Injeção de dependeência é uma palavra bonita que essencialmente que dizer: Dependencia de classes são injetadas na classe via método contrutor ou, em alguns casos, via métodos "setter".
 
-Let's look at a simple example:
+Vamos da uma olhada neste exemplo:
 
 	<?php namespace App\Handlers\Commands;
 
@@ -52,12 +52,12 @@ Let's look at a simple example:
 
 	}
 
-In this example, the `PurchasePodcast` command handler needs to send e-mails when a podcast is purchased. So, we will **inject** a service that is able to send e-mails. Since the service is injected, we are able to easily swap it out with another implementation. We are also able to easily "mock", or create a dummy implementation of the mailer when testing our application.
+Neste exemplo, o manipulador de comando `PurchasePodcast` precisar enviar e-mail quando um podcast for comprado. Então, nos iremos **injetar** o serviço que é hábil a enviar e-mails. Desde que o serviço é injetado, nos podemos facilmente trocar isto por uma outra implementação. Nos também podemos facilmente "mockar", ou criar uma implementação dummy do enviador de e-mail quando estivermos testando a nossa aplicação.
 
-A deep understanding of the Laravel service container is essential to building a powerful, large application, as well as for contributing to the Laravel core itself.
+Um profundo entendimento do container de serviços do Laravel é essencial para criar uma poderosa e robusta aplicação, bem como para contribuir para o próprio núcleo Laravel. 
 
 <a name="basic-usage"></a>
-## Basic Usage
+## Uso Básico
 
 ### Binding
 
