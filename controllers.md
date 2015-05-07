@@ -1,7 +1,7 @@
 # HTTP Controllers
 
-- [Introduction](#introduction)
-- [Basic Controllers](#basic-controllers)
+- [Introdução](#introduction)
+- [Básico de Controladores](#basic-controllers)
 - [Controller Middleware](#controller-middleware)
 - [Implicit Controllers](#implicit-controllers)
 - [RESTful Resource Controllers](#restful-resource-controllers)
@@ -9,14 +9,13 @@
 - [Route Caching](#route-caching)
 
 <a name="introduction"></a>
-## Introduction
-
-Instead of defining all of your request handling logic in a single `routes.php` file, you may wish to organize this behavior using Controller classes. Controllers can group related HTTP request handling logic into a class. Controllers are typically stored in the `app/Http/Controllers` directory.
+## Introdução
+Ao invés de definir todos a lógica das suas requisições em um único arquivo `routes.php`, você pode desejar organizar este comportamente usando classes Controllers ou Controlador. Controladores podem agrupar solicitações HTPP relacionadas a manipulação lógica de uma classe. Controladores são normalmente localizados no diretório `app/Http/Controllers`.
 
 <a name="basic-controllers"></a>
-## Basic Controllers
+## Básico de Controladores
 
-Here is an example of a basic controller class:
+Aqui vai um exemplo de uma classe básica de controlador:
 
 	<?php namespace App\Http\Controllers;
 
@@ -37,13 +36,13 @@ Here is an example of a basic controller class:
 
 	}
 
-We can route to the controller action like so:
+Nós pode encaminhar para a ação do controlador assim:
 
 	Route::get('user/{id}', 'UserController@showProfile');
 
-> **Note:** All controllers should extend the base controller class.
+> **Nota:** Todos os controladores devem herdar da classe controladora base. 
 
-#### Controllers & Namespaces
+#### Controladores & Namespaces
 
 It is very important to note that we did not need to specify the full controller namespace, only the portion of the class name that comes after the `App\Http\Controllers` namespace "root". By default, the `RouteServiceProvider` will load the `routes.php` file within a route group containing the root controller namespace.
 
