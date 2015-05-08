@@ -59,9 +59,9 @@ Um profundo entendimento do container de serviços do Laravel é essencial para 
 <a name="basic-usage"></a>
 ## Uso Básico
 
-### Binding
+### Ligação
 
-Almost all of your service container bindings will be registered within [service providers](/docs/{{version}}/providers), so all of these examples will demonstrate using the container in that context. However, if you need an instance of the container elsewhere in your application, such as a factory, you may type-hint the `Illuminate\Contracts\Container\Container` contract and an instance of the container will be injected for you. Alternatively, you may use the `App` facade to access the container.
+Quase todas as ligações do seu container de serviço serão registratos nos [provedores de serviço](/docs/{{version}}/providers), então todos estes exemplos demostrarão o uso do container neste contexto. No entando, se você precisar de uma instância do container em um outro lugar da sua aplicação, como uma factory, você pode tipar o contrato `Illuminate\Contracts\Container\Container`  e a instância do container irá ser injetada para você. Alternativamente, você pode usar a fachada `App` para acessar o container. 
 
 #### Registering A Basic Resolver
 
