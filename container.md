@@ -59,31 +59,31 @@ Um profundo entendimento do container de serviços do Laravel é essencial para 
 <a name="basic-usage"></a>
 ## Uso Básico
 
-### Ligação
+### Bindings
 
-Quase todas as ligações do seu container de serviço serão registratos nos [provedores de serviço](/docs/{{version}}/providers), então todos estes exemplos demostrarão o uso do container neste contexto. No entando, se você precisar de uma instância do container em um outro lugar da sua aplicação, como uma factory, você pode tipar o contrato `Illuminate\Contracts\Container\Container`  e a instância do container irá ser injetada para você. Alternativamente, você pode usar a fachada `App` para acessar o container. 
+Quase todas as bindings(ligações) do seu container de serviço serão registratos nos [provedores de serviço](/docs/{{version}}/providers), então todos estes exemplos demostrarão o uso do container neste contexto. No entando, se você precisar de uma instância do container em um outro lugar da sua aplicação, como uma factory, você pode tipar o contrato `Illuminate\Contracts\Container\Container`  e a instância do container irá ser injetada para você. Alternativamente, você pode usar a fachada `App` para acessar o container. 
 
-#### Registering A Basic Resolver
+#### Registrando Um Resolvedor Básico 
 
-Within a service provider, you always have access to the container via the `$this->app` instance variable.
+Dentro de um provedor de serviço, você sempre tem acesso ao container via a variável de instância `$this->app`. 
 
-There are several ways the service container can register dependencies, including Closure callbacks and binding interfaces to implementations. First, we'll explore Closure callbacks. A Closure resolver is registered in the container with a key (typically the class name) and a Closure that returns some value:
+Existem várias maneiras de o container de serviços possa registrar dependências, incluindo Closure callbacks e binding(ligações) de interfaces para implementações. Primeiro, nos vamos explorar Closure callbacks. Um resolver Closure é registrado em um container com a chave (normalmente o nome da classe) e a Closure que retorna algum valor:
 
 	$this->app->bind('FooBar', function($app)
 	{
 		return new FooBar($app['SomethingElse']);
 	});
 
-#### Registering A Singleton
+#### Registrando um Singleton
 
-Sometimes, you may wish to bind something into the container that should only be resolved once, and the same instance should be returned on subsequent calls into the container:
+Algumas vezes, você pode desejar bing(ligar) algumas coisa ao container que deve apenas ser resolvido uma vez, e a mesma instância pode ser retornada em chamadas subsequentes para o container. 
 
 	$this->app->singleton('FooBar', function($app)
 	{
 		return new FooBar($app['SomethingElse']);
 	});
 
-#### Binding An Existing Instance Into The Container
+#### Binding(Ligar) Uma Instância Existente ao Container. 
 
 You may also bind an existing object instance into the container using the `instance` method. The given instance will always be returned on subsequent calls into the container:
 
