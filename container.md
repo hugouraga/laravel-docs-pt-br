@@ -181,11 +181,13 @@ Uma funcioanalidade muito poderosa do container de serviços é a abilidade de b
 		}
 
 	}
-Neste exemplo, é bom que estajamos injetando dependência de classes, no entanto, nos firmemente acoplanos ao SDK do Pusher. Se o método do pusher SDK, os métodos mudam ou nos decidimos trocar para um novo evento,no iremos precisar mudar o código `CreateOrderHandler`.
 
-### Program To An Interface
+Neste exemplo, é bom que estajamos injetando dependência de classes, no entanto, nos firmemente acoplanos ao SDK do Pusher. Se o método do pusher SDK mudarem ou nos decidimos trocar enteiramente para um novo serviço de evento, precisararemos mudar o código `CreateOrderHandler`.
 
-In order to "insulate" the `CreateOrderHandler` against changes to event pushing, we could define an `EventPusher` interface and a `PusherEventPusher` implementation:
+### Programe Para Uma Interface 
+
+
+Afim de "isolar" o método `CreateOrderHandler` contra alterações para execuções de eventos, nos poderíamos definir uma interface de `EventPusher` e uma implementação de `PusherEventPusher`:
 
 	<?php namespace App\Contracts;
 
@@ -202,11 +204,11 @@ In order to "insulate" the `CreateOrderHandler` against changes to event pushing
 
 	}
 
-Once we have coded our `PusherEventPusher` implementation of this interface, we can register it with the service container like so:
+Uma vez que temos codados nossa implementação de interface `PusherEventPusher`, nos podemos registrar isto com o container de serviços como a seguir
 
 	$this->app->bind('App\Contracts\EventPusher', 'App\Services\PusherEventPusher');
 
-This tells the container that it should inject the `PusherEventPusher` when a class needs an implementation of `EventPusher`. Now we can type-hint the `EventPusher` interface in our constructor:
+Isto informa ao container, que se deve injetar o `PusherEventPusher` quando a classe precisa da implementação do `EventPusher`. Agora nos podemos tipar a inteface `EventPusher` no nosso método construtor:
 
 		/**
 		 * Create a new order handler instance.
@@ -220,9 +222,9 @@ This tells the container that it should inject the `PusherEventPusher` when a cl
 		}
 
 <a name="contextual-binding"></a>
-## Contextual Binding
+## Binding Contextual
 
-Sometimes you may have two classes that utilize the same interface, but you wish to inject different implementations into each class. For example, when our system receives a new Order, we may want to send an event via [PubNub](http://www.pubnub.com/) rather than Pusher. Laravel provides a simple, fluent interface for defining this behavior:
+Algumas vezes você pode ter duas classes que utilizam a mesma interface, mas você deseja injetar diferente implementações em cada classe. Por exemplo, quando nosso sistema recebe um novo Pedido, nos podemos querer enviar um evento via [PubNub](http://www.pubnub.com/) ao invés do Pusher. Laravel fornece uma simples e fluente para definir este comportamento. 
 
 	$this->app->when('App\Handlers\Commands\CreateOrderHandler')
 	          ->needs('App\Contracts\EventPusher')
@@ -231,7 +233,7 @@ Sometimes you may have two classes that utilize the same interface, but you wish
 <a name="tagging"></a>
 ## Tagging
 
-Occasionally, you may need to resolve all of a certain "category" of binding. For example, perhaps you are building a report aggregator that receives an array of many different `Report` interface implementations. After registering the `Report` implementations, you can assign them a tag using the `tag` method:
+Ocasionalmente, você pode precisar resolver tudo de uma certa "categoria" de binding(ligação). Por exemplo, talvez você esteja construindo um relatório agregador que receba um array de várias implementações de intefaces de 'Reports'(Relatórios) diferentes. Depois de registrar as implementações de `Reports`(Relatórios), você pode atribuir-lhe uma tag usando o método `tag`:
 
 	$this->app->bind('SpeedReport', function()
 	{
@@ -245,7 +247,7 @@ Occasionally, you may need to resolve all of a certain "category" of binding. Fo
 
 	$this->app->tag(['SpeedReport', 'MemoryReport'], 'reports');
 
-Once the services have been tagged, you may easily resolve them all via the `tagged` method:
+Uma vez que os serviços estiverem atribuídos a tags, você pode facilmente pode resolve-los todos por meios do método `tagged`:
 
 	$this->app->bind('ReportAggregator', function($app)
 	{
@@ -253,9 +255,10 @@ Once the services have been tagged, you may easily resolve them all via the `tag
 	});
 
 <a name="practical-applications"></a>
-## Practical Applications
+## Aplicações Práticas Practical Applications
 
-Laravel provides several opportunities to use the service container to increase the flexibility and testability of your application. One primary example is when resolving controllers. All controllers are resolved through the service container, meaning you can type-hint dependencies in a controller constructor, and they will automatically be injected.
+Laravel fornece várias oportunidade para usar o container de serviços para aumentar a flexibilidade e testabilidade da sua aplicação. 
+Um exemplo primário é quando se esta resolvendo controladores. Todos os controladores são resolvidos por meio do container de serviços, o que significa que você pode tipar dependências em um método construtor de um controlador, e elas irão automaticamente ser injetadas. 
 
 	<?php namespace App\Http\Controllers;
 
@@ -294,18 +297,20 @@ Laravel provides several opportunities to use the service container to increase 
 
 	}
 
-In this example, the `OrderRepository` class will automatically be injected into the controller. This means that a "mock" `OrderRepository` may be bound into the container when [unit testing](/docs/{{version}}/testing), allowing for painless stubbing of database layer interaction.
+Neste exemplo, a classe `OrderRepository` irá automáticamente ser injetada no controlador. Isto significa que o "mock" `OrderRepository` pode ser ligado dentro do container quando estivermos usando [testes unitários](/docs/{{version}}/testing), permitindo que o desgaste ao interagir com a camada de banco de dados seja menor. 
 
-#### Other Examples Of Container Usage
 
-Of course, as mentioned above, controllers are not the only classes Laravel resolves via the service container. You may also type-hint dependencies on route Closures, filters, queue jobs, event listeners, and more. For examples of using the service container in these contexts, please refer to their documentation.
+#### Outros Exemplos do Uso do container
+
+É claro que, como foi citado acima, controladores não são as unicas classes que Laravel resolve via container de serviços. Você pode também tipar dependências de rotas Closures, filtros, queue jobs(tarefas em fila), listeners(ouvintes) de evento, e muito mais. Para mais exemplos de usar o container de serviços nestes contextos, por favor consultar a documentação do mesmo. 
 
 <a name="container-events"></a>
-## Container Events
+## Container de Eventos 
 
-#### Registering A Resolving Listener
+#### Registrando Um Resolvedor Listener(escutador)
 
-The container fires an event each time it resolves an object. You may listen to this event using the `resolving` method:
+O container dispara um evento a cada vez que resolve um objeto. Você pode escutar este evento usando o método `resolving`: 
+
 
 	$this->app->resolving(function($object, $app)
 	{
@@ -317,4 +322,4 @@ The container fires an event each time it resolves an object. You may listen to 
 		// Called when container resolves objects of type "FooBar"...
 	});
 
-The object being resolved will be passed to the callback.
+O objeto que está sendo resolvido será passado para o callback. 
