@@ -85,23 +85,23 @@ Algumas vezes, você pode desejar bing(ligar) algumas coisa ao container que dev
 
 #### Binding(Ligar) Uma Instância Existente ao Container. 
 
-You may also bind an existing object instance into the container using the `instance` method. The given instance will always be returned on subsequent calls into the container:
+Você pode também bind um objeto intância de objeto existente no container usando o método `instance`. A instância dada sempre será retornada em chamadas subsequentes para o container:
 
 	$fooBar = new FooBar(new SomethingElse);
 
 	$this->app->instance('FooBar', $fooBar);
 
-### Resolving
+### Resolvendo
 
-There are several ways to resolve something out of the container. First, you may use the `make` method:
+Há vários modos de se resolver alguma coisa fora do container. Primeiro, você pode usar o método `make`:
 
 	$fooBar = $this->app->make('FooBar');
 
-Secondly, you may use "array access" on the container, since it implements PHP's `ArrayAccess` interface:
+Segundo, você pode usar "array access"(acesso array) no container, desde que isto implemente `ArrayAccess` interface PHP's:
 
 	$fooBar = $this->app['FooBar'];
 
-Lastly, but most importantly, you may simply "type-hint" the dependency in the constructor of a class that is resolved by the container, including controllers, event listeners, queue jobs, filters, and more. The container will automatically inject the dependencies:
+Por fim, mas o mais importante, você pode simplesmente "type-hint"(tipar) a dependência no méotodo contrutor da classe que é resolvido pelo container, incluindo controladores, listeners de eventos, queue jobs, filtros, e mais. O container irá automaticamente injetar as dependências. 
 
 	<?php namespace App\Http\Controllers;
 
@@ -140,11 +140,11 @@ Lastly, but most importantly, you may simply "type-hint" the dependency in the c
 	}
 
 <a name="binding-interfaces-to-implementations"></a>
-## Binding Interfaces To Implementations
+## Binding Interfaces Para Implementações 
 
-### Injecting Concrete Dependencies
+### Injetando Dependências Concretas
 
-A very powerful feature of the service container is its ability to bind an interface to a given implementation. For example, perhaps our application integrates with the [Pusher](https://pusher.com) web service for sending and receiving real-time events. If we are using Pusher's PHP SDK, we could inject an instance of the Pusher client into a class:
+Uma funcioanalidade muito poderosa do container de serviços é a abilidade de bind(ligar) uma interface a uma implementação dada. Por exemplo, talvez nossa aplicação se integra com o webservice [Pusher](https://pusher.com) para mandar e receber eventos em tempo-real. Se nos estivermos usando o PHP SDK do Pusher's, nos podemos injetar uma instância do cliente Pusher a uma classe. 
 
 	<?php namespace App\Handlers\Commands;
 
@@ -181,8 +181,7 @@ A very powerful feature of the service container is its ability to bind an inter
 		}
 
 	}
-
-In this example, it is good that we are injecting the class dependencies; however, we are tightly coupled to the Pusher SDK. If the Pusher SDK methods change or we decide to switch to a new event service entirely, we will need to change our `CreateOrderHandler` code.
+Neste exemplo, é bom que estajamos injetando dependência de classes, no entanto, nos firmemente acoplanos ao SDK do Pusher. Se o método do pusher SDK, os métodos mudam ou nos decidimos trocar para um novo evento,no iremos precisar mudar o código `CreateOrderHandler`.
 
 ### Program To An Interface
 
