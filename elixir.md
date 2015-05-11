@@ -1,15 +1,15 @@
 # Laravel Elixir
 
-- [Introduction](#introduction)
+- [Introdução](#introduction)
 - [Installation & Setup](#installation)
 - [Usage](#usage)
 - [Gulp](#gulp)
 - [Extensions](#extensions)
 
 <a name="introduction"></a>
-## Introduction
+## Introdução
 
-Laravel Elixir provides a clean, fluent API for defining basic [Gulp](http://gulpjs.com) tasks for your Laravel application. Elixir supports several common CSS and JavaScript pre-processors, and even testing tools.
+Laravel Elixir fornece uma limpa e fluente API para definição básica [Gulp](http://gulpjs.com) de tarefas para sua aplicação Laravel. Elixir dá suporte a vários pré-prcessadores de javascript e css comuns, e até ferramentas de teste. 
 
 If you've ever been confused about how to get started with Gulp and asset compilation, you will love Laravel Elixir!
 
