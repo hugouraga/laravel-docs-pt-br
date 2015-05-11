@@ -1,29 +1,29 @@
 # Contracts
 
-- [Introduction](#introduction)
+- [Introdução](#introduction)
 - [Why Contracts?](#why-contracts)
 - [Contract Reference](#contract-reference)
 - [How To Use Contracts](#how-to-use-contracts)
 
 <a name="introduction"></a>
-## Introduction
+## Introdução
 
-Laravel's Contracts are a set of interfaces that define the core services provided by the framework. For example, a `Queue` contract defines the methods needed for queueing jobs, while the `Mailer` contract defines the methods needed for sending e-mail.
+Os contratos Laravel são um conjunto de interfaces que definem o núcleo de serviços que são fornecidos pelo framework. Por exemplo, o contrato `Queue` defini o os métodos necessários para queueing jobs(enfileirar trabalhos), enquanto o contrato `Mailer` defini os métodos necessários para o envio e-mails.
 
-Each contract has a corresponding implementation provided by the framework. For example, Laravel provides a `Queue` implementation with a variety of drivers, and a `Mailer` implementation that is powered by [SwiftMailer](http://swiftmailer.org/).
+Cada contratos tem uma implementação correspondente fornecidade pelo o frameork. Por exemplo, Laravel fornece a implementação de `Queue` com a variedade de drivers, e a implementação de `Mailer` é alimentada pelo [SwiftMailer](http://swiftmailer.org/).
 
-All of the Laravel contracts live in [their own GitHub repository](https://github.com/illuminate/contracts). This provides a quick reference point for all available contracts, as well as a single, decoupled package that may be utilized by other package developers.
+Todo os contratos de Laravel vivem nos [seus proprios repositórios GitHub](https://github.com/illuminate/contracts). Isto fornece um rápido ponto de referência para todos os contratos disponíveis, bem como um pacote único, desacoplado que pode ser utilizado por outros desenvolvedores de pacotes.  
 
 <a name="why-contracts"></a>
-## Why Contracts?
+## Porque Contratos ?
 
-You may have several questions regarding contracts. Why use interfaces at all? Isn't using interfaces more complicated?
+Você pode ter várias questões sobre contratos. Porque usar interfaces como um todo? Não usar interfaces é mais complicado?
 
-Let's distill the reasons for using interfaces to the following headings: loose coupling and simplicity.
+Vamos destrinchar as razões para usar inteface para os seguintes tópicos: baixo acoplamento e simplicidade.
 
-### Loose Coupling
+### Baixo Acoplamento
 
-First, let's review some code that is tightly coupled to a cache implementation. Consider the following:
+Primeiro, vamos revisar algum código que estreitamente ligado a implementação de cache. Considere o seguinte:
 
 	<?php namespace App\Orders;
 
@@ -61,11 +61,12 @@ First, let's review some code that is tightly coupled to a cache implementation.
 
 	}
 
-In this class, the code is tightly coupled to a given cache implementation. It is tightly coupled because we are depending on a concrete Cache class from a package vendor. If the API of that package changes our code must change as well.
+Nesta classe, o código é estreitamente acoplado para uma dada implementação de cache. Isto é estreitamente acoplado porque nos dependemos de uma classe Cache concreta, de um pacote vendor. Se a API do pacote muda nosso código também deve mudar. 
 
-Likewise, if we want to replace our underlying cache technology (Memcached) with another technology (Redis), we again will have to modify our repository. Our repository should not have so much knowledge regarding who is providing them data or how they are providing it.
 
-**Instead of this approach, we can improve our code by depending on a simple, vendor agnostic interface:**
+Da mesma forma, se nos substituirmos nossa tecnologia cache subjacente (Memcached) com outra tecnologia (Redis), que novamente iremos ter que modificar nosso repositório. Nosso repositório deve não ter muito conhecimento a respeito a quem está fornecendo-lhe dados ou como eles estão fornecedo-os. 
+
+** Aos invés desta abordagem, nos podemos melhorar nosso código pela dependência de uma simples interface agnóstica do vendor:**
 
 	<?php namespace App\Orders;
 
@@ -86,18 +87,18 @@ Likewise, if we want to replace our underlying cache technology (Memcached) with
 
 	}
 
-Now the code is not coupled to any specific vendor, or even Laravel. Since the contracts package contains no implementation and no dependencies, you may easily write an alternative implementation of any given contract, allowing you to replace your cache implementation without modifying any of your cache consuming code.
+Agora o código é não acoplado para qualquer vendor específico, ou até mesmo Laravel. Uma vez que os pacotes de contratos contenham nenhuma implementação e dependência, você pode facilmente escrever uma implementação alternativa de qualquer contrato dado, permitindo você possa substituir sua implementação cache sem modificar qualquer dos seus códigos consumidores de cache. 
 
-### Simplicity
+### Simplicidade
 
-When all of Laravel's services are neatly defined within simple interfaces, it is very easy to determine the functionality offered by a given service. **The contracts serve as succinct documentation to the framework's features.**
+Quando todos os serviços do Laravel são bem definidos dentro interfaces simples, isto é muito fácil de determinar a funcionalidade oferecida por um determinado serviço. ** Os contratos servem como uma documentação sucinta às funcionalidades do framework Laravel.**
 
-In addition, when you depend on simple interfaces, your code is easier to understand and maintain. Rather than tracking down which methods are available to you within a large, complicated class, you can refer to a simple, clean interface.
+Além disso, quando você depende de interfaces simples, seu código é mais fácil de entender e manter. Ao invés de inspecionar dentro dos métodos que estão disponívels para você dentro de grande e complicada classe, você pode se referir a uma simples e limpa interface. 
 
 <a name="contract-reference"></a>
-## Contract Reference
+## Referência do Contrato
 
-This is a reference to most Laravel Contracts, as well as their Laravel "facade" counterparts:
+Isto é a referencia para a maioria dos contratos do Laravel, bem como as "fachadas" Laravel contrapartidas:
 
 Contract  |  Laravel 4.x Facade
 ------------- | -------------
@@ -135,9 +136,9 @@ Contract  |  Laravel 4.x Facade
 [Illuminate\Contracts\View\View](https://github.com/illuminate/contracts/blob/master/View/View.php) | &nbsp;
 
 <a name="how-to-use-contracts"></a>
-## How To Use Contracts
+## Como Usar Contratos 
 
-So, how do you get an implementation of a contract? It's actually quite simple. Many types of classes in Laravel are resolved through the [service container](/docs/{{version}}/container), including controllers, event listeners, filters, queue jobs, and even route Closures. So, to get an implementation of a contract, you can just "type-hint" the interface in the constructor of the class being resolved. For example, take a look at this event handler:
+Então, como você pode começar a implementação de contrato? Na verdade é muito simples. Muitos tipos de classes em Laravel são resolvidas pro meio do [container de serviços](/docs/{{version}}/container), incluíndo controladores, listeners(ouvidores) de eventos, queue jobs(trabalhos em fila), e até mesmo Closures de rota. Então, para começar a implementação de um contrato, você pode apenas "tipar" a interface no contrutor da classe que está sendo resolvida. Por exemplo, de uma olhada neste manipulador de evento.  
 
 	<?php namespace App\Handlers\Events;
 
@@ -176,4 +177,5 @@ So, how do you get an implementation of a contract? It's actually quite simple. 
 
 	}
 
-When the event listener is resolved, the service container will read the type-hints on the constructor of the class, and inject the appropriate value. To learn more about registering things in the service container, check out [the documentation](/docs/{{version}}/container).
+Quando os listener de evento é resolvido, o container de serviço irá ler a tipagem no construtor da classse, e irá injetar o valor apropriado. Para aprender mais sobre como registrar as coisas no container de serviços, dê uma olhada na [documentação](/docs/{{version}}/container).
+
