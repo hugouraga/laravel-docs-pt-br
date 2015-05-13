@@ -1,28 +1,29 @@
 # Laravel Elixir
 
-- [Introduction](#introduction)
-- [Installation & Setup](#installation)
+- [Introdução](#introduction)
+- [Instalação e Configuração](#installation)
 - [Usage](#usage)
 - [Gulp](#gulp)
 - [Extensions](#extensions)
 
 <a name="introduction"></a>
-## Introduction
+## Introdução
 
-Laravel Elixir provides a clean, fluent API for defining basic [Gulp](http://gulpjs.com) tasks for your Laravel application. Elixir supports several common CSS and JavaScript pre-processors, and even testing tools.
+Laravel Elixir fornece uma limpa e fluente API para definição básica [Gulp](http://gulpjs.com) de tarefas para sua aplicação Laravel. Elixir dá suporte a vários pré-prcessadores de javascript e css comuns, e até ferramentas de teste. 
 
-If you've ever been confused about how to get started with Gulp and asset compilation, you will love Laravel Elixir!
+Se você já ficou confuso sobre como começar com Gulp e compilação ativa, você irá amar Laravel Elixir!
+
 
 <a name="installation"></a>
-## Installation & Setup
+## Instalação e Configuração
 
-### Installing Node
+### Instalando o Node
 
-Before triggering Elixir, you must first ensure that Node.js is installed on your machine.
+Antes de engatilhar o Elixir, você tem que primeiro que o Node.js estaja instalado na sua máquina. 
 
     node -v
 
-By default, Laravel Homestead includes everything you need; however, if you aren't using Vagrant, then you can easily install Node by visiting [their download page](http://nodejs.org/download/). Don't worry, it's quick and easy!
+Por padrão, a Laravel Homestead inclui tudo que você precisa; contudo, se você não estiver usando Vagrant, então você pode facilmente instalar o Node visitando [sua página de download](http://nodejs.org/download/). Não se preocupe, é rápido e fácil.
 
 ### Gulp
 
