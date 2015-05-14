@@ -2,9 +2,9 @@
 
 - [Introdução](#introduction)
 - [Instalação e Configuração](#installation)
-- [Usage](#usage)
+- [Uso](#usage)
 - [Gulp](#gulp)
-- [Extensions](#extensions)
+- [Extenções](#extensions)
 
 <a name="introduction"></a>
 ## Introdução

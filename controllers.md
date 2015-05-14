@@ -10,6 +10,7 @@
 
 <a name="introduction"></a>
 ## Introdução
+
 Ao invés de definir todos a lógica das suas requisições em um único arquivo `routes.php`, você pode desejar organizar este comportamente usando classes Controllers ou Controlador. Controladores podem agrupar solicitações HTPP relacionadas a manipulação lógica de uma classe. Controladores são normalmente localizados no diretório `app/Http/Controllers`.
 
 <a name="basic-controllers"></a>
