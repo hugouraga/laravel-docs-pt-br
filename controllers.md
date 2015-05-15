@@ -3,13 +3,14 @@
 - [Introdução](#introduction)
 - [Básico de Controladores](#basic-controllers)
 - [Controller Middleware](#controller-middleware)
-- [Implicit Controllers](#implicit-controllers)
+- [Controllers Ímplicitos](#implicit-controllers)
 - [RESTful Resource Controllers](#restful-resource-controllers)
-- [Dependency Injection & Controllers](#dependency-injection-and-controllers)
-- [Route Caching](#route-caching)
+- [Injeção de Dependências & Controllers](#dependency-injection-and-controllers)
+- [Caching de Rotas](#route-caching)
 
 <a name="introduction"></a>
 ## Introdução
+
 Ao invés de definir todos a lógica das suas requisições em um único arquivo `routes.php`, você pode desejar organizar este comportamente usando classes Controllers ou Controlador. Controladores podem agrupar solicitações HTPP relacionadas a manipulação lógica de uma classe. Controladores são normalmente localizados no diretório `app/Http/Controllers`.
 
 <a name="basic-controllers"></a>
@@ -44,45 +45,45 @@ Nós pode encaminhar para a ação do controlador assim:
 
 #### Controladores & Namespaces
 
-It is very important to note that we did not need to specify the full controller namespace, only the portion of the class name that comes after the `App\Http\Controllers` namespace "root". By default, the `RouteServiceProvider` will load the `routes.php` file within a route group containing the root controller namespace.
+Isto é muito importante para notar que nos não precisavamos especificar o namespace do controlador por completo, apenas uma parte do nome da classe, apenas uma parte do nome da classe que vem depois `App\Http\Controllers` do namespace "root"(raíz). Por padrão, o `RouteServiceProvider` irá carregar o arquivo `routes.php` dentro do grupo de rota contendo o controlador de namespace (root)raiz. 
 
-If you choose to nest or organize your controllers using PHP namespaces deeper into the `App\Http\Controllers` directory, simply use the specific class name relative to the `App\Http\Controllers` root namespace. So, if your full controller class is `App\Http\Controllers\Photos\AdminController`, you would register a route like so:
+Se você escolher aninhar ou organizar seus controladores usando namespaces do PHP no diretório `App\Http\Controllers`, simplemene use o nome específico da classe relativa ao namespace raíz `App\Http\Controllers`. Então, se namespace completo do seu controlador forApp\Http\Controllers\Photos\AdminController`, você deve registrar a rota como:
 
 	Route::get('foo', 'Photos\AdminController@method');
 
-#### Naming Controller Routes
+#### Nomeando as Rotas de Controladores
 
-Like Closure routes, you may specify names on controller routes:
+Como rotas Closure, você pode especificar nomes nas rotas dos controladores. 
 
 	Route::get('foo', ['uses' => 'FooController@method', 'as' => 'name']);
 
-#### URLs To Controller Actions
+#### URLs Para Ações do Controller
 
-To generate a URL to a controller action, use the `action` helper method:
+Para gerar uma URL para uma ação do controlador, user o método helper `action`.
 
 	$url = action('App\Http\Controllers\FooController@method');
 
-If you wish to generate a URL to a controller action while using only the portion of the class name relative to your controller namespace, register the root controller namespace with the URL generator:
+Se você desejar gerar uma URL para uma ação do controlador enquanto estiver usando apenas uma porção do nome da classe relativa ao namespace do seu controlador, registre o namespace do controlador raíz com o gerador de URL.
 
 	URL::setRootControllerNamespace('App\Http\Controllers');
 
 	$url = action('FooController@method');
 
-You may access the name of the controller action being run using the `currentRouteAction` method:
+Você pode acessar o nome da ação do controlador que está sendo executada usando o método `currentRouteAction`:
 
 	$action = Route::currentRouteAction();
 
 <a name="controller-middleware"></a>
 ## Controller Middleware
 
-[Middleware](/docs/{{version}}/middleware) may be specified on controller routes like so:
+[Middleware](/docs/{{version}}/middleware) pode ser especificado nas rotas dos controladores assim:
 
 	Route::get('profile', [
 		'middleware' => 'auth',
 		'uses' => 'UserController@showProfile'
 	]);
 
-Additionally, you may specify middleware within your controller's constructor:
+Além disso, você pode especificar middleware dentro do método construtor do seu controlador: 
 
 	class UserController extends Controller {
 
@@ -101,13 +102,13 @@ Additionally, you may specify middleware within your controller's constructor:
 	}
 
 <a name="implicit-controllers"></a>
-## Implicit Controllers
+## Controladores Implícitos
 
-Laravel allows you to easily define a single route to handle every action in a controller. First, define the route using the `Route::controller` method:
+Laravel permite que você facilmente defina uma rota única para manipular ações em um controlador. Primeiro, defina a rota usando o método `Route::controller`:
 
 	Route::controller('users', 'UserController');
 
-The `controller` method accepts two arguments. The first is the base URI the controller handles, while the second is the class name of the controller. Next, just add methods to your controller, prefixed with the HTTP verb they respond to:
+O método `controller` aceita dois argumentos. O primeiro é a URI base que o controlador manipula, enquando o segundo é o nome da classe do controlador. Em seguida, apenas adicione o método em seu controlador, prefixado com o verbo HTTP que o mesmo responde a:
 
 	class UserController extends BaseController {
 
