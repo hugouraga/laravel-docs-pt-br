@@ -44,13 +44,17 @@ Nós pode encaminhar para a ação do controlador assim:
 
 #### Controladores & Namespaces
 
+Isto é muito importante para notar que nos não precisavamos especificar o namespace do controlador por completo, apenas uma parte do nome da classe, apenas uma parte do nome da classe que vem depois `App\Http\Controllers` do namespace  "root". Por padrão, o `RouteServiceProvider` irá carregar o arquivo `routes.php` dentro do grupo de rota contendo o controlador de namespace (root)raiz. 
+
 It is very important to note that we did not need to specify the full controller namespace, only the portion of the class name that comes after the `App\Http\Controllers` namespace "root". By default, the `RouteServiceProvider` will load the `routes.php` file within a route group containing the root controller namespace.
+
+Se você escolher aninhar ou organizar seus controladores usando namespaces do PHP no diretório `App\Http\Controllers`, simplemene use o nome específico da classe relativa ao namespace raíz `App\Http\Controllers`. Então, se namespace completo do seu controlador forApp\Http\Controllers\Photos\AdminController`, você deve registrar a rota como:
 
 If you choose to nest or organize your controllers using PHP namespaces deeper into the `App\Http\Controllers` directory, simply use the specific class name relative to the `App\Http\Controllers` root namespace. So, if your full controller class is `App\Http\Controllers\Photos\AdminController`, you would register a route like so:
 
 	Route::get('foo', 'Photos\AdminController@method');
 
-#### Naming Controller Routes
+#### Nomeando as Rotas de Controladores
 
 Like Closure routes, you may specify names on controller routes:
 
