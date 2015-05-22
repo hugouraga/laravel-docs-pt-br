@@ -129,34 +129,34 @@ O método `controller` aceita dois argumentos. O primeiro é a URI base que o co
 
 	}
 
-The `index` methods will respond to the root URI handled by the controller, which, in this case, is `users`.
+Os métodos `index` irão responder para a URI raíz tratada pelo controlador, que neste caso, é `users`.
 
-If your controller action contains multiple words, you may access the action using "dash" syntax in the URI. For example, the following controller action on our `UserController` would respond to the `users/admin-profile` URI:
+Se o sua ação do controlador contém múltiplas palavras, você pode acessar a ação usando a sintax "dash" na URI. Por exemplo, a  seguinte ação do nosso controladro `UserController` deve responder a URI `users/admin-profile`: 
 
 	public function getAdminProfile() {}
 
-#### Assigning Route Names
+#### Assinando Nomes as Rotas
 
-If you would like to "name" some of the routes on the controller, you may pass a third argument to the `controller` method:
+Se você quiser "nomear" alguma das rotas no seu controlador, você pode passar um terceiro argumento ao método `controller`:  
 
 	Route::controller('users', 'UserController', [
 		'anyLogin' => 'user.login',
 	]);
 
 <a name="restful-resource-controllers"></a>
-## RESTful Resource Controllers
+## Controladores RESTful Resource 
 
-Resource controllers make it painless to build RESTful controllers around resources. For example, you may wish to create a controller that handles HTTP requests regarding "photos" stored by your application. Using the `make:controller` Artisan command, we can quickly create such a controller:
+Controladores Resource dão facicilidades para se desenvolver controladores RESTful em volta do resouce. Por exemplo, você pode criar um controlador que lida com requisições HTTP sobre "photos"(fotos) armazenadas pela sua aplicação. Usando o comando Artisan `make:controller`, nos podemos rapidamente criar tal controlador. 
 
 	php artisan make:controller PhotoController
 
-Next, we register a resourceful route to the controller:
+Em seguida, nos registramos uma rota resourceful(do tipo resource) para o controlador:
 
 	Route::resource('photo', 'PhotoController');
 
-This single route declaration creates multiple routes to handle a variety of RESTful actions on the photo resource. Likewise, the generated controller will already have methods stubbed for each of these actions, including notes informing you which URIs and verbs they handle.
+Esta declaração única de rota cria múltiplas rotas para ligar com uma variedade de ações RESTful no resource de "photo". Da mesma forma, o controlador gerado já irá ter os métodos prontos para cada ação, incluindo notas informando a você as URIs e verbos que elas manipulam.
 
-#### Actions Handled By Resource Controller
+#### Ações Manipuladas Pelo Controlador Resource
 
 Verb      | Path                  | Action       | Route Name
 ----------|-----------------------|--------------|---------------------
