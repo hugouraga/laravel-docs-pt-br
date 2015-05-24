@@ -2,8 +2,8 @@
 
 - [Introdução](#introduction)
 - [Básico de Controladores](#basic-controllers)
-- [Controller Middleware](#controller-middleware)
-- [Controllers Ímplicitos](#implicit-controllers)
+- [Controladores Middleware](#controller-middleware)
+- [Controladores Ímplicitos](#implicit-controllers)
 - [RESTful Resource Controllers](#restful-resource-controllers)
 - [Injeção de Dependências & Controllers](#dependency-injection-and-controllers)
 - [Caching de Rotas](#route-caching)
@@ -168,9 +168,9 @@ GET       | /photo/{photo}/edit   | edit         | photo.edit
 PUT/PATCH | /photo/{photo}        | update       | photo.update
 DELETE    | /photo/{photo}        | destroy      | photo.destroy
 
-#### Customizing Resource Routes
+#### Customizando Rotas Resource
 
-Additionally, you may specify only a subset of actions to handle on the route:
+Adicionalmente, você pode especificar apenas um subconjunto de ações para lidar na rota:
 
 	Route::resource('photo', 'PhotoController',
 					['only' => ['index', 'show']]);
@@ -178,18 +178,18 @@ Additionally, you may specify only a subset of actions to handle on the route:
 	Route::resource('photo', 'PhotoController',
 					['except' => ['create', 'store', 'update', 'destroy']]);
 
-By default, all resource controller actions have a route name; however, you can override these names by passing a `names` array with your options:
+Por padrão, todas as ações dos controladores resource tem um nome de rota, no entanto, você pode sobreescrever estes nomes passando um array `names` com suas opções:
 
 	Route::resource('photo', 'PhotoController',
 					['names' => ['create' => 'photo.build']]);
 
-#### Handling Nested Resource Controllers
+#### Lidando Com Controladores Nested Resource
 
-To "nest" resource controllers, use "dot" notation in your route declaration:
+Para "nest"(aninhar) um controlador resource, use a notação de "."(ponto) na sua declaração de rota:
 
 	Route::resource('photos.comments', 'PhotoCommentController');
 
-This route will register a "nested" resource that may be accessed with URLs like the following: `photos/{photos}/comments/{comments}`.
+Esta rota registrará o resource "nested" (aninhado) que pode ser acessado com URLs como a seguinte:  `photos/{photos}/comments/{comments}`.
 
 	class PhotoCommentController extends Controller {
 
@@ -207,20 +207,20 @@ This route will register a "nested" resource that may be accessed with URLs like
 
 	}
 
-#### Adding Additional Routes To Resource Controllers
+#### Adicionando outras rotas para Controladores Resource
 
-If it becomes necessary to add additional routes to a resource controller beyond the default resource routes, you should define those routes before your call to `Route::resource`:
+Se se tornar necessário adicionar outras rotas para um controlador resource além das rotas resorce padrão, você deve definir estas rotas antes de chamar o método `Route::resource`:
 
 	Route::get('photos/popular', 'PhotoController@method');
 
 	Route::resource('photos', 'PhotoController');
 
 <a name="dependency-injection-and-controllers"></a>
-## Dependency Injection & Controllers
+## Injeção de dependências e Controladores
 
-#### Constructor Injection
+#### Injeção no método Construtor
 
-The Laravel [service container](/docs/{{version}}/container) is used to resolve all Laravel controllers. As a result, you are able to type-hint any dependencies your controller may need in its constructor:
+O [conainer de serviços](/docs/{{version}}/container) do Laravel é usando para resolver todos os controladores Laravel. Como resultado, você está apto a tipar qualquer dependência que o seu controlador precise no método contrutor: 
 
 	<?php namespace App\Http\Controllers;
 
@@ -246,12 +246,11 @@ The Laravel [service container](/docs/{{version}}/container) is used to resolve 
 		}
 
 	}
+É claro que, você pode também tipar qualquer [Contrato Laravel](/docs/{{version}}/contracts). Se o container pode resolver isto, você pode tipa-lo.
 
-Of course, you may also type-hint any [Laravel contract](/docs/{{version}}/contracts). If the container can resolve it, you can type-hint it.
+#### Injeção de Método
 
-#### Method Injection
-
-In addition to constructor injection, you may also type-hint dependencies on your controller's methods. For example, let's type-hint the `Request` instance on one of our methods:
+Além de injeção no método construtor, você pode também tipar dependências nos métodos do seu controlador. Por exemplo, vamos tipar a instâncias de `Request` em um de nossos métodos:
 
 	<?php namespace App\Http\Controllers;
 
@@ -274,8 +273,7 @@ In addition to constructor injection, you may also type-hint dependencies on you
 		}
 
 	}
-
-If your controller method is also expecting input from a route parameter, simply list your route arguments after your other dependencies:
+Se seu método do controlador também está esperando um parâmetro na rota, simplesmente liste seus argumentos da rota depois das suas outras dependências:
 
 	<?php namespace App\Http\Controllers;
 
@@ -298,17 +296,17 @@ If your controller method is also expecting input from a route parameter, simply
 
 	}
 
-> **Note:** Method injection is fully compatible with [model binding](/docs/{{version}}/routing#route-model-binding). The container will intelligently determine which arguments are model bound and which arguments should be injected.
+> **Nota:** Injeção de métodos é totalmente compatível com > **Note:** Method injection is fully compatible with [model binding](/docs/{{version}}/routing#route-model-binding). O container é inteligete para determinar quais argumentos são modelos vínculados e quais deverão ser injetados. 
 
 <a name="route-caching"></a>
-## Route Caching
+## Caching de Rotas
 
-If your application is exclusively using controller routes, you may take advantage of Laravel's route cache. Using the route cache will drastically decrease the amount of time it take to register all of your application's routes. In some cases, your route registration may even be up to 100x faster! To generate a route cache, just execute the `route:cache` Artisan command:
+Se a sua aplicação está usando exclusivamente as rotas do controlador, você pode tirar vantagem do cache de rotas do Laravel. Usar o cache de rotas irá diminuir drasticamente a quantidade de tempo que leva para registrar todas as rotas da sua aplicação. Em alguns casos, o seu registro de rota pode ser até 100 vezes mais rápido! Para gerar o cache de rotas, apenas execute o comando Artisan `route:cache`:
 
 	php artisan route:cache
 
-That's all there is to it! Your cached routes file will now be used instead of your `app/Http/routes.php` file. Remember, if you add any new routes you will need to generate a fresh route cache. Because of this, you may wish to only run the `route:cache` command during your project's deployment.
+Isto é tudo que você precisa para isto! Seus arquivos de rotas cache serão agora usados ao invés do seu arquivo `app/Http/routes.php`. Lembre-se, se você adicionar qualquer rota nova você também precisará gerar uma rota cache nova. Por causa disto, você pode quere apenas executar o comando `route:cache` durante o deploy do seu projeto. (Conselho só execute o comando no processo de deploy).
 
-To remove the cached routes file without generating a new cache, use the `route:clear` command:
+Para remover os arquivos de rota cache sem gerar um novo cache, use o comando `route:clear`:
 
 	php artisan route:clear
