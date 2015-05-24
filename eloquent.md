@@ -25,10 +25,9 @@
 
 <a name="introduction"></a>
 ## Introdução
+O Eloquent ORM incluido com o Laravel fornece uma bonita, e simples implementação ActiveRecord para trabalhar com o seu banco de dados. Cada trabala do banco de dados tem a um "Modelo" correspondente que é usado para interagir com determinada tabela.
 
-The Eloquent ORM included with Laravel provides a beautiful, simple ActiveRecord implementation for working with your database. Each database table has a corresponding "Model" which is used to interact with that table.
-
-Before getting started, be sure to configure a database connection in `config/database.php`.
+Antes de começar, esteja seguro de configurar a conexão do banco de dados em `config/database.php`.  
 
 <a name="basic-usage"></a>
 ## Uso Básico
