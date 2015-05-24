@@ -1,37 +1,36 @@
 # Eloquent ORM
 
-- [Introduction](#introduction)
-- [Basic Usage](#basic-usage)
-- [Mass Assignment](#mass-assignment)
-- [Insert, Update, Delete](#insert-update-delete)
-- [Soft Deleting](#soft-deleting)
+- [Introdução](#introduction)
+- [Uso Básico](#basic-usage)
+- [Atribuição em Massa](#mass-assignment)
+- [Inserindo(Insert), Atualizando(Update), Removendo(Delete)](#insert-update-delete)
+- [Exclusão Lógica](#soft-deleting)
 - [Timestamps](#timestamps)
-- [Query Scopes](#query-scopes)
-- [Global Scopes](#global-scopes)
-- [Relationships](#relationships)
-- [Querying Relations](#querying-relations)
-- [Eager Loading](#eager-loading)
-- [Inserting Related Models](#inserting-related-models)
-- [Touching Parent Timestamps](#touching-parent-timestamps)
-- [Working With Pivot Tables](#working-with-pivot-tables)
-- [Collections](#collections)
+- [Escopo de Consultas](#query-scopes)
+- [Escopo Global](#global-scopes)
+- [Relacionamentos](#relationships)
+- [Consultando Relacionamentos](#querying-relations)
+- [Eager Loading(Carregamento Ansioso)](#eager-loading)
+- [Inserindo em Modelos Relacionados](#inserting-related-models)
+- [Atualizando Timestamps do modelo Pai](#touching-parent-timestamps)
+- [Trabalhando com Tabelas Pivot](#working-with-pivot-tables)
+- [Coleção](#collections)
 - [Accessors & Mutators](#accessors-and-mutators)
-- [Date Mutators](#date-mutators)
-- [Attribute Casting](#attribute-casting)
-- [Model Events](#model-events)
-- [Model Observers](#model-observers)
-- [Model URL Generation](#model-url-generation)
-- [Converting To Arrays / JSON](#converting-to-arrays-or-json)
+- [Mutators de Data](#date-mutators)
+- [Conversão De Atributos](#attribute-casting)
+- [Eventos de Modelos](#model-events)
+- [Observers de Modelos](#model-observers)
+- [Geração de URL a partir do Modelo](#model-url-generation)
+- [Convertendo para Arrays / JSON](#converting-to-arrays-or-json)
 
 <a name="introduction"></a>
-## Introduction
+## Introdução
+O Eloquent ORM incluido com o Laravel fornece uma bonita, e simples implementação ActiveRecord para trabalhar com o seu banco de dados. Cada trabala do banco de dados tem a um "Modelo" correspondente que é usado para interagir com determinada tabela.
 
-The Eloquent ORM included with Laravel provides a beautiful, simple ActiveRecord implementation for working with your database. Each database table has a corresponding "Model" which is used to interact with that table.
-
-Before getting started, be sure to configure a database connection in `config/database.php`.
+Antes de começar, esteja seguro de configurar a conexão do banco de dados em `config/database.php`.  
 
 <a name="basic-usage"></a>
-## Basic Usage
+## Uso Básico
 
 To get started, create an Eloquent model. Models typically live in the `app` directory, but you are free to place them anywhere that can be auto-loaded according to your `composer.json` file. All Eloquent models extend `Illuminate\Database\Eloquent\Model`.
 
@@ -137,7 +136,7 @@ If you are using [read / write connections](/docs/{{version}}/database#read-writ
 	$user = User::onWriteConnection()->find(1);
 
 <a name="mass-assignment"></a>
-## Mass Assignment
+## Atribuição em Massa
 
 When creating a new model, you pass an array of attributes to the model constructor. These attributes are then assigned to the model via mass-assignment. This is convenient; however, can be a **serious** security concern when blindly passing user input into a model. If user input is blindly passed into a model, the user is free to modify **any** and **all** of the model's attributes. For this reason, all Eloquent models protect against mass-assignment by default.
 
@@ -174,7 +173,7 @@ In the example above, the `id` and `password` attributes may **not** be mass ass
 	protected $guarded = ['*'];
 
 <a name="insert-update-delete"></a>
-## Insert, Update, Delete
+## Inserindo(Insert), Atualizando(Update), Removendo(Delete)
 
 To create a new record in the database from a model, simply create a new model instance and call the `save` method.
 
@@ -262,7 +261,7 @@ If you wish to simply update the timestamps on a model, you may use the `touch` 
 	$user->touch();
 
 <a name="soft-deleting"></a>
-## Soft Deleting
+## Exclusão Lógica
 
 When soft deleting a model, it is not actually removed from your database. Instead, a `deleted_at` timestamp is set on the record. To enable soft deletes for a model, apply the `SoftDeletes` to the model:
 
@@ -352,7 +351,7 @@ If you wish to customize the format of your timestamps, you may override the `ge
 	}
 
 <a name="query-scopes"></a>
-## Query Scopes
+## Escopo de Query
 
 #### Defining A Query Scope
 
@@ -394,7 +393,7 @@ Then pass the parameter into the scope call:
 	$users = User::ofType('member')->get();
 
 <a name="global-scopes"></a>
-## Global Scopes
+## Escopo Global
 
 Sometimes you may wish to define a scope that applies to all queries performed on a model. In essence, this is how Eloquent's own "soft delete" feature works. Global scopes are defined using a combination of PHP traits and an implementation of `Illuminate\Database\Eloquent\ScopeInterface`.
 
@@ -460,7 +459,7 @@ The `apply` method receives an `Illuminate\Database\Eloquent\Builder` query buil
 	}
 
 <a name="relationships"></a>
-## Relationships
+## Relacionamentos
 
 Of course, your database tables are probably related to one another. For example, a blog post may have many comments, or an order could be related to the user who placed it. Eloquent makes managing and working with these relationships easy. Laravel supports many types of relationships:
 
@@ -784,7 +783,7 @@ The `Tag` model may define a method for each of its relationships:
 	}
 
 <a name="querying-relations"></a>
-## Querying Relations
+## Consultando Relacionamentos
 
 #### Querying Relations When Selecting
 
@@ -835,7 +834,7 @@ It may be shortened to simply:
 > **Note:** Relationships that return many results will return an instance of the `Illuminate\Database\Eloquent\Collection` class.
 
 <a name="eager-loading"></a>
-## Eager Loading
+## Eager Loading(Carregamento Ansioso)
 
 Eager loading exists to alleviate the N + 1 query problem. For example, consider a `Book` model that is related to `Author`. The relationship is defined like so:
 
@@ -918,7 +917,7 @@ You may also pass a Closure to set constraints on the query:
 	}]);
 
 <a name="inserting-related-models"></a>
-## Inserting Related Models
+## Inserindo em Modelos Relacionados
 
 #### Attaching A Related Model
 
@@ -954,7 +953,7 @@ When updating a `belongsTo` relationship, you may use the `associate` method. Th
 
 	$user->save();
 
-### Inserting Related Models (Many To Many)
+### Inserindo em Modelos Relacionados (Many To Many)
 
 You may also insert related models when working with many-to-many relations. Let's continue using our `User` and `Role` models as examples. We can easily attach new roles to a user using the `attach` method:
 
@@ -1003,7 +1002,7 @@ In this example, the new `Role` model will be saved and attached to the user mod
 	User::find(1)->roles()->save($role, ['expires' => $expires]);
 
 <a name="touching-parent-timestamps"></a>
-## Touching Parent Timestamps
+## Atualizando Timestamps do modelo Pai
 
 When a model `belongsTo` another model, such as a `Comment` which belongs to a `Post`, it is often helpful to update the parent's timestamp when the child model is updated. For example, when a `Comment` model is updated, you may want to automatically touch the `updated_at` timestamp of the owning `Post`. Eloquent makes it easy. Just add a `touches` property containing the names of the relationships to the child model:
 
@@ -1027,7 +1026,7 @@ Now, when you update a `Comment`, the owning `Post` will have its `updated_at` c
 	$comment->save();
 
 <a name="working-with-pivot-tables"></a>
-## Working With Pivot Tables
+## Trabalhando com Tabelas Pivot
 
 As you have already learned, working with many-to-many relations requires the presence of an intermediate table. Eloquent provides some very helpful ways of interacting with this table. For example, let's assume our `User` object has many `Role` objects that it is related to. After accessing this relationship, we may access the `pivot` table on the models:
 
@@ -1074,7 +1073,7 @@ Laravel also allows you to define a custom Pivot model. To define a custom model
 	}
 
 <a name="collections"></a>
-## Collections
+## Coleções
 
 All multi-result sets returned by Eloquent, either via the `get` method or a `relationship`, will return a collection object. This object implements the `IteratorAggregate` PHP interface so it can be iterated over like an array. However, this object also has a variety of other helpful methods for working with result sets.
 
@@ -1191,7 +1190,7 @@ Mutators are declared in a similar fashion:
 	}
 
 <a name="date-mutators"></a>
-## Date Mutators
+## Mutators de Data
 
 By default, Eloquent will convert the `created_at` and `updated_at` columns to instances of [Carbon](https://github.com/briannesbitt/Carbon), which provides an assortment of helpful methods, and extends the native PHP `DateTime` class.
 
@@ -1212,7 +1211,7 @@ To totally disable date mutations, simply return an empty array from the `getDat
 	}
 
 <a name="attribute-casting"></a>
-## Attribute Casting
+## Conversão De Atributos
 
 If you have some attributes that you want to always convert to another data-type, you may add the attribute to the `casts` property of your model. Otherwise, you will have to define a mutator for each of the attributes, which can be time consuming. Here is an example of using the `casts` property:
 
@@ -1249,7 +1248,7 @@ Now, when you utilize the Eloquent model:
 	$user->options = ['foo' => 'bar'];
 
 <a name="model-events"></a>
-## Model Events
+## Eventos De Modelo
 
 Eloquent models fire several events, allowing you to hook into various points in the model's lifecycle using the following methods: `creating`, `created`, `updating`, `updated`, `saving`, `saved`, `deleting`, `deleted`, `restoring`, `restored`.
 
@@ -1285,7 +1284,7 @@ Your `EventServiceProvider` serves as a convenient place to register your model 
 	}
 
 <a name="model-observers"></a>
-## Model Observers
+## Observers de Modelos
 
 To consolidate the handling of model events, you may register a model observer. An observer class may have methods that correspond to the various model events. For example, `creating`, `updating`, `saving` methods may be on an observer, in addition to any other model event name.
 
@@ -1310,7 +1309,7 @@ You may register an observer instance using the `observe` method:
 	User::observe(new UserObserver);
 
 <a name="model-url-generation"></a>
-## Model URL Generation
+## Geração de URL a partir do Modelo
 
 When you pass a model to the `route` or `action` methods, it's primary key is inserted into the generated URI. For example:
 
@@ -1326,7 +1325,7 @@ In this example the `$user->id` property will be inserted into the `{user}` plac
 	}
 
 <a name="converting-to-arrays-or-json"></a>
-## Converting To Arrays / JSON
+## Convertendo para Arrays / JSON
 
 #### Converting A Model To An Array
 
