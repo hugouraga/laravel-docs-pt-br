@@ -32,17 +32,17 @@ Antes de começar, esteja seguro de configurar a conexão do banco de dados em `
 <a name="basic-usage"></a>
 ## Uso Básico
 
-To get started, create an Eloquent model. Models typically live in the `app` directory, but you are free to place them anywhere that can be auto-loaded according to your `composer.json` file. All Eloquent models extend `Illuminate\Database\Eloquent\Model`.
+Para começar, crie um modelo Eloquent. Models tipicamente estão alocados no diretório `app`, mas sinta-se livre para alocar em qualquer lugar que possar auto-carregado de acordo com o seu arquivo  `composer.json`. Todos os modelos eloquent herdam de `Illuminate\Database\Eloquent\Model`.
 
-#### Defining An Eloquent Model
+#### Definindo um Modelo Eloquent 
 
 	class User extends Model {}
 
-You may also generate Eloquent models using the `make:model` command:
+Você pode também gerar um modelo Eloquent usando o comando `make:model`:
 
 	php artisan make:model User
 
-Note that we did not tell Eloquent which table to use for our `User` model. The "snake case", plural name of the class will be used as the table name unless another name is explicitly specified. So, in this case, Eloquent will assume the `User` model stores records in the `users` table. You may specify a custom table by defining a `table` property on your model:
+Note que nos não dizemos ao Eloquent que tabela ele deve usar para nosso modelo  `User`. O "snake case"(escrita separada por underline "_"), o nome no plural da classe que será usada como o nome da tabela, a menos que outro nome seja explicitamente especificado. Então, neste caso, o Eloquent assumirá que o modelo `User` armazenará registro na tabela `users`. Você pode especificar uma tabela customizada definindo a propriedade `table` no seu modelo:
 
 	class User extends Model {
 
