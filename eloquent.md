@@ -50,7 +50,7 @@ Note que nos não dizemos ao Eloquent que tabela ele deve usar para nosso modelo
 
 	}
 
-> **Note:** Eloquent will also assume that each table has a primary key column named `id`. You may define a `primaryKey` property to override this convention. Likewise, you may define a `connection` property to override the name of the database connection that should be used when utilizing the model.
+> **Nota:** O Eloquent irá também assumir que cada tabela tem a chave primária nomeada como `id`. Você pode definir a propriedade `primaryKey` para sobrescrever esta convenção. Da mesma forma, você pode definir a propriedade `connection` para sobrescrever o nome da conexão de banco de dados que deve ser usada quando se estiver utilizando o modelo. 
 
 Once a model is defined, you are ready to start retrieving and creating records in your table. Note that you will need to place `updated_at` and `created_at` columns on your table by default. If you do not wish to have these columns automatically maintained, set the `$timestamps` property on your model to `false`.
 
