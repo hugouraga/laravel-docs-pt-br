@@ -52,29 +52,29 @@ Note que nos não dizemos ao Eloquent que tabela ele deve usar para nosso modelo
 
 > **Nota:** O Eloquent irá também assumir que cada tabela tem a chave primária nomeada como `id`. Você pode definir a propriedade `primaryKey` para sobrescrever esta convenção. Da mesma forma, você pode definir a propriedade `connection` para sobrescrever o nome da conexão de banco de dados que deve ser usada quando se estiver utilizando o modelo. 
 
-Once a model is defined, you are ready to start retrieving and creating records in your table. Note that you will need to place `updated_at` and `created_at` columns on your table by default. If you do not wish to have these columns automatically maintained, set the `$timestamps` property on your model to `false`.
+Uma vez que o modelo é definido, você está pronto para compeçar a recuperar e crair registros na sua tabela. Note que você irá precisar por padrão alocar as colunas `updated_at` e `created_at` na sua tabela. Se você não desejar ter estas colunas automaticamente mantidas, defina a propriedade `$timestamps` do seu modelo como  `false`.
 
-#### Retrieving All Records
+#### Recuperando Todos os Registros
 
 	$users = User::all();
 
-#### Retrieving A Record By Primary Key
+#### Recuperando Registro Pela Chave Primária. y
 
 	$user = User::find(1);
 
 	var_dump($user->name);
 
-> **Note:** All methods available on the [query builder](/docs/queries) are also available when querying Eloquent models.
+> **Note:** Todos os métodos disponíveis no [query builder](/docs/queries) também estão disponíves quando estiver consultando modelos. 
 
-#### Retrieving A Model By Primary Key Or Throw An Exception
+#### Recuparando Registros de Um Modelo Pela Chave Primária Ou Levante um Exceção 
 
-Sometimes you may wish to throw an exception if a model is not found. To do this, you may use the `firstOrFail` method:
+Algumas vezes você pode desejar levantar uma exceção se o modelo não for encontrado. Para fazer isto, você pode usar o método `firstOrFail`:
 
 	$model = User::findOrFail(1);
 
 	$model = User::where('votes', '>', 100)->firstOrFail();
 
-Doing this will let you catch the exception so you can log and display an error page as necessary. To catch the `ModelNotFoundException`, add some logic to your `app/Exceptions/Handler.php` file.
+Fazendo isto permitirá que você pegue a exeção então você pode registar(log) e monstrar uma página de erro se necessário. Para pegar o `ModelNotFoundException`, adicionar aluma lógica ao seu arquivo`app/Exceptions/Handler.php`.
 
 	use Illuminate\Database\Eloquent\ModelNotFoundException;
 
