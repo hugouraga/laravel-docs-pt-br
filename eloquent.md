@@ -58,7 +58,7 @@ Uma vez que o modelo é definido, você está pronto para compeçar a recuperar 
 
 	$users = User::all();
 
-#### Recuperando Registro Pela Chave Primária. y
+#### Recuperando Registro Pela Chave Primária. 
 
 	$user = User::find(1);
 
@@ -92,7 +92,7 @@ Fazendo isto permitirá que você pegue a exeção então você pode registar(lo
 
 	}
 
-#### Querying Using Eloquent Models
+#### Consultando Usando Modelos Eloquent
 
 	$users = User::where('votes', '>', 100)->take(10)->get();
 
@@ -101,19 +101,19 @@ Fazendo isto permitirá que você pegue a exeção então você pode registar(lo
 		var_dump($user->name);
 	}
 
-#### Eloquent Aggregates
+#### Agregados do Eloquent
 
-Of course, you may also use the query builder aggregate functions.
+É claro que, você pode também usar o construtor de consultas(query builder) para agregar funções.
 
 	$count = User::where('votes', '>', 100)->count();
 
-If you are unable to generate the query you need via the fluent interface, feel free to use `whereRaw`:
+Se você não incapacitado de gerar a consulta que você precisa pela interface fluente, sinta-se a vontade para usar `whereRaw`:
 
 	$users = User::whereRaw('age > ? and votes = 100', [25])->get();
 
-#### Chunking Results
+#### Dividindo(Chunking) Resultados
 
-If you need to process a lot (thousands) of Eloquent records, using the `chunk` command will allow you to do without eating all of your RAM:
+Se você precisa processar muitos(milhares) de registros Eloquent, usando o comando `chunk` irá lhe permitir fazer isto sem consumir toda a sua memoria RAM:
 
 	User::chunk(200, function($users)
 	{
@@ -122,16 +122,16 @@ If you need to process a lot (thousands) of Eloquent records, using the `chunk` 
 			//
 		}
 	});
+	
+O primeiro argumento(parâmetro) passado para o método é o número de registro que você deseja receber por "chunk" (divisão de resultados/partes). A Closure passada como o segundo argumento irá ser chamada a cada parte "chunk" que for recuperada do banco de dados.
 
-The first argument passed to the method is the number of records you wish to receive per "chunk". The Closure passed as the second argument will be called for each chunk that is pulled from the database.
+#### Especificando a Conexão da Consulta
 
-#### Specifying The Query Connection
-
-You may also specify which database connection should be used when running an Eloquent query. Simply use the `on` method:
+Você pode também especificar que a conexão do banco de dados deve ser usada quando estiver executando uma Consulta Eloquent. Simplesmente use o método `on`:
 
 	$user = User::on('connection-name')->find(1);
 
-If you are using [read / write connections](/docs/{{version}}/database#read-write-connections), you may force the query to use the "write" connection with the following method:
+Se você estiver usando [leia / escreva conexões](/docs/{{version}}/database#read-write-connections), você pode forçar a query a usar a conexão "write" com o seguinte método:
 
 	$user = User::onWriteConnection()->find(1);
 
