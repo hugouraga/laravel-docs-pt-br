@@ -138,21 +138,20 @@ Se você estiver usando [leia / escreva conexões](/docs/{{version}}/database#re
 <a name="mass-assignment"></a>
 ## Atribuição em Massa
 
-When creating a new model, you pass an array of attributes to the model constructor. These attributes are then assigned to the model via mass-assignment. This is convenient; however, can be a **serious** security concern when blindly passing user input into a model. If user input is blindly passed into a model, the user is free to modify **any** and **all** of the model's attributes. For this reason, all Eloquent models protect against mass-assignment by default.
+Quando estivermos criando um novo modelo, você passa um array de atributos para o construtor do mesmo. Estes atributos são atribuidos aos modelos via mass-assigment (atribuição em massa). Isto é conveniente; no entanto, pode ser uma **séria** preocupação com segurança quando cegamente estivermos passando o input do usuário a um modelo. Se o input do usuário é cegamente passado ao modelo, o usuário é livre para modificar **qualquer** e **todo** atributo do modelo.Por estas razões, todos os modelos Eloquent são protegidos contra mass-assignment por padrão. 
 
-To get started, set the `fillable` or `guarded` properties on your model.
+Para começar, defina as propriedades `fillable` or `guarded` no seu modelo.
 
-#### Defining Fillable Attributes On A Model
+#### Definindo Atributos Fillable em um Modelo 
 
-The `fillable` property specifies which attributes should be mass-assignable. This can be set at the class or instance level.
+A propriedade `fillable` especifica que atributos devem ser atribuidos em massa. Isto pode ser definido na classe ou a nível de instância. 
 
 	class User extends Model {
 
 		protected $fillable = ['first_name', 'last_name', 'email'];
 
 	}
-
-In this example, only the three listed attributes will be mass-assignable.
+Neste exemplo, apenas os três atributos listados serão atribuídos em massa. 
 
 #### Defining Guarded Attributes On A Model
 
