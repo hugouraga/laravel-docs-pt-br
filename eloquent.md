@@ -153,9 +153,9 @@ A propriedade `fillable` especifica que atributos devem ser atribuidos em massa.
 	}
 Neste exemplo, apenas os três atributos listados serão atribuídos em massa. 
 
-#### Defining Guarded Attributes On A Model
+#### Definindo Atributos Guardados em um Modelo
 
-The inverse of `fillable` is `guarded`, and serves as a "black-list" instead of a "white-list":
+O inverso de `fillable` é `guarded`, e server como uma "black-list" (lista negra) ao invés de uma "white-list" (listra branca)
 
 	class User extends Model {
 
@@ -163,7 +163,7 @@ The inverse of `fillable` is `guarded`, and serves as a "black-list" instead of 
 
 	}
 
-> **Note:** When using `guarded`, you should still never pass `Input::get()` or any raw array of user controlled input into a `save` or `update` method, as any column that is not guarded may be updated.
+>**Nota:** Quando usamos `guarded`, você ainda nunca deve passar `Input::get()` ou qualquer raw array(array sem tratamento de acordo com os atributos) de entrada controlado pelo o usuário para os métodos `save` ou `update`, como qualquer coluna que não for guarded poderá poderá ser atualizada. 
 
 #### Blocking All Attributes From Mass Assignment
 
