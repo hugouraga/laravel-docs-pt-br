@@ -165,18 +165,18 @@ O inverso de `fillable` é `guarded`, e server como uma "black-list" (lista negr
 
 >**Nota:** Quando usamos `guarded`, você ainda nunca deve passar `Input::get()` ou qualquer raw array(array sem tratamento de acordo com os atributos) de entrada controlado pelo o usuário para os métodos `save` ou `update`, como qualquer coluna que não for guarded poderá poderá ser atualizada. 
 
-#### Blocking All Attributes From Mass Assignment
+#### Bloqueando Todos os Atributos de Atribuição em Massa 
 
-In the example above, the `id` and `password` attributes may **not** be mass assigned. All other attributes will be mass assignable. You may also block **all** attributes from mass assignment using the guard property:
+No exemplo acima, os atributos `id` e `password` **não** podem ter atribuição em massa. Todos os outros atributos irão ser atribuídos em massa. Você pode também bloquear **todos** os atributos de atribuição em massa usando a propriedade guard:
 
 	protected $guarded = ['*'];
 
 <a name="insert-update-delete"></a>
 ## Inserindo(Insert), Atualizando(Update), Removendo(Delete)
 
-To create a new record in the database from a model, simply create a new model instance and call the `save` method.
+Para criar um novo registro no banco de dados de um modelo, simplesmente crie uma instância de um modelo e chame o método `save`.
 
-#### Saving A New Model
+#### Salvando um Novo Modelo
 
 	$user = new User;
 
@@ -184,15 +184,15 @@ To create a new record in the database from a model, simply create a new model i
 
 	$user->save();
 
-> **Note:** Typically, your Eloquent models will have auto-incrementing keys. However, if you wish to specify your own keys, set the `incrementing` property on your model to `false`.
+> **Nota:** Tipicamente, seu modelo Eloquent irá ter chaves auto-incrementais. No entanto, se você quiser especificar suas próprias chaves, defina a propriedade `incrementing` no seu modelo como `false`.
 
-You may also use the `create` method to save a new model in a single line. The inserted model instance will be returned to you from the method. However, before doing so, you will need to specify either a `fillable` or `guarded` attribute on the model, as all Eloquent models protect against mass-assignment.
+Você também pode usar o método `create` para salvar um novo modelo um uma única linha. A instância do modelo inserido será retornada para você a partir do método. No entanto, antes de faze-lo, você precisará espeficar também os atributos `fillable` ou `guarded` no modelo, como todos os modelos Eloquent protegidos contra atribuição-em-massa.  
 
-After saving or creating a new model that uses auto-incrementing IDs, you may retrieve the ID by accessing the object's `id` attribute:
+Depois de salver ou criar um novo modelo que use auto-incrementação de IDs, você pode recuperar o ID acessando o atributo `id` do objeto:
 
 	$insertedId = $user->id;
 
-#### Setting The Guarded Attributes On The Model
+#### Definindo Atributos Guarded No Modelo
 
 	class User extends Model {
 
@@ -200,7 +200,7 @@ After saving or creating a new model that uses auto-incrementing IDs, you may re
 
 	}
 
-#### Using The Model Create Method
+#### Usando O Método Create Do Modelo
 
 	// Create a new user in the database...
 	$user = User::create(['name' => 'John']);
@@ -211,9 +211,9 @@ After saving or creating a new model that uses auto-incrementing IDs, you may re
 	// Retrieve the user by the attributes, or instantiate a new instance...
 	$user = User::firstOrNew(['name' => 'John']);
 
-#### Updating A Retrieved Model
+#### Atualizadno Um Modelo Recuperado
 
-To update a model, you may retrieve it, change an attribute, and use the `save` method:
+Para atualizar um modelo, você pode recuperar isto, mudando o atributo, e usando o método `save`:
 
 	$user = User::find(1);
 
@@ -221,27 +221,27 @@ To update a model, you may retrieve it, change an attribute, and use the `save` 
 
 	$user->save();
 
-#### Saving A Model And Relationships
+#### Salvando Um Modelo E Relacionamentos 
 
-Sometimes you may wish to save not only a model, but also all of its relationships. To do so, you may use the `push` method:
+Algumas vezes você pode desejar salvar não apenas o modelo, mas também todos os seus relacionamentos. Para fazê-lo, você pode usar o método `push`:
 
 	$user->push();
 
-You may also run updates as queries against a set of models:
+Você pode também executar atualizações como consultas em um conjunto de modelos: 
 
 	$affectedRows = User::where('votes', '>', 100)->update(['status' => 2]);
 
-> **Note:** No model events are fired when updating a set of models via the Eloquent query builder.
+> **Nota:** Nenhum evento do modelo é executado quando se estiver atualizando um conjunto de modelos via o query builder(contrutor de consultas) do Eloquent.
 
-#### Deleting An Existing Model
+#### Deletando Um Modelo Existente
 
-To delete a model, simply call the `delete` method on the instance:
+Para Deletar um modelo, simplesmente chame o método delete `delete` na instância:
 
 	$user = User::find(1);
 
 	$user->delete();
 
-#### Deleting An Existing Model By Key
+#### Deletando um Modelo Existente Pela Chave
 
 	User::destroy(1);
 
@@ -249,20 +249,20 @@ To delete a model, simply call the `delete` method on the instance:
 
 	User::destroy(1, 2, 3);
 
-Of course, you may also run a delete query on a set of models:
+Claro que, você pode também executar uma query delete em um conjunto de modelos:
 
 	$affectedRows = User::where('votes', '>', 100)->delete();
 
-#### Updating Only The Model's Timestamps
+#### Atualizando Apenas os Timestamps dos Modelos
 
-If you wish to simply update the timestamps on a model, you may use the `touch` method:
+Se você desejar apenas atualizar os timestamps em modelo, você pode usar o método `touch`:
 
 	$user->touch();
 
 <a name="soft-deleting"></a>
 ## Exclusão Lógica
 
-When soft deleting a model, it is not actually removed from your database. Instead, a `deleted_at` timestamp is set on the record. To enable soft deletes for a model, apply the `SoftDeletes` to the model:
+Quando se esta excluindo lógicamente um modelo, isto na verdade não está sendo removido do seu banco de dados. Ao invés, o timestamp `deleted_at` é definido no registro do banco de dados. Para ativar a exclusão lógica para um modelo, aplique `SoftDeletes` no mesmo:
 
 	use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -274,47 +274,48 @@ When soft deleting a model, it is not actually removed from your database. Inste
 
 	}
 
-To add a `deleted_at` column to your table, you may use the `softDeletes` method from a migration:
+Para adicionar a coluna `deleted_at` na sua tabela, você pode usar o método `softDeletes` a partir de uma migração:
 
 	$table->softDeletes();
 
 Now, when you call the `delete` method on the model, the `deleted_at` column will be set to the current timestamp. When querying a model that uses soft deletes, the "deleted" models will not be included in query results.
 
-#### Forcing Soft Deleted Models Into Results
+#### Forçando os Modelos Excluídos Logicamente a Aparecerem Nas Consultas
 
-To force soft deleted models to appear in a result set, use the `withTrashed` method on the query:
+Para forçar modelos excluídos logicamente a aparecer em resultados das consultas, use o método `withTrashed` na consulta:
 
 	$users = User::withTrashed()->where('account_id', 1)->get();
 
-The `withTrashed` method may be used on a defined relationship:
+O método `withTrashed` pode ser usado em relacionamentos definidos:
 
 	$user->posts()->withTrashed()->get();
 
-If you wish to **only** receive soft deleted models in your results, you may use the `onlyTrashed` method:
+Se você desejar **apenas** receber modelos excluídos logicamente nos seus resultados de consulta, você pode usar o método 
+`onlyTrashed`:
 
 	$users = User::onlyTrashed()->where('account_id', 1)->get();
 
-To restore a soft deleted model into an active state, use the `restore` method:
+Para recuperar um modelo excluído logicamente ao seu estado ativo, user o método `restore`:
 
 	$user->restore();
 
-You may also use the `restore` method on a query:
+Você pode também usar o método `restore` em uma query:
 
 	User::withTrashed()->where('account_id', 1)->restore();
 
-Like with `withTrashed`, the `restore` method may also be used on relationships:
+Como com o método `withTrashed`, o método `restore` também pode ser usado em relacionamentos:
 
 	$user->posts()->restore();
 
-If you wish to truly remove a model from the database, you may use the `forceDelete` method:
+Se você verdadeiramente deseja remover um modelo do seu banco de dados, você pode usar o método `forceDelete`:
 
 	$user->forceDelete();
 
-The `forceDelete` method also works on relationships:
+O método `forceDelete` também trabalhar em relacionamentos:
 
 	$user->posts()->forceDelete();
 
-To determine if a given model instance has been soft deleted, you may use the `trashed` method:
+Para determinar se uma instância de um modelo dado foi excluída logicamente, você pode usar o método `trashed`:
 
 	if ($user->trashed())
 	{
