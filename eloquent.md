@@ -325,7 +325,7 @@ Para determinar se uma instância de um modelo dado foi excluída logicamente, v
 <a name="timestamps"></a>
 ## Timestamps
 
-By default, Eloquent will maintain the `created_at` and `updated_at` columns on your database table automatically. Simply add these `timestamp` columns to your table and Eloquent will take care of the rest. If you do not wish for Eloquent to maintain these columns, add the following property to your model:
+Por padrão, o Eloquent irá manter as colunas `created_at` e `updated_at` na tabela do seu bando de dados automaticamente. Simplesmente adicionce essas colunas `timestamp` a sua tabela e o Eloquent tomará conta do resto. Se você não desejar que o Eloquent não mantenha estas colunas, adicione a seguinte propriedade para o seu modelo:
 
 #### Disabling Auto Timestamps
 
