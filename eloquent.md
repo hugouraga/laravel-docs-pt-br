@@ -278,7 +278,7 @@ Para adicionar a coluna `deleted_at` na sua tabela, você pode usar o método `s
 
 	$table->softDeletes();
 
-Now, when you call the `delete` method on the model, the `deleted_at` column will be set to the current timestamp. When querying a model that uses soft deletes, the "deleted" models will not be included in query results.
+Agora, quando você chamar o método `delete` no modelo, a coluna `deleted_at` irá ser definida para a data atual. Quando estivermos consultado um modelo que usar exclusão lógica, os modelos "deletados" não serão incluídos nos resultados das consultas. 
 
 #### Forçando os Modelos Excluídos Logicamente a Aparecerem Nas Consultas
 
@@ -339,7 +339,7 @@ Por padrão, o Eloquent irá manter as colunas `created_at` e `updated_at` na ta
 
 #### Providing A Custom Timestamp Format
 
-If you wish to customize the format of your timestamps, you may override the `getDateFormat` method in your model:
+Se você deseja customizar o formato dos seus "timestamps", você pode sobrescrever o método `getDateFormat` no seu modelo:
 
 	class User extends Model {
 
@@ -351,11 +351,11 @@ If you wish to customize the format of your timestamps, you may override the `ge
 	}
 
 <a name="query-scopes"></a>
-## Escopo de Query
+## Escopo de Query(Consulta)
 
-#### Defining A Query Scope
+#### Definindo o Escopo de Uma Consulta 
 
-Scopes allow you to easily re-use query logic in your models. To define a scope, simply prefix a model method with `scope`:
+Escopo lhe permite reúsar faicilmente a lógica de cosulta nos seus modelos. Para definir o escopo, simplesmente préfixe o método do modelo com `scope`:
 
 	class User extends Model {
 
@@ -371,13 +371,13 @@ Scopes allow you to easily re-use query logic in your models. To define a scope,
 
 	}
 
-#### Utilizing A Query Scope
+#### Utilizando o Escopo de Query
 
 	$users = User::popular()->women()->orderBy('created_at')->get();
 
-#### Dynamic Scopes
+#### Escopo Dinâmico
 
-Sometimes you may wish to define a scope that accepts parameters. Just add your parameters to your scope function:
+Algumas vezes você pode desejar definir o escopo que aceite parâmetros. Apenas adicione seus parâmetros a função de escopo:
 
 	class User extends Model {
 
@@ -388,16 +388,17 @@ Sometimes you may wish to define a scope that accepts parameters. Just add your 
 
 	}
 
-Then pass the parameter into the scope call:
+Então passe o parâmetro na chamada do escopo:
 
 	$users = User::ofType('member')->get();
 
 <a name="global-scopes"></a>
 ## Escopo Global
 
-Sometimes you may wish to define a scope that applies to all queries performed on a model. In essence, this is how Eloquent's own "soft delete" feature works. Global scopes are defined using a combination of PHP traits and an implementation of `Illuminate\Database\Eloquent\ScopeInterface`.
+Algumas vezes você pode desejar definir o escopo que aplique a todas as consultas feitas em um modelo. Na essência, isto é 
+como a característica "exclusão lógica"(sof delete) própria do Eloquent funciona. Escopos globais são definidos usando a combinação de traits PHP e a implementação de `Illuminate\Database\Eloquent\ScopeInterface`.
 
-First, let's define a trait. For this example, we'll use the `SoftDeletes` that ships with Laravel:
+Primeiro, vamos definir a trait. Para este exemplo, nos irémos usar o `SoftDeletes` que vem com o Laravel:
 
 	trait SoftDeletes {
 
