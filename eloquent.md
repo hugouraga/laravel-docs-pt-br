@@ -414,9 +414,10 @@ Primeiro, vamos definir a trait. Para este exemplo, nos irémos usar o `SoftDele
 
 	}
 
-If an Eloquent model uses a trait that has a method matching the `bootNameOfTrait` naming convention, that trait method will be called when the Eloquent model is booted, giving you an opportunity to register a global scope, or do anything else you want. A scope must implement `ScopeInterface`, which specifies two methods: `apply` and `remove`.
+Se um modelo Eloquent usa trait que tem um método que corresponda a convenção de nomeclatura `bootNameOfTrait` (bootNomeDaTrait), esse método trait irá ser chamado quando o modelo Eloquent é inicializado, dando a você a oportunidade de registrar um escopo global, ou fazer quaalquer outra coisa que você queira. O escopo tem que implementar a `ScopeInterface`, que especifica dois métodos: `apply` e `remove`.
 
-The `apply` method receives an `Illuminate\Database\Eloquent\Builder` query builder object and the `Model` it's applied to, and is responsible for adding any additional `where` clauses that the scope wishes to add. The `remove` method also receives a `Builder` object and `Model` and is responsible for reversing the action taken by `apply`. In other words, `remove` should remove the `where` clause (or any other clause) that was added. So, for our `SoftDeletingScope`, the methods look something like this:
+O método `apply` recebe um objeto query builder(construtor de consultas) `Illuminate\Database\Eloquent\Builder` e o `Modelo` que é aplicado, e é responsável por adicionar qualquer cláusula `where` adicional que o escopo deseja adicionar. O método `remove` também recebe um objeto `Builder` construtor e um modelo e é responsável por reversão de ações feitas pelo método `apply`. Em outras palavras, `remove` deve remover as cláusulas `where` (ou qualquer outra cláusula) que foi adicionada. Portanto, para o nosso  `SoftDeletingScope`, os métodos devem parecer como algo assim:
+
 
 	/**
 	 * Apply the scope to a given Eloquent query builder.
@@ -462,7 +463,7 @@ The `apply` method receives an `Illuminate\Database\Eloquent\Builder` query buil
 <a name="relationships"></a>
 ## Relacionamentos
 
-Of course, your database tables are probably related to one another. For example, a blog post may have many comments, or an order could be related to the user who placed it. Eloquent makes managing and working with these relationships easy. Laravel supports many types of relationships:
+É claro que, suas tabelas do banco de dados provavelmente tem algum relacionamento uma com as outras, Por exemplo, um post de um blog pode muitos comentário, ou uma compra pode ser relacionada a um usuário que a realizou. Eloquent faz o gerenciamento e o funcionamento com esses relacionamentos de forma fácil. Laravel suporta vários tipos de relacionamentos. 
 
 - [One To One](#one-to-one)
 - [One To Many](#one-to-many)
@@ -472,11 +473,12 @@ Of course, your database tables are probably related to one another. For example
 - [Many To Many Polymorphic Relations](#many-to-many-polymorphic-relations)
 
 <a name="one-to-one"></a>
-### One To One
+### Um Para Um
 
-#### Defining A One To One Relation
+#### Definindo o Relação Um para Um
 
-A one-to-one relationship is a very basic relation. For example, a `User` model might have one `Phone`. We can define this relation in Eloquent:
+O relacioamento um-para-um é um relacionamento muito básico. Por exemplo, o modelo `User` pode ter um `Phone`. Nos podemos definir este relacionamento no Eloquent:
+
 
 	class User extends Model {
 
@@ -487,25 +489,25 @@ A one-to-one relationship is a very basic relation. For example, a `User` model 
 
 	}
 
-The first argument passed to the `hasOne` method is the name of the related model. Once the relationship is defined, we may retrieve it using Eloquent's [dynamic properties](#dynamic-properties):
+O primeiro argumento passado para o método `hasOne` é o nome do modelo relacionado. Uma vez que o relaciomento é definido, nos podemos recuperar isto usando as [propriedades dinâmicas](#dynamic-properties) do Eloquent:
 
 	$phone = User::find(1)->phone;
 
-The SQL performed by this statement will be as follows:
+O SQL realizado por esta declaração irá ser como o seguinte:
 
 	select * from users where id = 1
 
 	select * from phones where user_id = 1
 
-Take note that Eloquent assumes the foreign key of the relationship based on the model name. In this case, `Phone` model is assumed to use a `user_id` foreign key. If you wish to override this convention, you may pass a second argument to the `hasOne` method. Furthermore, you may pass a third argument to the method to specify which local column that should be used for the association:
+Tome nota que o Eloquent assume que a chave estrangeira do relacionamento é baseado no nome do modelo. Neste caso, o modelo `Phone` é assume usar a chave estrangeira  `user_id`. Se você desejar sobreescrever esta convenção, você pode passar um segundo argumento para o método `hasOne`. Além disso, você pode passar um terceiro argumento para o método para especificar qual coluna local que pode ser usada para a associação:
 
 	return $this->hasOne('App\Phone', 'foreign_key');
 
 	return $this->hasOne('App\Phone', 'foreign_key', 'local_key');
 
-#### Defining The Inverse Of A Relation
+#### Definindo O Inverso de uma Relação 
 
-To define the inverse of the relationship on the `Phone` model, we use the `belongsTo` method:
+Para definir o inverso de um relaciomento no modelo `Phone`, nos usamos o método `belongsTo`:
 
 	class Phone extends Model {
 
@@ -516,7 +518,7 @@ To define the inverse of the relationship on the `Phone` model, we use the `belo
 
 	}
 
-In the example above, Eloquent will look for a `user_id` column on the `phones` table. If you would like to define a different foreign key column, you may pass it as the second argument to the `belongsTo` method:
+Neste exemplo acima, o Eloquent irá olhar para coluna `user_id` na tabela `phones`. Se você quiser definir uma coluna de chave estrangeira diferente, você pode passar isto como um segundo argumento para o método `belongsTo`:
 
 	class Phone extends Model {
 
@@ -526,8 +528,7 @@ In the example above, Eloquent will look for a `user_id` column on the `phones` 
 		}
 
 	}
-
-Additionally, you pass a third parameter which specifies the name of the associated column on the parent table:
+Adicionalmente, você passa um terceiro parâmetro que especifica o nome da coluna associada na tabela pai:
 
 	class Phone extends Model {
 
@@ -539,9 +540,9 @@ Additionally, you pass a third parameter which specifies the name of the associa
 	}
 
 <a name="one-to-many"></a>
-### One To Many
+### Um para Muitos 
 
-An example of a one-to-many relation is a blog post that "has many" comments. We can model this relation like so:
+Um exemplo de relacionamento um-para-muito é um post de um blog que "has many"(tem muitos) comentários. Nos podemos modelar este relacionamento assim:
 
 	class Post extends Model {
 
@@ -552,11 +553,11 @@ An example of a one-to-many relation is a blog post that "has many" comments. We
 
 	}
 
-Now we can access the post's comments through the [dynamic property](#dynamic-properties):
+Agora nos podemos acessar os comentários do post por meio das [propriedades dinâmicas](#dynamic-properties):
 
 	$comments = Post::find(1)->comments;
 
-If you need to add further constraints to which comments are retrieved, you may call the `comments` method and continue chaining conditions:
+Se você precisar adicionar mais uma constraint aos comentários que são recuperados, você pode chamar o método `comments` e continuar encadeando condições:
 
 	$comments = Post::find(1)->comments()->where('title', '=', 'foo')->first();
 
