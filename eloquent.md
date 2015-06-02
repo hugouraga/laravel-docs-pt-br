@@ -465,15 +465,15 @@ O método `apply` recebe um objeto query builder(construtor de consultas) `Illum
 
 É claro que, suas tabelas do banco de dados provavelmente tem algum relacionamento uma com as outras, Por exemplo, um post de um blog pode muitos comentário, ou uma compra pode ser relacionada a um usuário que a realizou. Eloquent faz o gerenciamento e o funcionamento com esses relacionamentos de forma fácil. Laravel suporta vários tipos de relacionamentos. 
 
-- [One To One](#one-to-one)
-- [One To Many](#one-to-many)
-- [Many To Many](#many-to-many)
-- [Has Many Through](#has-many-through)
-- [Polymorphic Relations](#polymorphic-relations)
-- [Many To Many Polymorphic Relations](#many-to-many-polymorphic-relations)
+- [Um para Um](#one-to-one)
+- [Um para Many](#one-to-many)
+- [Muitos para Muitos](#many-to-many)
+- [Tem Muitos Através](#has-many-through)
+- [Relações Polimórficas](#polymorphic-relations)
+- [Muitos para Muitos Relações Polimórficas](#many-to-many-polymorphic-relations)
 
 <a name="one-to-one"></a>
-### Um Para Um
+### Um Para Um (One to One)
 
 #### Definindo o Relação Um para Um
 
@@ -528,6 +528,7 @@ Neste exemplo acima, o Eloquent irá olhar para coluna `user_id` na tabela `phon
 		}
 
 	}
+
 Adicionalmente, você passa um terceiro parâmetro que especifica o nome da coluna associada na tabela pai:
 
 	class Phone extends Model {
@@ -540,7 +541,7 @@ Adicionalmente, você passa um terceiro parâmetro que especifica o nome da colu
 	}
 
 <a name="one-to-many"></a>
-### Um para Muitos 
+### Um para Muitos(One to Many)
 
 Um exemplo de relacionamento um-para-muito é um post de um blog que "has many"(tem muitos) comentários. Nos podemos modelar este relacionamento assim:
 
@@ -561,15 +562,15 @@ Se você precisar adicionar mais uma constraint aos comentários que são recupe
 
 	$comments = Post::find(1)->comments()->where('title', '=', 'foo')->first();
 
-Again, you may override the conventional foreign key by passing a second argument to the `hasMany` method. And, like the `hasOne` relation, the local column may also be specified:
+Novamente, você pode sobreescrever a chave estrangeira convencional passando um segundo parâmetro como argumento para o método `hasMany`. E, como na relação `hasOne`, a coluna local pode também ser especificada.
 
 	return $this->hasMany('App\Comment', 'foreign_key');
 
 	return $this->hasMany('App\Comment', 'foreign_key', 'local_key');
 
-#### Defining The Inverse Of A Relation
+#### Definindo a Relação Inversa.
 
-To define the inverse of the relationship on the `Comment` model, we use the `belongsTo` method:
+Para definir o relacionamento inverso o modelo `Comment`, nos usamos o método `belongsTo`:
 
 	class Comment extends Model {
 
@@ -581,11 +582,11 @@ To define the inverse of the relationship on the `Comment` model, we use the `be
 	}
 
 <a name="many-to-many"></a>
-### Many To Many
+### Muitos para Muitos(Many To Many)
 
-Many-to-many relations are a more complicated relationship type. An example of such a relationship is a user with many roles, where the roles are also shared by other users. For example, many users may have the role of "Admin". Three database tables are needed for this relationship: `users`, `roles`, and `role_user`. The `role_user` table is derived from the alphabetical order of the related model names, and should have `user_id` and `role_id` columns.
+Relações muitos-para-muitos é o tipo de relacionamento mais complicado. Um exemplo de tal relacionamento é o usuário com vários perfis, onde os perfis também divididos entre outros usuários. Por exemplo, muitos usuário pode ter o perfil de "Admin". Três tabelas de banco de dados são necessárias para este relacionamento: `users`, `roles`, e `role_user`. A tabela role_user é derivada a partir da ordem alfabética dos nomes dos modelos relacionados, e devem ter as colunas `user_id` and `role_id`.
 
-We can define a many-to-many relation using the `belongsToMany` method:
+Nos podemos definir a relação de muito-para-muitos usando o método `belongsToMany`:
 
 	class User extends Model {
 
@@ -596,19 +597,19 @@ We can define a many-to-many relation using the `belongsToMany` method:
 
 	}
 
-Now, we can retrieve the roles through the `User` model:
+Agora, nos podemos recuperar os perfis através do modelo `User`:
 
 	$roles = User::find(1)->roles;
 
-If you would like to use an unconventional table name for your pivot table, you may pass it as the second argument to the `belongsToMany` method:
+Se você gostar de usar um nome de tabela não-convencional para sua tabela pivot, você pode passar isto como o segundo parâmetro do método `belongsToMany`:
 
 	return $this->belongsToMany('App\Role', 'user_roles');
 
-You may also override the conventional associated keys:
+Você pode tambeḿ sobrescrever a chave convencional associada:
 
 	return $this->belongsToMany('App\Role', 'user_roles', 'user_id', 'foo_id');
 
-Of course, you may also define the inverse of the relationship on the `Role` model:
+É claro que, você pode também definir o inverso do relacionamento no modelo `Role`:
 
 	class Role extends Model {
 
