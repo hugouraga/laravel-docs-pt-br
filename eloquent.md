@@ -621,9 +621,9 @@ Você pode tambeḿ sobrescrever a chave convencional associada:
 	}
 
 <a name="has-many-through"></a>
-### Has Many Through
+### Tem Muitos Através
 
-The "has many through" relation provides a convenient short-cut for accessing distant relations via an intermediate relation. For example, a `Country` model might have many `Post` through a `User` model. The tables for this relationship would look like this:
+A relação "tem muitos através" fornece um atalho conveniente para acessar relações distantes por meio de relações itermediárias. Por exemplo, o modelo `Country` pode ter muitos `Post` por meio do modelo `User`. A tabela para este relacionamento deve parecer com isto:
 
 	countries
 		id - integer
@@ -639,7 +639,8 @@ The "has many through" relation provides a convenient short-cut for accessing di
 		user_id - integer
 		title - string
 
-Even though the `posts` table does not contain a `country_id` column, the `hasManyThrough` relation will allow us to access a country's posts via `$country->posts`. Let's define the relationship:
+
+Mesmo que a tabela `posts` não contenha a coluna `country_id`, a relação `hasManyThrough`(tem-muitos-atraves) nos permitirá acessar os post de um paíse(coutry's) via `$country->posts`. Vmoas definir o relacionamento.
 
 	class Country extends Model {
 
@@ -650,7 +651,7 @@ Even though the `posts` table does not contain a `country_id` column, the `hasMa
 
 	}
 
-If you would like to manually specify the keys of the relationship, you may pass them as the third and fourth arguments to the method:
+Se gostar de especificar manualmente as chaves do relacionamento, você pode passá-los como um terceiro e quarto parâmetro para o método:
 
 	class Country extends Model {
 
@@ -662,9 +663,10 @@ If you would like to manually specify the keys of the relationship, you may pass
 	}
 
 <a name="polymorphic-relations"></a>
-### Polymorphic Relations
+### Relações Polimórficas
 
-Polymorphic relations allow a model to belong to more than one other model, on a single association. For example, you might have a photo model that belongs to either a staff model or an order model. We would define this relation like so:
+Relações polimórficas permitem ao modelo pertencer a mais do que um outro modelo, em uma única associação. Por exemplo, você pode ter um modelo "photo"(foto) que pertece  ou modelo "staff"(pessoal) ou ao modelo "order"(pedido). Nos devemos definir esta relação assim:
+
 
 	class Photo extends Model {
 
@@ -693,9 +695,9 @@ Polymorphic relations allow a model to belong to more than one other model, on a
 
 	}
 
-#### Retrieving A Polymorphic Relation
+#### Recuperando Relações Polimórficas
 
-Now, we can retrieve the photos for either a staff member or an order:
+Aora, nos podemos recuperar as fotos para um menbro da equipe/pessoal ou para um pedido:
 
 	$staff = Staff::find(1);
 
@@ -704,19 +706,19 @@ Now, we can retrieve the photos for either a staff member or an order:
 		//
 	}
 
-#### Retrieving The Owner Of A Polymorphic Relation
+#### Recuperando O nodo da Relação Polimórfica. 
 
-However, the true "polymorphic" magic is when you access the staff or order from the `Photo` model:
+No entando, a verdadeira mágica "polimórfica" é quando você acessa "staff"(pessoal) ou "order"(pedido) a partir do modelo `Photo`:
 
 	$photo = Photo::find(1);
 
 	$imageable = $photo->imageable;
 
-The `imageable` relation on the `Photo` model will return either a `Staff` or `Order` instance, depending on which type of model owns the photo.
+A relação `imageable` no modelo `Photo` irá retornar a instância de `Staff` ou `Order`. dependendo do tipo de modelo que possui a foto.
 
-#### Polymorphic Relation Table Structure
+#### Estrutura da Tabela de Relação Polimórfica 
 
-To help understand how this works, let's explore the database structure for a polymorphic relation:
+Para ajudar a entender como isto funciona, vamos explorar a estrutura do banco de dados para uma relação polimórfica:
 
 	staff
 		id - integer
@@ -732,14 +734,15 @@ To help understand how this works, let's explore the database structure for a po
 		imageable_id - integer
 		imageable_type - string
 
-The key fields to notice here are the `imageable_id` and `imageable_type` on the `photos` table. The ID will contain the ID value of, in this example, the owning staff or order, while the type will contain the class name of the owning model. This is what allows the ORM to determine which type of owning model to return when accessing the `imageable` relation.
+
+Os campos chaves a serem notados aqui são `imageable_id` e `imageable_type` na tabela de `photos`(fotos). O ID irá conter o valor do ID, neste exemplo, o proprietário de "staff" ou "order", enquando o tipo irá conter o nome da classe do modelo proprietário. Isto é o que permite que o ORM determine qual é o tipo do modelo proprietário para retornar quando a relação `imageable` é acessada. 
 
 <a name="many-to-many-polymorphic-relations"></a>
-### Many To Many Polymorphic Relations
+### Muitos para Muitos Em Relações Polimórficas
 
-#### Polymorphic Many To Many Relation Table Structure
+#### Estrutura de Tabelas de Relações Polimórficas de Muitos Para Muitos 
 
-In addition to traditional polymorphic relations, you may also specify many-to-many polymorphic relations. For example, a blog `Post` and `Video` model could share a polymorphic relation to a `Tag` model. First, let's examine the table structure:
+Em adição a relações polimórficas tradicionais, você pode também especificar relações polimórficas de muitos-para-muitos. Por exemplo, um `Post` de um blog e um modelo `Video` poderiam compartilhar uma relação polimórfica para um modelo `Tag`. Primeiramente, vamos eximinar a estrutura das tabelas:
 
 	posts
 		id - integer
@@ -758,7 +761,7 @@ In addition to traditional polymorphic relations, you may also specify many-to-m
 		taggable_id - integer
 		taggable_type - string
 
-Next, we're ready to setup the relationships on the model. The `Post` and `Video` model will both have a `morphToMany` relationship via a `tags` method:
+Em seguida, nos estamos prontos para configurar os relacionamentos no modelo. Os modelos `Post` e `Video` irão ambos ter o relacionamento `morphToMany`  por meio do método `tags`
 
 	class Post extends Model {
 
@@ -769,7 +772,7 @@ Next, we're ready to setup the relationships on the model. The `Post` and `Video
 
 	}
 
-The `Tag` model may define a method for each of its relationships:
+O modelo `Tag` pode definir o método para cada um de seus relacionamento:
 
 	class Tag extends Model {
 
@@ -788,21 +791,20 @@ The `Tag` model may define a method for each of its relationships:
 <a name="querying-relations"></a>
 ## Consultando Relacionamentos
 
-#### Querying Relations When Selecting
+#### Consultando Relacionamentos E Limitando seus Resultados
 
-When accessing the records for a model, you may wish to limit your results based on the existence of a relationship. For example, you wish to pull all blog posts that have at least one comment. To do so, you may use the `has` method:
+Quando se esta acessandos os registros de um demolo, você pode desejar limitar os resultandos baseados nas existência do relacionamento. Por exemplo, você pode desejar pegar todos os posts de um blog que tem pelo menos um comentário. Para isto, você pode usar o método `has`:
 
 	$posts = Post::has('comments')->get();
 
-You may also specify an operator and a count:
+Você pode também especificar um operador e um contador:
 
 	$posts = Post::has('comments', '>=', 3)->get();
 
-Nested `has` statements may also be constructed using "dot" notation:
+Declações `has` aninhadas podem também ser construídas usando a notação "dot":
 
 	$posts = Post::has('comments.votes')->get();
-
-If you need even more power, you may use the `whereHas` and `orWhereHas` methods to put "where" conditions on your `has` queries:
+Se você precisar de ainda mais poder, você pode usar os métodos `whereHas` e `orWhereHas` para por condições "where" nas suas consultas `has`: 
 
 	$posts = Post::whereHas('comments', function($q)
 	{
