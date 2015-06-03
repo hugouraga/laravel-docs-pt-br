@@ -804,6 +804,7 @@ Você pode também especificar um operador e um contador:
 Declações `has` aninhadas podem também ser construídas usando a notação "dot":
 
 	$posts = Post::has('comments.votes')->get();
+
 Se você precisar de ainda mais poder, você pode usar os métodos `whereHas` e `orWhereHas` para por condições "where" nas suas consultas `has`: 
 
 	$posts = Post::whereHas('comments', function($q)
@@ -813,9 +814,9 @@ Se você precisar de ainda mais poder, você pode usar os métodos `whereHas` e 
 	})->get();
 
 <a name="dynamic-properties"></a>
-### Dynamic Properties
+### Propriedades Dinâmicas
 
-Eloquent allows you to access your relations via dynamic properties. Eloquent will automatically load the relationship for you, and is even smart enough to know whether to call the `get` (for one-to-many relationships) or `first` (for one-to-one relationships) method.  It will then be accessible via a dynamic property by the same name as the relation. For example, with the following model `$phone`:
+Eloquent permite que você acesse as suas relações via propriedades dinâmicas. Eloquent irá automaticamente carregar os relacionamento para você, e é mesmo inteligente o suficiente para saber se deve chamar o método `get` (para um-para-muitos relacionamentos) or `first` (para um-para-um relacionamentos). Isto será então acessível via propriedade dinâmica pelo o mesmo nome como relação. Por exemplo, como o seguinte modelo  `$phone`:
 
 	class Phone extends Model {
 
@@ -827,16 +828,15 @@ Eloquent allows you to access your relations via dynamic properties. Eloquent wi
 	}
 
 	$phone = Phone::find(1);
-
-Instead of echoing the user's email like this:
+Ao invés de ecoar o e-mail do usuário como este:
 
 	echo $phone->user()->first()->email;
 
-It may be shortened to simply:
+Isto pode ser encurtado facilmente:
 
 	echo $phone->user->email;
 
-> **Note:** Relationships that return many results will return an instance of the `Illuminate\Database\Eloquent\Collection` class.
+> **Nota:** Relacionamentos que retornam muitos resultados irão retornar a instância da classe `Illuminate\Database\Eloquent\Collection`.
 
 <a name="eager-loading"></a>
 ## Eager Loading(Carregamento Ansioso)
