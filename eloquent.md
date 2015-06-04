@@ -962,23 +962,23 @@ When updating a `belongsTo` relationship, you may use the `associate` method. Th
 
 ### Inserindo em Modelos Relacionados (Many To Many)
 
-You may also insert related models when working with many-to-many relations. Let's continue using our `User` and `Role` models as examples. We can easily attach new roles to a user using the `attach` method:
+Você pode também inserir modelos relacionados quando estiver trabalhando com relações muitos-para-muitos (many-to-many). Vamos continuar usando nossos modelos `User` e `Role` como exemplos. Nos podemos facilmente anexar novos roles "perfis" um user "usuário" usando o método `attach`.
 
-#### Attaching Many To Many Models
+#### Anexando Modelos Muitos Para Muitos (many-to-many)
 
 	$user = User::find(1);
 
 	$user->roles()->attach(1);
 
-You may also pass an array of attributes that should be stored on the pivot table for the relation:
+Você pode também passar um array de atributos que devem ser armazenados na tabela pivot pra o relacionamento:
 
 	$user->roles()->attach(1, ['expires' => $expires]);
 
-Of course, the opposite of `attach` is `detach`:
+É claro que, o oposto do método `attach` é `detach`:
 
 	$user->roles()->detach(1);
 
-Both `attach` and `detach` also take arrays of IDs as input:
+Ambos `attach` e `detach` também pegam arrays de IDs como input:
 
 	$user = User::find(1);
 
@@ -986,19 +986,19 @@ Both `attach` and `detach` also take arrays of IDs as input:
 
 	$user->roles()->attach([1 => ['attribute1' => 'value1'], 2, 3]);
 
-#### Using Sync To Attach Many To Many Models
+#### Usando o Sync para Anexar Muitos para Muitos (many-to-many) 
 
-You may also use the `sync` method to attach related models. The `sync` method accepts an array of IDs to place on the pivot table. After this operation is complete, only the IDs in the array will be on the intermediate table for the model:
+Você pode também usar o método `sync` para anexar modelos relacionados. O método `sync` aceitar um array de IDs para alocar na tabela pivot. Depois que esta operação é completada, apenas os IDs no arrau irão ser intermediadas para a tabela do modelo:
 
 	$user->roles()->sync([1, 2, 3]);
 
-#### Adding Pivot Data When Syncing
+#### Adicionado Dados ao Pivot Quando se está Sincronizando
 
-You may also associate other pivot table values with the given IDs:
+Você pode também associar outro valor de tabela pivot com os dados IDs:
 
 	$user->roles()->sync([1 => ['expires' => true]]);
 
-Sometimes you may wish to create a new related model and attach it in a single command. For this operation, you may use the `save` method:
+Algumas vezes pode pode desejar crirar um novo modelo relacionado. E anexar um simples comando. Para esa operação
 
 	$role = new Role(['name' => 'Editor']);
 
