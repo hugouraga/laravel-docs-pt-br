@@ -841,6 +841,8 @@ Isto pode ser encurtado facilmente:
 <a name="eager-loading"></a>
 ## Eager Loading(Carregamento Ansioso)
 
+O carregamento ansioso existe para aliviar o problemas de consultas N + 1. Por exemplo, considere o modelo `Book` que é relacionado a `Author`. O relacionamento é definido assim:
+
 Eager loading exists to alleviate the N + 1 query problem. For example, consider a `Book` model that is related to `Author`. The relationship is defined like so:
 
 	class Book extends Model {
@@ -852,43 +854,43 @@ Eager loading exists to alleviate the N + 1 query problem. For example, consider
 
 	}
 
-Now, consider the following code:
+Agora, considere o seguinte código:
 
 	foreach (Book::all() as $book)
 	{
 		echo $book->author->name;
 	}
 
-This loop will execute 1 query to retrieve all of the books on the table, then another query for each book to retrieve the author. So, if we have 25 books, this loop would run 26 queries.
+Este laço irá executar 1 consulta para recuperar todos os livros da tabela, então outra consulta para cada livro para recuperar o autor. Então, se tivermos 25 livros, este laço deve executar 26 consultas.
 
-Thankfully, we can use eager loading to drastically reduce the number of queries. The relationships that should be eager loaded may be specified via the `with` method:
+Felizment, nos podemos usar o carregamento ansioso para drasticamente reduzir o número de consultas. Os relacionamentos que devem ser carregados asiosamente podem ser especificados via o método `with`:
 
 	foreach (Book::with('author')->get() as $book)
 	{
 		echo $book->author->name;
 	}
 
-In the loop above, only two queries will be executed:
+No loop acima, apenas duas consultas serão executadas:
 
 	select * from books
 
 	select * from authors where id in (1, 2, 3, 4, 5, ...)
 
-Wise use of eager loading can drastically increase the performance of your application.
+O uso sábio do carregamente ansioso pode drasticamente aumentar a performance da sua aplicação.
 
-Of course, you may eager load multiple relationships at one time:
+Claro que, você pode carregar ansiosamente relacionamentos múltiplos de uma vez:
 
 	$books = Book::with('author', 'publisher')->get();
 
-You may even eager load nested relationships:
+Você pode até carregar ansiosamente relacionamentos aninhados:
 
 	$books = Book::with('author.contacts')->get();
 
-In the example above, the `author` relationship will be eager loaded, and the author's `contacts` relation will also be loaded.
+No exemplo acima, o relacionamento `author` será carregado ansiosamente, e a relação `contacts` do "author" também será carregada.
 
-### Eager Load Constraints
+### Constraints do Carregamento Ansioso
 
-Sometimes you may wish to eager load a relationship, but also specify a condition for the eager load. Here's an example:
+Algumas vezes você pode desejar carregar ansiosamente um relacionamento, mas também especificar uma condição para o carregamento ansioso, aqui vai um exemplo:
 
 	$users = User::with(['posts' => function($query)
 	{
@@ -896,9 +898,9 @@ Sometimes you may wish to eager load a relationship, but also specify a conditio
 
 	}])->get();
 
-In this example, we're eager loading the user's posts, but only if the post's title column contains the word "first".
+Neste exemplo, nos estamos carregando ansiosamente os posts dos usuários, mas apenas se a coluna título dos posts contém a palavra "first".
 
-Of course, eager loading Closures aren't limited to "constraints". You may also apply orders:
+É claro que, Closures de arregamente ansioso não estão limitadas a "constraints". Você também pode aplicar ordenações:
 
 	$users = User::with(['posts' => function($query)
 	{
@@ -906,15 +908,15 @@ Of course, eager loading Closures aren't limited to "constraints". You may also 
 
 	}])->get();
 
-### Lazy Eager Loading
+### Carregamento Ansioso Tardio
 
-It is also possible to eagerly load related models directly from an already existing model collection. This may be useful when dynamically deciding whether to load related models or not, or in combination with caching.
+Também é possível ansiosamente carregar modelos relacionados diretamente de uma coleção de um modelo já existente. Isto pode ser útil quando se esta descidindo se se deve carregar modelos relacionados ou não, ou em combinação com cache.
 
 	$books = Book::all();
 
 	$books->load('author', 'publisher');
 
-You may also pass a Closure to set constraints on the query:
+Você pode também passar a Closure para definir constraints na consultas:
 
 	$books->load(['author' => function($query)
 	{
@@ -924,9 +926,9 @@ You may also pass a Closure to set constraints on the query:
 <a name="inserting-related-models"></a>
 ## Inserindo em Modelos Relacionados
 
-#### Attaching A Related Model
+#### Anexando o Modelo Relacionado 
 
-You will often need to insert new related models. For example, you may wish to insert a new comment for a post. Instead of manually setting the `post_id` foreign key on the model, you may insert the new comment from its parent `Post` model directly:
+Você irá frequentement precisar iserir novos modelos relacionados. Por exemplo, você pode desejar inserir um novo comentário para um post. Ao invés de manualmente definir a chave estrangeira `post_id` no modelo, você pode inserir um novo comentário do seu pai o modelo `Post` diretamente:
 
 	$comment = new Comment(['message' => 'A new comment.']);
 
@@ -934,9 +936,9 @@ You will often need to insert new related models. For example, you may wish to i
 
 	$comment = $post->comments()->save($comment);
 
-In this example, the `post_id` field will automatically be set on the inserted comment.
+No exemplo acima, o campo `post_id` irá automaticamente ser definido no comentário inserido.
 
-If you need to save multiple related models:
+Se você precisar salvar múltiplos modelos relacionados:
 
 	$comments = [
 		new Comment(['message' => 'A new comment.']),
@@ -948,7 +950,7 @@ If you need to save multiple related models:
 
 	$post->comments()->saveMany($comments);
 
-### Associating Models (Belongs To)
+### Associando Modelos (Pertence a)
 
 When updating a `belongsTo` relationship, you may use the `associate` method. This method will set the foreign key on the child model:
 
