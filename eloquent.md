@@ -998,20 +998,20 @@ Você pode também associar outro valor de tabela pivot com os dados IDs:
 
 	$user->roles()->sync([1 => ['expires' => true]]);
 
-Algumas vezes pode pode desejar crirar um novo modelo relacionado. E anexar um simples comando. Para esa operação
+Algumas vezes pode pode desejar criar um novo modelo relacionado e anexá-lo a um simples comando. Para essa operação você pode usar o método `save`:
 
 	$role = new Role(['name' => 'Editor']);
 
 	User::find(1)->roles()->save($role);
 
-In this example, the new `Role` model will be saved and attached to the user model. You may also pass an array of attributes to place on the joining table for this operation:
+Neste exemplo, o novo modelo `Role` irá ser salvo e anexado ao modelo "user". Você pode também passar um array de atributos para colocar na tabela que esta sendo associada para esta operação:
 
 	User::find(1)->roles()->save($role, ['expires' => $expires]);
 
 <a name="touching-parent-timestamps"></a>
 ## Atualizando Timestamps do modelo Pai
 
-When a model `belongsTo` another model, such as a `Comment` which belongs to a `Post`, it is often helpful to update the parent's timestamp when the child model is updated. For example, when a `Comment` model is updated, you may want to automatically touch the `updated_at` timestamp of the owning `Post`. Eloquent makes it easy. Just add a `touches` property containing the names of the relationships to the child model:
+Quando um modelo `belongsTo` (pertense) a outro modelo, como um `Comment` (comentário) que pertence a um `Post`, isto é frequentemente útil para atualizar o timestamp pai quando o modelo filho é atualizado. Por exemplo, quando um modelo  `Comment` é atualizado, você pode querer que automaticamente o timestamp `updated_at` do pai `Post` seja atualizado. Eloquent facilita isso. Apenas adicione a propriedade `touches` contendo os nomes dos relacionamento para o modelo filho. 
 
 	class Comment extends Model {
 
@@ -1024,7 +1024,7 @@ When a model `belongsTo` another model, such as a `Comment` which belongs to a `
 
 	}
 
-Now, when you update a `Comment`, the owning `Post` will have its `updated_at` column updated:
+Agora, quando você atualiza o `Comment` (comentário), o `Post` pai irá ter a sua coluna `updated_at` atualizada.
 
 	$comment = Comment::find(1);
 
@@ -1035,7 +1035,7 @@ Now, when you update a `Comment`, the owning `Post` will have its `updated_at` c
 <a name="working-with-pivot-tables"></a>
 ## Trabalhando com Tabelas Pivot
 
-As you have already learned, working with many-to-many relations requires the presence of an intermediate table. Eloquent provides some very helpful ways of interacting with this table. For example, let's assume our `User` object has many `Role` objects that it is related to. After accessing this relationship, we may access the `pivot` table on the models:
+Como você já aprendeu, trabalar com relações muitos-para-muitos requer a presença de uma tabela intermediadora. Eloquent fornece alguns caminhos bastante úteis de interagir com esta tabela. Por exemplo, vamos assumir que nosso objeto `User`(usuários) tem vários objetos `Role`(Perfis) que eles são relacionados. Depois de acessar este relacionamento, nos podemos acessar a tabela pivot nos modelos ?
 
 	$user = User::find(1);
 
@@ -1044,35 +1044,35 @@ As you have already learned, working with many-to-many relations requires the pr
 		echo $role->pivot->created_at;
 	}
 
-Notice that each `Role` model we retrieve is automatically assigned a `pivot` attribute. This attribute contains a model representing the intermediate table, and may be used as any other Eloquent model.
+Note que cada modelo `Role` (perfil) que nos recuperamdnso é automaticamente atribuído um atributo `pivot`. Este atributo contém um modelo representando a tabela intermediadora, e pode ser usada como qualquer outro modelo Eloquent.
 
-By default, only the keys will be present on the `pivot` object. If your pivot table contains extra attributes, you must specify them when defining the relationship:
+Por padrão, apenas as chaves poderão estar presentes no objeto `pivot`. Se sua tabela pivot contem atributos extras, você tem que especificá-los quando estiver definindo os relacionamentos.
 
 	return $this->belongsToMany('App\Role')->withPivot('foo', 'bar');
 
-Now the `foo` and `bar` attributes will be accessible on our `pivot` object for the `Role` model.
+Agora os atributos, `foo` e `bar` serão acessíveis  no nosso objeto `pivot` para o modelo `Role`.
 
-If you want your pivot table to have automatically maintained `created_at` and `updated_at` timestamps, use the `withTimestamps` method on the relationship definition:
+Se você quer que sua tabela pivot tenha automaticamente manutenção dos timestamps `created_at` e `updated_at`, use o método `withTimestamps` na definição do relacionamento:
 
 	return $this->belongsToMany('App\Role')->withTimestamps();
 
-#### Deleting Records On A Pivot Table
+#### Deleando Registros de Uma Tabela Pivot 
 
-To delete all records on the pivot table for a model, you may use the `detach` method:
+Para deletar todos os registros de uma tabela pivot para um modelo, você pode usar o metódo `detach`:
 
 	User::find(1)->roles()->detach();
 
-Note that this operation does not delete records from the `roles` table, but only from the pivot table.
+Note que esta operação não deleta os registros da tabela `roles`, mas apenas da tabela pivot. 
 
-#### Updating A Record On A Pivot Table
+#### Atualizando Um Resgistro Na Tabela Pivot
 
-Sometimes you may need to update your pivot table, but not detach it. If you wish to update your pivot table in place you may use `updateExistingPivot` method like so:
+Algumas vezes você pode precisar atualizar sua tabela pivot, mas não retira-la. Se você deseja atualizar sua tabela pivot ao invés de deletar você pode usar o método  `updateExistingPivot` assim:
 
 	User::find(1)->roles()->updateExistingPivot($roleId, $attributes);
 
-#### Defining A Custom Pivot Model
+#### Definindo um Modelo Pivot Customizado
 
-Laravel also allows you to define a custom Pivot model. To define a custom model, first create your own "Base" model class that extends `Eloquent`. In your other Eloquent models, extend this custom base model instead of the default `Eloquent` base. In your base model, add the following function that returns an instance of your custom Pivot model:
+Laravel também permite que você definar um modelo Pivot customizado. Para definir um modelo customizado, primeiro crie seu própria classe modelo "Base" e extenda de `Eloquent`. Nos seus outros modelos Eloquent, extenda este modelo base ao invés do modelo base `Eloquent` padrão. No seu modelo base, adicione a seguinte função que retorna uma instância do seu pivot modelo pivot customizado.
 
 	public function newPivot(Model $parent, array $attributes, $table, $exists)
 	{
@@ -1082,11 +1082,11 @@ Laravel also allows you to define a custom Pivot model. To define a custom model
 <a name="collections"></a>
 ## Coleções
 
-All multi-result sets returned by Eloquent, either via the `get` method or a `relationship`, will return a collection object. This object implements the `IteratorAggregate` PHP interface so it can be iterated over like an array. However, this object also has a variety of other helpful methods for working with result sets.
+Todos os conjuntos de multi-resultados retornados pelo ELoquent, que através do método `get` ou do  `relacionamento`, irão retornar um objeto collection. Este objeto implementa a interface PHP `IteratorAggregate` então isto pode ser iterada como um array. No entanto, este objeto também tem um variedade de outros métodos úteis para trabalhar com conjuntos de resultados.
 
-#### Checking If A Collection Contains A Key
+#### Checando Se uma Coleção Tem a Chave 
 
-For example, we may determine if a result set contains a given primary key using the `contains` method:
+Por exemplo, nos podemos determinar se um conjunto de resultados contém uma dada chave primária, usando o método `contains`:
 
 	$roles = User::find(1)->roles;
 
@@ -1095,13 +1095,13 @@ For example, we may determine if a result set contains a given primary key using
 		//
 	}
 
-Collections may also be converted to an array or JSON:
+Coleções também podem ser convertidas para um array ou JSON:
 
 	$roles = User::find(1)->roles->toArray();
 
 	$roles = User::find(1)->roles->toJson();
 
-If a collection is cast to a string, it will be returned as JSON:
+Se a coleção é convertida para o tipo String, isto fará com que ela seja retornada como JSON:
 
 	$roles = (string) User::find(1)->roles;
 
