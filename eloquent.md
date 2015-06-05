@@ -1105,27 +1105,28 @@ Se a coleção é convertida para o tipo String, isto fará com que ela seja ret
 
 	$roles = (string) User::find(1)->roles;
 
-#### Iterating Collections
+#### Interando Coleções
 
-Eloquent collections also contain a few helpful methods for looping and filtering the items they contain:
+Coleções Eloquent também contém alguns método úteis para interar e filtrar os itens que as coleções contém:
 
 	$roles = $user->roles->each(function($role)
 	{
 		//
 	});
 
-#### Filtering Collections
+#### Filtrando Coleções 
 
-When filtering collections, the callback provided will be used as callback for [array_filter](http://php.net/manual/en/function.array-filter.php).
+Quando se filtra coleções, o callback provido será usado como callback para [array_filter](http://php.net/manual/en/function.array-filter.php).
 
 	$users = $users->filter(function($user)
 	{
 		return $user->isAdmin();
 	});
 
-> **Note:** When filtering a collection and converting it to JSON, try calling the `values` function first to reset the array's keys.
+> **Nota:** Quando se está filtrando coleções e as convertendo para JSON, tente chamar a função `values` primeiro para resetar as chaves do array.
 
-#### Applying A Callback To Each Collection Object
+
+#### Aplicando o Callback Para Cada Objeto Coleção 
 
 	$roles = User::find(1)->roles;
 
@@ -1134,7 +1135,7 @@ When filtering collections, the callback provided will be used as callback for [
 		//
 	});
 
-#### Sorting A Collection By A Value
+#### Ordenando Uma Coleção Por Valor
 
 	$roles = $roles->sortBy(function($role)
 	{
@@ -1146,15 +1147,15 @@ When filtering collections, the callback provided will be used as callback for [
 		return $role->created_at;
 	});
 
-#### Sorting A Collection By A Value
+#### Ordenando Uma Coleção Por Valor
 
 	$roles = $roles->sortBy('created_at');
 
 	$roles = $roles->sortByDesc('created_at');
 
-#### Returning A Custom Collection Type
+#### Retornando Um Tipo de Coleção Customizada
 
-Sometimes, you may wish to return a custom Collection object with your own added methods. You may specify this on your Eloquent model by overriding the `newCollection` method:
+Algumas vezes, você pode querer retornar objetos coleção customizados com seus próprios métodos adicionados. Você pode especificar isto no seu modelo Eloquent sobrescrevendo o método `newCollection`:
 
 	class User extends Model {
 
@@ -1168,9 +1169,9 @@ Sometimes, you may wish to return a custom Collection object with your own added
 <a name="accessors-and-mutators"></a>
 ## Accessors & Mutators
 
-#### Defining An Accessor
+#### Definindo um Accessor
 
-Eloquent provides a convenient way to transform your model attributes when getting or setting them. Simply define a `getFooAttribute` method on your model to declare an accessor. Keep in mind that the methods should follow camel-casing, even though your database columns are snake-case:
+Eloquent fornece a meio conveniente para transformar seus atributos de modelo quando se está recuperando ou os definindo. Simplesmente defina o método `getFooAttribute` no seu modelo para declarar um acessor. Fique ciente que os métodos devem serguir o modelo camel-casing, apesar que as colunas colunas do banco de dados são no formato snake-case:  
 
 	class User extends Model {
 
@@ -1181,11 +1182,11 @@ Eloquent provides a convenient way to transform your model attributes when getti
 
 	}
 
-In the example above, the `first_name` column has an accessor. Note that the value of the attribute is passed to the accessor.
+No exemplo acima, a coluna `first_name` tem o acessor. Note que o valor do atributo é passado para o acessor.  
 
-#### Defining A Mutator
+#### Definindo um Mutator
 
-Mutators are declared in a similar fashion:
+Mutators são declarados de uma forma similar:
 
 	class User extends Model {
 
@@ -1199,18 +1200,18 @@ Mutators are declared in a similar fashion:
 <a name="date-mutators"></a>
 ## Mutators de Data
 
-By default, Eloquent will convert the `created_at` and `updated_at` columns to instances of [Carbon](https://github.com/briannesbitt/Carbon), which provides an assortment of helpful methods, and extends the native PHP `DateTime` class.
+Por padrão, ELoquent irá converter as colunas `created_at` e `updated_at` para instâncias do [Carbon](https://github.com/briannesbitt/Carbon), que oferece uma variedade de métodos de úteis, e extendem classe nativa PHP `DateTime`.  
 
-You may customize which fields are automatically mutated, and even completely disable this mutation, by overriding the `getDates` method of the model:
+Você pode customizar quais campos são automaticamente modificados, e até mesmo desativar completamente esta modificação, sobrescrevendo o método `getDates` do modelo:
 
 	public function getDates()
 	{
 		return ['created_at'];
 	}
 
-When a column is considered a date, you may set its value to a UNIX timestamp, date string (`Y-m-d`), date-time string, and of course a `DateTime` / `Carbon` instance.
+Quando a coluna é considerada data, você pode definir o seu valor para um timestamp UNIX, string de dado (`Y-m-d`), date-time string, e é claro instância `DateTime` / `Carbon
 
-To totally disable date mutations, simply return an empty array from the `getDates` method:
+Para totalmente desativar modificadores de data, simplemente retorne um array vazio do método `getDates`:
 
 	public function getDates()
 	{
