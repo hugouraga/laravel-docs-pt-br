@@ -1211,7 +1211,7 @@ Você pode customizar quais campos são automaticamente modificados, e até mesm
 
 Quando a coluna é considerada data, você pode definir o seu valor para um timestamp UNIX, string de dado (`Y-m-d`), date-time string, e é claro instância `DateTime` / `Carbon
 
-Para totalmente desativar modificadores de data, simplemente retorne um array vazio do método `getDates`:
+Para desativar totalmente modificadores de data, simplemente retorne um array vazio do método `getDates`:
 
 	public function getDates()
 	{
@@ -1221,7 +1221,7 @@ Para totalmente desativar modificadores de data, simplemente retorne um array va
 <a name="attribute-casting"></a>
 ## Conversão De Atributos
 
-If you have some attributes that you want to always convert to another data-type, you may add the attribute to the `casts` property of your model. Otherwise, you will have to define a mutator for each of the attributes, which can be time consuming. Here is an example of using the `casts` property:
+Se você tiver alguns atributos que você queira sempre converter para outro tipo, você pode adicionar o atributo para a propriedade `casts` do seu modelo. Caso contrário, você terá que definir um mutator para cada um dos atributos, o que pode ser bem demorado. Aqui vai um exemplo de uso da propriedade `casts`:
 
 	/**
 	 * The attributes that should be casted to native types.
@@ -1232,9 +1232,9 @@ If you have some attributes that you want to always convert to another data-type
 		'is_admin' => 'boolean',
 	];
 
-Now the `is_admin` attribute will always be cast to a boolean when you access it, even if the underlying value is stored in the database as an integer. Other supported cast types are: `integer`, `real`, `float`, `double`, `string`, `boolean`, `object` and `array`.
+Agora o atributo `is_admin` irá sempre ser convertido para o tipo booleano quando você acessá-lo, mesmo se o valor de base é armazenado no banco de dados com inteiro. Outro tipo de conversão suportados são:  `integer`, `real`, `float`, `double`, `string`, `boolean`, `object` e `array`.
 
-The `array` cast is particularly useful for working with columns that are stored as serialized JSON. For example, if your database has a TEXT type field that contains serialized JSON, adding the `array` cast to that attribute will automatically deserialize the attribute to a PHP array when you access it on your Eloquent model:
+A conversão `array` é particularmente útil para trabalhar com colunas que são armazenadas como JSON serializados. Por exemplo, se seu banco de dados tem um campo do tipo TEXT que contém um JSON serializado, adicionando a conversão `array` para o atributo irá automaticamente desserializar o atributo para um array PHP quando você acessá-lo no seu modelo ELoquent:
 
 	/**
 	 * The attributes that should be casted to native types.
@@ -1245,7 +1245,7 @@ The `array` cast is particularly useful for working with columns that are stored
 		'options' => 'array',
 	];
 
-Now, when you utilize the Eloquent model:
+Agora, quando você utilizar o modelo Eloquent:
 
 	$user = User::find(1);
 
@@ -1258,22 +1258,23 @@ Now, when you utilize the Eloquent model:
 <a name="model-events"></a>
 ## Eventos De Modelo
 
-Eloquent models fire several events, allowing you to hook into various points in the model's lifecycle using the following methods: `creating`, `created`, `updating`, `updated`, `saving`, `saved`, `deleting`, `deleted`, `restoring`, `restored`.
+Modelos Eloquent começam vários eventos, permitindo que você acesse vários pontos no ciclo de vida do modelo usando os seguintes métodos: creating`, `created`, `updating`, `updated`, `saving`, `saved`, `deleting`, `deleted`, `restoring`, `restored`.
 
-Whenever a new item is saved for the first time, the `creating` and `created` events will fire. If an item is not new and the `save` method is called, the `updating` / `updated` events will fire. In both cases, the `saving` / `saved` events will fire.
 
-#### Cancelling Save Operations Via Events
+Sempre que um item novo é salvo paela primeira vez , os eventos `creating` e `created` serão iniciados. Se um item não é novo e o método `save` é chamado, o evento `updating` / `updated` será chamado. Em ambos dos casos, o evento `saving` / `saved` será chamado.
 
-If `false` is returned from the `creating`, `updating`, `saving`, or `deleting` events, the action will be cancelled:
+#### Cancelando Operações de Salvamento Por Meio Eventos 
+
+Se é retornado `false` dos eventos `creating`, `updating`, `saving`, ou `deleting, a ação será canceladas:
 
 	User::creating(function($user)
 	{
 		if ( ! $user->isValid()) return false;
 	});
 
-#### Where To Register Event Listeners
+#### Onde Registrar Listeners (verificadores) de Eventos
 
-Your `EventServiceProvider` serves as a convenient place to register your model event bindings. For example:
+Seu `EventServiceProvider` serve como um local conveniente para registrar o seu modelo de junção. Por exemplo
 
 	/**
 	 * Register any other events for your application.
