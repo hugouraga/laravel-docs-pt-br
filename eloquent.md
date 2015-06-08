@@ -1282,6 +1282,7 @@ Seu `EventServiceProvider` serve como um local conveniente para registrar o seu 
 	 * @param  \Illuminate\Contracts\Events\Dispatcher  $events
 	 * @return void
 	 */
+	
 	public function boot(DispatcherContract $events)
 	{
 		parent::boot($events);
@@ -1295,9 +1296,9 @@ Seu `EventServiceProvider` serve como um local conveniente para registrar o seu 
 <a name="model-observers"></a>
 ## Observers de Modelos
 
-To consolidate the handling of model events, you may register a model observer. An observer class may have methods that correspond to the various model events. For example, `creating`, `updating`, `saving` methods may be on an observer, in addition to any other model event name.
+Para consolidar a manipulação de eventos de modelos, você pode registrar um observer de modelo. Uma classe observer pode ter métodos que correspondem a vários eventos de modelos. Por exemplo, os métodos `creating`, `updating`, `saving` podem estar em um observer, adicionalmente a qualquer outro nome de evento de modelos. 
 
-So, for example, a model observer might look like this:
+Então, por exemplo, um observer de modelo pode parecer com isto:
 
 	class UserObserver {
 
@@ -1313,7 +1314,7 @@ So, for example, a model observer might look like this:
 
 	}
 
-You may register an observer instance using the `observe` method:
+Você pode registrar uma instância do observer usand o método `observe`:
 
 	User::observe(new UserObserver);
 
