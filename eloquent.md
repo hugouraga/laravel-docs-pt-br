@@ -1321,13 +1321,13 @@ Você pode registrar uma instância do observer usand o método `observe`:
 <a name="model-url-generation"></a>
 ## Geração de URL a partir do Modelo
 
-When you pass a model to the `route` or `action` methods, it's primary key is inserted into the generated URI. For example:
+Quando você passa um modelo para `route` ou métodos `action`, a sua chave primária é inserida na URI gerada. Por exemplo:
 
 	Route::get('user/{user}', 'UserController@show');
 
 	action('UserController@show', [$user]);
 
-In this example the `$user->id` property will be inserted into the `{user}` place-holder of the generated URL. However, if you would like to use another property instead of the ID, you may override the `getRouteKey` method on your model:
+Neste exemlpo a propriedade `$user->id` será inserida entre chave assim como neste padrão `{user}` da URL gerada. No entando, se você gostar de usar outra propriedade ao invés do ID, você pode sobrescrever o método `getRouteKey` do seu modelo:
 
 	public function getRouteKey()
 	{
@@ -1337,7 +1337,7 @@ In this example the `$user->id` property will be inserted into the `{user}` plac
 <a name="converting-to-arrays-or-json"></a>
 ## Convertendo para Arrays / JSON
 
-#### Converting A Model To An Array
+#### Convertendo um Modelo Para um Array 
 
 When building JSON APIs, you may often need to convert your models and relationships to arrays or JSON. So, Eloquent includes methods for doing so. To convert a model and its loaded relationship to an array, you may use the `toArray` method:
 
