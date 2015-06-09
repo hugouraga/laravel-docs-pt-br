@@ -1339,34 +1339,34 @@ Neste exemlpo a propriedade `$user->id` será inserida entre chave assim como ne
 
 #### Convertendo um Modelo Para um Array 
 
-When building JSON APIs, you may often need to convert your models and relationships to arrays or JSON. So, Eloquent includes methods for doing so. To convert a model and its loaded relationship to an array, you may use the `toArray` method:
+Quando estiver desenvolvendo JSON APIs, você pode frequentemente precisar converter seu modelo e relacionamento de arrays para JSON. Então, Eloquent inclui métodos para fazê-lo. Para converter um modelo e ele carregar os relacionamento em array, você pode usar o método `toArray`:  
 
 	$user = User::with('roles')->first();
 
 	return $user->toArray();
 
-Note that entire collections of models may also be converted to arrays:
+Note que toda a coleções dos modelos podem também ser convertidas para arrays:
 
 	return User::all()->toArray();
 
-#### Converting A Model To JSON
+#### Convertendo um Model para JSON
 
-To convert a model to JSON, you may use the `toJson` method:
+Para converter um modelo para JSON, você pode usar o método `toJson`:
 
 	return User::find(1)->toJson();
 
-#### Returning A Model From A Route
+#### Retornando um Modelo a Partir de Uma Rota 
 
-Note that when a model or collection is cast to a string, it will be converted to JSON, meaning you can return Eloquent objects directly from your application's routes!
+Note que quando um modelo ou coleção é convertida para o tipo string, isto pode ser convertido para JSON, o que significa que você pode retornar objetos ELoquent diretamente das rotas da sua aplicação!
 
 	Route::get('users', function()
 	{
 		return User::all();
 	});
 
-#### Hiding Attributes From Array Or JSON Conversion
+#### Escondendo Atributos da converção de Array ou JSON
 
-Sometimes you may wish to limit the attributes that are included in your model's array or JSON form, such as passwords. To do so, add a `hidden` property definition to your model:
+Algumas vezes você pode querer limitar os atributos que são incluídos no seus forms array ou JSON, como nas senhas. Para fazê-lo, adicione a definição da propriedade `hidden` no seu modelo:
 
 	class User extends Model {
 
@@ -1374,9 +1374,9 @@ Sometimes you may wish to limit the attributes that are included in your model's
 
 	}
 
-> **Note:** When hiding relationships, use the relationship's **method** name, not the dynamic accessor name.
+> **Nota:** Quando estiver escondendo(omitindo) relacionamentos, você pode usar o nome **método**, não o nome do acessor dinâmico   
 
-Alternatively, you may use the `visible` property to define a white-list:
+Alternativamente, você pode usar a propriedade `visible` (para definir uma white-list)
 
 	protected $visible = ['first_name', 'last_name'];
 
