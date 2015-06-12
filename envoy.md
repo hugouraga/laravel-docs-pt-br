@@ -42,11 +42,11 @@ O comando `init` pode ser usado para criar facilmente um arquivo Stub do Envoy:
 <a name="envoy-running-tasks"></a>
 ## Executando Tarefas
 
-To run a task, use the `run` command of your Envoy installation:
+Para executar tarefas, user o comando `run` da sua instalação Envoy:
 
 	envoy run foo
 
-If needed, you may pass variables into the Envoy file using command line switches:
+Se necessário, você pode passar variáveis no arquivo Envoy usando a linha de comando:
 
 	envoy run deploy --branch=master
 
