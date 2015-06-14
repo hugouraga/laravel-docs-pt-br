@@ -1,22 +1,22 @@
 # Errors & Logging
 
-- [Configuration](#configuration)
-- [Handling Errors](#handling-errors)
-- [HTTP Exceptions](#http-exceptions)
+- [Configuração](#configuration)
+- [Manipulando Erros](#handling-errors)
+- [Exceções HTTP](#http-exceptions)
 - [Logging](#logging)
 
 <a name="configuration"></a>
-## Configuration
+## Configuração
 
-The logging facilities for your application are configured in the `Illuminate\Foundation\Bootstrap\ConfigureLogging` bootstrapper class. This class utilizes the `log` configuration option from your `config/app.php` configuration file.
+As instalações para sua aplicação são configuradas na classe de inicialização  `Illuminate\Foundation\Bootstrap\ConfigureLogging`. Esta classe utiliza as opções de configuração de `log` do seu arquivo de configuração `config/app.php`.
 
-By default, the logger is configured to use daily log files; however, you may customize this behavior as needed. Since Laravel uses the popular [Monolog](https://github.com/Seldaek/monolog) logging library, you can take advantage of the variety of handlers that Monolog offers.
+Por padrão, o log é configurado para usar arquivos de log diários; porém, você pode customizar este comportamento como necessário. Desde que o Laravel usa a popular biblioteca de log [Monolog](https://github.com/Seldaek/monolog), você pode tirar vantagem da variedade de manipuladores que o Monolog Oferece.
 
-For example, if you wish to use a single log file instead of daily files, you can make the following change to your `config/app.php` configuration file:
+Por exemplo, se você quiser usar um arquivo de log único ao invés de arquivos diários, você pode fazer a seguinte mudança no seu arquivo de configuração `config/app.php`:
 
 	'log' => 'single'
 
-Out of the box, Laravel supported `single`, `daily`, `syslog` and `errorlog` logging modes. However, you are free to customize the logging for your application as you wish by overriding the `ConfigureLogging` bootstrapper class.
+De fora da caixa, Laravel suporta os modes de logging `single`, `daily`, `syslog` e `errorlog`. Porém, você é livre para customizar o loggin da sua aplicação como você desejar, apenas sobrescrevendo a classe de inicialização `ConfigureLogging`.  
 
 ### Error Detail
 
