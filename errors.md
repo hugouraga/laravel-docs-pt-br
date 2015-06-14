@@ -18,16 +18,16 @@ Por exemplo, se você quiser usar um arquivo de log único ao invés de arquivos
 
 De fora da caixa, Laravel suporta os modes de logging `single`, `daily`, `syslog` e `errorlog`. Porém, você é livre para customizar o loggin da sua aplicação como você desejar, apenas sobrescrevendo a classe de inicialização `ConfigureLogging`.  
 
-### Error Detail
+### Detalhe de Erro
 
-The amount of error detail your application displays through the browser is controlled by the `app.debug` configuration option in your `config/app.php` configuration file. By default, this configuration option is set to respect the `APP_DEBUG` environment variable, which is stored in your `.env` file.
+A quantidade de detalhes de erros que sua aplicação exibe através do browser é controlada pelas opções de configurações do seu arquivo de configuração `config/app.php`. Por padrão, estas opções de configuração são definidas para respeitar a variável de ambiente `APP_DEBUG`, que é armazenada em seu arquivo `.env`. 
 
-For local development, you should set the `APP_DEBUG` environment variable to `true`. **In your production environment, this value should always be `false`.**
+Para o desenvolvimento local, você pode definir a variável de ambiente `APP_DEBUG` para `true`. ** No seu ambiente de produção, este valor deve ser sempre `false`.** 
 
 <a name="handling-errors"></a>
-## Handling Errors
+## Manipulando Erros 
 
-All exceptions are handled by the `App\Exceptions\Handler` class. This class contains two methods: `report` and `render`.
+Todas exceções são manipuladas pela class `App\Exceptions\Handler`. Esta classe contém dois métodos: `report` e `render`.
 
 The `report` method is used to log exceptions or send them to an external service like [BugSnag](https://bugsnag.com). By default, the `report` method simply passes the exception to the base implementation on the parent class where the exception is logged. However, you are free to log exceptions however you wish. If you need to report different types of exceptions in different ways, you may use the PHP `instanceof` comparison operator:
 
