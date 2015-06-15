@@ -29,7 +29,7 @@ Para o desenvolvimento local, você pode definir a variável de ambiente `APP_DE
 
 Todas exceções são manipuladas pela class `App\Exceptions\Handler`. Esta classe contém dois métodos: `report` e `render`.
 
-The `report` method is used to log exceptions or send them to an external service like [BugSnag](https://bugsnag.com). By default, the `report` method simply passes the exception to the base implementation on the parent class where the exception is logged. However, you are free to log exceptions however you wish. If you need to report different types of exceptions in different ways, you may use the PHP `instanceof` comparison operator:
+O método `report` é usado para logar exceções ou manda-las para um serviço externo como o [BugSnag](https://bugsnag.com). Por padrão, o método `report` simplesmente passa a exceção para a implementação base na classe pai onde a exceção é logada. Porém, você é livre para logar exceções como quiser. Se você precisar relatar tipos diferentes de exceções de modos diferente, você pode usar o operador de compação do PHP, `instanceof`.
 
 	/**
 	 * Report or log an exception.
@@ -49,9 +49,9 @@ The `report` method is used to log exceptions or send them to an external servic
 		return parent::report($e);
 	}
 
-The `render` method is responsible for converting the exception into an HTTP response that should be sent back to the browser. By default, the exception is passed to the base class which generates a response for you. However, you are free to check the exception type or return your own custom response.
+O método `render` é responsável por converter a exceção em uma reposta HTTP que deve ser enviada de volta ao browser. Por padão, a execeção é passada para a classe básica que gera uma resposta para você. Porém, você é livre para checar tipos de exceção ou retornar a sua própria resposta customizada.
 
-The `dontReport` property of the exception handler contains an array of exception types that will not be logged. By default, exceptions resulting from 404 errors are not written to your log files. You may add other exception types to this array as needed.
+A propriedade `dontReport` do manipulador de exceções contém um array de tipos exceção que não serão logados. Por padrão, exceções resultantes de erros 404 não são escritas nos seus arquivos de log. Você pode adiciona outros tipos de exceções para este array, conforme necessário.
 
 <a name="http-exceptions"></a>
 ## HTTP Exceptions
