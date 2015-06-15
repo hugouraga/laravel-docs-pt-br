@@ -18,18 +18,18 @@ Por exemplo, se você quiser usar um arquivo de log único ao invés de arquivos
 
 De fora da caixa, Laravel suporta os modes de logging `single`, `daily`, `syslog` e `errorlog`. Porém, você é livre para customizar o loggin da sua aplicação como você desejar, apenas sobrescrevendo a classe de inicialização `ConfigureLogging`.  
 
-### Error Detail
+### Detalhe de Erro
 
-The amount of error detail your application displays through the browser is controlled by the `app.debug` configuration option in your `config/app.php` configuration file. By default, this configuration option is set to respect the `APP_DEBUG` environment variable, which is stored in your `.env` file.
+A quantidade de detalhes de erros que sua aplicação exibe através do browser é controlada pelas opções de configurações do seu arquivo de configuração `config/app.php`. Por padrão, estas opções de configuração são definidas para respeitar a variável de ambiente `APP_DEBUG`, que é armazenada em seu arquivo `.env`. 
 
-For local development, you should set the `APP_DEBUG` environment variable to `true`. **In your production environment, this value should always be `false`.**
+Para o desenvolvimento local, você pode definir a variável de ambiente `APP_DEBUG` para `true`. ** No seu ambiente de produção, este valor deve ser sempre `false`.** 
 
 <a name="handling-errors"></a>
-## Handling Errors
+## Manipulando Erros 
 
-All exceptions are handled by the `App\Exceptions\Handler` class. This class contains two methods: `report` and `render`.
+Todas exceções são manipuladas pela class `App\Exceptions\Handler`. Esta classe contém dois métodos: `report` e `render`.
 
-The `report` method is used to log exceptions or send them to an external service like [BugSnag](https://bugsnag.com). By default, the `report` method simply passes the exception to the base implementation on the parent class where the exception is logged. However, you are free to log exceptions however you wish. If you need to report different types of exceptions in different ways, you may use the PHP `instanceof` comparison operator:
+O método `report` é usado para logar exceções ou manda-las para um serviço externo como o [BugSnag](https://bugsnag.com). Por padrão, o método `report` simplesmente passa a exceção para a implementação base na classe pai onde a exceção é logada. Porém, você é livre para logar exceções como quiser. Se você precisar relatar tipos diferentes de exceções de modos diferente, você pode usar o operador de compação do PHP, `instanceof`.
 
 	/**
 	 * Report or log an exception.
@@ -49,9 +49,9 @@ The `report` method is used to log exceptions or send them to an external servic
 		return parent::report($e);
 	}
 
-The `render` method is responsible for converting the exception into an HTTP response that should be sent back to the browser. By default, the exception is passed to the base class which generates a response for you. However, you are free to check the exception type or return your own custom response.
+O método `render` é responsável por converter a exceção em uma reposta HTTP que deve ser enviada de volta ao browser. Por padão, a execeção é passada para a classe básica que gera uma resposta para você. Porém, você é livre para checar tipos de exceção ou retornar a sua própria resposta customizada.
 
-The `dontReport` property of the exception handler contains an array of exception types that will not be logged. By default, exceptions resulting from 404 errors are not written to your log files. You may add other exception types to this array as needed.
+A propriedade `dontReport` do manipulador de exceções contém um array de tipos exceção que não serão logados. Por padrão, exceções resultantes de erros 404 não são escritas nos seus arquivos de log. Você pode adiciona outros tipos de exceções para este array, conforme necessário.
 
 <a name="http-exceptions"></a>
 ## HTTP Exceptions
