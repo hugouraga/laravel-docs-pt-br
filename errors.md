@@ -73,7 +73,7 @@ Para retornar uma view customizada para todos os erros 404, crie um arquivo `res
 <a name="logging"></a>
 ## Logging
 
-The Laravel logging facilities provide a simple layer on top of the powerful [Monolog](http://github.com/seldaek/monolog) library. By default, Laravel is configured to create daily log files for your application which are stored in the `storage/logs` directory. You may write information to the log like so:
+As instalações do loggin do laravel fornecem uma camada simples no top da poderosa biblioteca [Monolog](http://github.com/seldaek/monolog). Por padrão, Laravel é configurado para criar arquivos de log diariamente para sua aplicação que é armazenado no diretório `storage/logs`. Você pode escrever informações no log assim:
 
 	Log::info('This is some useful information.');
 
@@ -81,19 +81,20 @@ The Laravel logging facilities provide a simple layer on top of the powerful [Mo
 
 	Log::error('Something is really going wrong.');
 
-The logger provides the seven logging levels defined in [RFC 5424](http://tools.ietf.org/html/rfc5424): **debug**, **info**, **notice**, **warning**, **error**, **critical**, and **alert**.
 
-An array of contextual data may also be passed to the log methods:
+O logger fornece os setes levels de loggin definidos em [RFC 5424](http://tools.ietf.org/html/rfc5424): **debug**, **info**, **notice**, **warning**, **error**, **critical**, e **alert**.
+
+Um array de dados contextuais pode também ser passado para os métodos de log:
 
 	Log::info('Log message', ['context' => 'Other helpful information']);
 
-Monolog has a variety of additional handlers you may use for logging. If needed, you may access the underlying Monolog instance being used by Laravel:
+Monolog tem uma variedade adicional de manipuladores que você pode usar para logging. Se você precisar, você pode acessar a instância subjacente do Monolog que está sendo usada pelo Laravel:
 
 	$monolog = Log::getMonolog();
 
-You may also register an event to catch all messages passed to the log:
+Você pode também registrar um evento para pegar todas as mensagens passada para o Log:
 
-#### Registering A Log Event Listener
+#### Registrando um Listener(Escutador) de Evento de Log
 
 	Log::listen(function($level, $message, $context)
 	{
