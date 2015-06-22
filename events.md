@@ -1,21 +1,21 @@
 # Events
 
-- [Basic Usage](#basic-usage)
-- [Queued Event Handlers](#queued-event-handlers)
-- [Event Subscribers](#event-subscribers)
+- [Uso Básico](#basic-usage)
+- [Manipuladores de Eventos Em Fila](#queued-event-handlers)
+- [Assinantes de Eventos](#event-subscribers)
 
 <a name="basic-usage"></a>
-## Basic Usage
+## Uso Básico
 
-The Laravel event facilities provides a simple observer implementation, allowing you to subscribe and listen for events in your application. Event classes are typically stored in the `app/Events` directory, while their handlers are stored in `app/Handlers/Events`.
+As instalações de eventos do Laravel fornecem uma simples implementação de observer, o que lhe permite inscrever e escutar eventos em sua aplicação. Classes evento são tipicamente armazenada no diretório  `app/Events`, enquanto seus manipuladores são armazenados em `app/Handlers/Events`.
 
-You can generate a new event class using the Artisan CLI tool:
+Você pode gerar uma nova classe de evento usando a ferramenta CLI Artisan:
 
 	php artisan make:event PodcastWasPurchased
 
-#### Subscribing To An Event
+#### Subescrevendo Para um Evento
 
-The `EventServiceProvider` included with your Laravel application provides a convenient place to register all event handlers. The `listen` property contains an array of all events (keys) and their handlers (values). Of course, you may add as many events to this array as your application requires. For example, let's add our `PodcastWasPurchased` event:
+O `EventServiceProvider` incluído com a sua aplicação Laravel fornece um lugar conveniente para registrar todos os manipuladores de evento. A propriedade `listen` contém um array de todos os eventos (chaves) e seus manipuladores (valores). É claro que, você pode adicionar quantos eventos forem necessários para sua aplicação. Por exemplo, vamos adicionar o nosso `PodcastWasPurchased`:
 
 	/**
 	 * The event handler mappings for the application.
@@ -28,38 +28,38 @@ The `EventServiceProvider` included with your Laravel application provides a con
 		],
 	];
 
-To generate a handler for an event, use the `handler:event` Artisan CLI command:
+Para gerar um manipulador para o evento, use o comando CLI Artisan `handler:event`:
 
 	php artisan handler:event EmailPurchaseConfirmation --event=PodcastWasPurchased
 
-Of course, manually running the `make:event` and `handler:event` commands each time you need a handler or event is cumbersome. Instead, simply add handlers and events to your `EventServiceProvider` and use the `event:generate` command. This command will generate any events or handlers that are listed in your `EventServiceProvider`:
+É claro que, executando manualmente os comandos `make:event` e `handler:event` cada vez que você precisar de um manipulado ou evento é complicado. Em vez disso, simplesmente adicione manipuladores e eventos para o seu  `EventServiceProvider` e use o comando `event:generate`. Este comando irá gerar quaisquer eventos ou manipuladores que estão listados no seu `EventServiceProvider`:
 
 	php artisan event:generate
 
-#### Firing An Event
+#### Disparando um Evento
 
-Now we are ready to fire our event using the `Event` facade:
+Agora nos estamos prontos para disparar nossos eventos usando a fachada `Event`:
 
 	$response = Event::fire(new PodcastWasPurchased($podcast));
 
-The `fire` method returns an array of responses that you can use to control what happens next in your application.
+O método `fire` retorna um array de respostas que você pode usar para controlar o que acontece depois na sua aplicação. 
 
-You may also use the `event` helper to fire an event:
+Você pode também usar o `event` "helper" para disparar um evento:
 
 	event(new PodcastWasPurchased($podcast));
 
-#### Closure Listeners
+#### Closure Listeners (Escutadores Closure)
 
-You can even listen to events without creating a separate handler class at all. For example, in the `boot` method of your `EventServiceProvider`, you could do the following:
+Você pode até ouvir eventos sem criar classes de manipuladores separadas a final de conta. Por exemplo, no método `boot` do seu EventServiceProvider`, você pode fazer o seguinte:
 
 	Event::listen('App\Events\PodcastWasPurchased', function($event)
 	{
 		// Handle the event...
 	});
 
-#### Stopping The Propagation Of An Event
+#### Parando a Propagação De um Evento
 
-Sometimes, you may wish to stop the propagation of an event to other listeners. You may do so using by returning `false` from your handler:
+Algumas vezes, você pode desejar parar a propagação de um eventos para outrs escutadores. Você pode fazer isto retornando `false` do seu manipulador:
 
 	Event::listen('App\Events\PodcastWasPurchased', function($event)
 	{
@@ -69,15 +69,15 @@ Sometimes, you may wish to stop the propagation of an event to other listeners. 
 	});
 
 <a name="queued-event-handlers"></a>
-## Queued Event Handlers
+## Manipuladores de Eventos em Fila.
 
-Need to [queue](/docs/{{version}}/queues) an event handler? It couldn't be any easier. When generating the handler, simply use the `--queued` flag:
+Precisando [enfileirar](/docs/{{version}}/queues) um maipulador de eventos ? Isto não pode ser mais fácil. Quando estiver gerando um manipulador, simplesmente use a flag  `--queued`:
 
 	php artisan handler:event SendPurchaseConfirmation --event=PodcastWasPurchased --queued
 
-This will generate a handler class that implements the `Illuminate\Contracts\Queue\ShouldBeQueued` interface. That's it! Now when this handler is called for an event, it will be queued automatically by the event dispatcher.
+Isto irá gerar a classe manipuladora que implementa a interface `Illuminate\Contracts\Queue\ShouldBeQueued`. É isto! Agora quando este manipulador é chamado para um evento, isto irá ser enfileirado automaticamente pelo dispachador de eventos.
 
-If no exceptions are thrown when the handler is executed by the queue, the queued job will be deleted automatically after it has processed. If you need to access the queued job's `delete` and `release` methods manually, you may do so. The `Illuminate\Queue\InteractsWithQueue` trait, which is included by default on queued handlers, gives you access to these methods:
+Se nenhuma exceção é lançada quando o manipulador é executado pela fila, o trabalho enfileirador será exluído automaticamente depois que isto tiver sido processado. Se você precisar acessar manualmente os métodos `delete` e `release` do trabalho enfileirado, você pode fazê-lo. A trait `Illuminate\Queue\InteractsWithQueue`, que é incluído por padrão nos manipuladores em fila, dá a você acesso para estes métdodos:
 
 	public function handle(PodcastWasPurchased $event)
 	{
@@ -87,14 +87,14 @@ If no exceptions are thrown when the handler is executed by the queue, the queue
 		}
 	}
 
-If you have an existing handler that you would like to convert to a queued handler, simply add the `ShouldBeQueued` interface to the class manually.
+Se você tem um manipulador existente que você gostaria de converter para um manipulador em fila, simplesmente adicione a interface `ShouldBeQueued` para a classe manualmente. 
 
 <a name="event-subscribers"></a>
-## Event Subscribers
+## Assinantes de eventos
 
-#### Defining An Event Subscriber
+#### Definindo um Assinante de evento 
 
-Event subscribers are classes that may subscribe to multiple events from within the class itself. Subscribers should define a `subscribe` method, which will be passed an event dispatcher instance:
+Assinantes de eventos são classes que podem subescrever para múltiplos eventos de dentro da própria classe. Assinantes devem definir o método `subscribe`, que irá ser passado para uma instância de despachador de eventos:
 
 	class UserEventHandler {
 
@@ -129,15 +129,15 @@ Event subscribers are classes that may subscribe to multiple events from within 
 
 	}
 
-#### Registering An Event Subscriber
+#### Registrando um Assinante de Evento 
 
-Once the subscriber has been defined, it may be registered with the `Event` class.
+Uma vez que o assinante tenha sido definido, isto pode ser registrado com a classe `Event`.
 
 	$subscriber = new UserEventHandler;
 
 	Event::subscribe($subscriber);
 
-You may also use the [service container](/docs/{{version}}/container) to resolve your subscriber. To do so, simply pass the name of your subscriber to the `subscribe` method:
+Você pode também usar o [container de serviço](/docs/{{version}}/container) para resolver seu assinante. Para fazê-lo, simplesmente passe o nome do seu assinante ppara o método `subscribe`:
 
 	Event::subscribe('UserEventHandler');
 
