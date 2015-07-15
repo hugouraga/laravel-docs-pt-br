@@ -1,19 +1,19 @@
 # Extending The Framework
 
-- [Managers & Factories](#managers-and-factories)
+- [Gerenciadores & Factories(Fábricas)](#managers-and-factories)
 - [Cache](#cache)
 - [Session](#session)
 - [Authentication](#authentication)
 - [Service Container Based Extension](#container-based-extension)
 
 <a name="managers-and-factories"></a>
-## Managers & Factories
+## Gerenciadores & Factories(Fábricas)
 
-Laravel has several `Manager` classes that manage the creation of driver-based components. These include the cache, session, authentication, and queue components. The manager class is responsible for creating a particular driver implementation based on the application's configuration. For example, the `CacheManager` class can create APC, Memcached, File, and various other implementations of cache drivers.
+Laravel tem várias classes `gerenciadoras` que gerenciam a criação de drivers baseados-em-componentes. Estes incluem o cache, seção, autenticação, e componentes de queue(fila). A classe gerenciadora é responsável pela criação de uma implementação de driver específico baseado na configuração da aplicação. Por exemplo, a classe `CacheManager` pode criar APC, Mencached, Arquivos, e várias outras implementações de drivers de cache.
 
-Each of these managers includes an `extend` method which may be used to easily inject new driver resolution functionality into the manager. We'll cover each of these managers below, with examples of how to inject custom driver support into each of them.
+Cada um dos gerenciadores incluem um método `extend` que pode ser usado para facilmente a injetar de novas funcionalidades de resolução de drivers no gerenciador. Nos iremos cobrir cada desses gerenciadores abaixo, com exemplos de como injetar um driver de suporte customizado em cada um deles.   
 
-> **Note:** Take a moment to explore the various `Manager` classes that ship with Laravel, such as the `CacheManager` and `SessionManager`. Reading through these classes will give you a more thorough understanding of how Laravel works under the hood. All manager classes extend the `Illuminate\Support\Manager` base class, which provides some helpful, common functionality for each manager.
+>**Nota:** Pegue um momento para explorar várias classes `gerenciadoras` que vem com o Laravel, como o `CacheManager` e a `SessionManager`. Lendo por essas classes dará um entendimento completo a mais de como Laravel trabalha por baixo dos panos. Todas as classes gerenciadoras extendem da classe base  `Illuminate\Support\Manager, que fornece algumas coisas úteis, funcionalidade comum para cada gerenciador. 
 
 <a name="cache"></a>
 ## Cache
