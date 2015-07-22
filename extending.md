@@ -18,18 +18,18 @@ Cada um dos gerenciadores incluem um método `extend` que pode ser usado para fa
 <a name="cache"></a>
 ## Cache
 
-To extend the Laravel cache facility, we will use the `extend` method on the `CacheManager`, which is used to bind a custom driver resolver to the manager, and is common across all manager classes. For example, to register a new cache driver named "mongo", we would do the following:
+Para extender da instalações do cache do laravel, nos iremos usar o método `extend` no `CacheManager`, que é usado para vincular um driver resolvedor customizado a um gerenciador, e é comum a todas as classes gerenciadoras. Por exemplo, para o registrar um novo driver cache chamado "mongo", nos podemos fazer o seguinte: 
 
 	Cache::extend('mongo', function($app)
 	{
 		return Cache::repository(new MongoStore);
 	});
 
-The first argument passed to the `extend` method is the name of the driver. This will correspond to your `driver` option in the `config/cache.php` configuration file. The second argument is a Closure that should return an `Illuminate\Cache\Repository` instance. The Closure will be passed an `$app` instance, which is an instance of `Illuminate\Foundation\Application` and a service container.
+O primeiro argumento passado para o método `extend` é o nome do driver. Isto irá corresponder a sua opção `driver` no seu arquivo de configuração `config/cache.php`. O segundo argumento é um Closure que deve retornar uma instância de `Illuminate\Cache\Repository`. A Closure será passada à uma instância de `$app`, que é uma instância de `Illuminate\Foundation\Application` e um container de serviços.
 
-The call to `Cache::extend` could be done in the `boot` method of the default `App\Providers\AppServiceProvider` that ships with fresh Laravel applications, or you may create your own service provider to house the extension - just don't forget to register the provider in the `config/app.php` provider array.
+A chamada para `Cache::extend` pode ser realizada no método `boot` do padrão `App\Providers\AppServiceProvider` que vem em instalações nativas de aplicações Larave, ou você pode criar seu próprio fornecedor de serviço para alojar a extenção - apenas não se esqueça de registrar o fornecedor, no array provider no arquivo `config/app.php`.
 
-To create our custom cache driver, we first need to implement the `Illuminate\Contracts\Cache\Store` contract. So, our MongoDB cache implementation would look something like this:
+Para criar nosso driver cache customizado, nos primeiro precisamos implementar o contrato `Illuminate\Contracts\Cache\Store`. Então, nossa implementação de cache MongoDB deve parecer com isto:
 
 	class MongoStore implements Illuminate\Contracts\Cache\Store {
 
@@ -43,14 +43,14 @@ To create our custom cache driver, we first need to implement the `Illuminate\Co
 
 	}
 
-We just need to implement each of these methods using a MongoDB connection. Once our implementation is complete, we can finish our custom driver registration:
+Nos apenas precisamos implementar cada um destes métodos usando uma conexão MongoDB. Uma vez que nossa implementação é completa, nos podemos finalizar o registro do nosso driver customizado. 
 
 	Cache::extend('mongo', function($app)
 	{
 		return Cache::repository(new MongoStore);
 	});
 
-If you're wondering where to put your custom cache driver code, consider making it available on Packagist! Or, you could create an `Extensions` namespace within your `app` directory. However, keep in mind that Laravel does not have a rigid application structure and you are free to organize your application according to your preferences.
+Se você estiver pensativo sobre aonde alocar o código do seu driver de cache customizado, considere fazer com que o mesmo esteja disponível no Packagist! OU, você pode criar o namespace `Extensions` (Extenções) dentro do seu diretório `app`. No entanto, tenha em mente que o Laravel não tem uma estrutura de aplicação rígida e você é livre para organizar a sua aplicação de acordo com suas preferências. 
 
 <a name="session"></a>
 ## Session
