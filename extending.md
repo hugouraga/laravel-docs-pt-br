@@ -64,12 +64,12 @@ Extender do Laravel com um driver de sessão customizado é tão fácil quando e
 
 ### Onde Extender A Sessão
 
-You should place your session extension code in the `boot` method of your `AppServiceProvider`.
+Você deve alocar seu código de extenção da sessão no método `boot` do seu `AppServiceProvider`.
 
-### Writing The Session Extension
+### Escrevendo A extensão Session (Sessão)
 
-Note that our custom session driver should implement the `SessionHandlerInterface`. This interface contains just a few simple methods we need to implement. A stubbed MongoDB implementation would look something like this:
-
+Note que o nosso driver se sessão customizado deve implementar a `SessionHandlerInterface`. Esta interface contém apenas alguns simples métodos que nos precisamos implementar. Uma implementação MongoDB encurtada deve parece com algo assim:
+	
 	class MongoHandler implements SessionHandlerInterface {
 
 		public function open($savePath, $sessionName) {}
@@ -81,25 +81,25 @@ Note that our custom session driver should implement the `SessionHandlerInterfac
 
 	}
 
-Since these methods are not as readily understandable as the cache `StoreInterface`, let's quickly cover what each of the methods do:
+Desde que estes métodos não são tão compreensíveis a leitura quanto os da cache `StoreInterface`, vamos rapidamenta explicar o que cada um destes métodos faz:
 
-- The `open` method would typically be used in file based session store systems. Since Laravel ships with a `file` session driver, you will almost never need to put anything in this method. You can leave it as an empty stub. It is simply a fact of poor interface design (which we'll discuss later) that PHP requires us to implement this method.
-- The `close` method, like the `open` method, can also usually be disregarded. For most drivers, it is not needed.
-- The `read` method should return the string version of the session data associated with the given `$sessionId`. There is no need to do any serialization or other encoding when retrieving or storing session data in your driver, as Laravel will perform the serialization for you.
-- The `write` method should write the given `$data` string associated with the `$sessionId` to some persistent storage system, such as MongoDB, Dynamo, etc.
-- The `destroy` method should remove the data associated with the `$sessionId` from persistent storage.
-- The `gc` method should destroy all session data that is older than the given `$lifetime`, which is a UNIX timestamp. For self-expiring systems like Memcached and Redis, this method may be left empty.
+- O método `open` deve tipicamente ser usado em um arquivo baseado nos sistemas de armazenamento de sessão. Desde que o Laravel entrega o driver da sessão com um `arquivo`, você quase nunca precisará colocar qualquer coisa neste método. Você pode deixar isto em um stub vazio. Isto é pelo simples fato de um design de interface pobre (que nos iremos discutir posteriormente) que o PHP requere que nos façamos a implementação deste método.  
+- O método `close`, como o método `open`, pode também ser usualmente desconsiderado. Para a maioria dos drivers, isto não é necessário.
+- O método `read` deve retornar a versão string dos dados da sessão associados com o `$sessionId` dado. Não há necessidado para qualquer serealizaççao ou outra codificação quando se esta recuperando ou armazenando dados de sessão no seu driver, já que o Laravel fará a serialização para você.
+- O método `write` deve escrever a string `$data` dada associada com o `$sessionId` para algum sistema de armazenamento de persistênte, tais como MongoDB, Dynamo, etc.
+- O método `destroy` deve remover os dados associados com o `$sessionId` do armazenamento persistente.
+- O método `gc` deve destroir todos os dados da sessão que é mais velho do que `$lifetime`(tempo-de-vida) dado, que é um timestamp UNIX. Para sistemas auto-expiração como Memcached e Redis, este método pode ser deixado vazio. 
 
-Once the `SessionHandlerInterface` has been implemented, we are ready to register it with the Session manager:
+Uma vez que a `SessionHandlerInterface` tiver sido implementada, nos estaremos prontos para registrar isto com o gerenciador de Sessão:
 
 	Session::extend('mongo', function($app)
 	{
 		return new MongoHandler;
 	});
 
-Once the session driver has been registered, we may use the `mongo` driver in our `config/session.php` configuration file.
+Uma vez que o driver de sessão tiver sido registrado, nos podemos usar o driver `mongo` nos seu arquivo de configuração `config/session.php`.
 
-> **Note:** Remember, if you write a custom session handler, share it on Packagist!
+> **Nota:** Lembre-se, se você escrever um manipulador de sessão customizado, compartilhe isso no Packagist!
 
 <a name="authentication"></a>
 ## Authentication
