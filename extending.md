@@ -53,16 +53,16 @@ Nos apenas precisamos implementar cada um destes métodos usando uma conexão Mo
 Se você estiver pensativo sobre aonde alocar o código do seu driver de cache customizado, considere fazer com que o mesmo esteja disponível no Packagist! OU, você pode criar o namespace `Extensions` (Extenções) dentro do seu diretório `app`. No entanto, tenha em mente que o Laravel não tem uma estrutura de aplicação rígida e você é livre para organizar a sua aplicação de acordo com suas preferências. 
 
 <a name="session"></a>
-## Session
+## Sessões 
 
-Extending Laravel with a custom session driver is just as easy as extending the cache system. Again, we will use the `extend` method to register our custom code:
+Extender do Laravel com um driver de sessão customizado é tão fácil quando extender do sistema de cache. Novamente, nos iremos usar o método `extend` para registrar nosso código customizado.
 
 	Session::extend('mongo', function($app)
 	{
 		// Return implementation of SessionHandlerInterface
 	});
 
-### Where To Extend The Session
+### Onde Extender A Sessão
 
 You should place your session extension code in the `boot` method of your `AppServiceProvider`.
 
