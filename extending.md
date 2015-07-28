@@ -126,17 +126,17 @@ Vamos dar uma olhada no contrato `UserProvider`:
 
 	}
 
-The `retrieveById` function typically receives a numeric key representing the user, such as an auto-incrementing ID from a MySQL database. The `Authenticatable` implementation matching the ID should be retrieved and returned by the method.
+A função `retrieveById` típicamente recebe uma chave númerica representando o usuário, tanto como um ID auto-incrementing de um banco de dados MySQL. A implementação `Authenticatable` combinando o ID deve ser recuperado e retornado pelo método. 
 
-The `retrieveByToken` function retrieves a user by their unique `$identifier` and "remember me" `$token`, stored in a field `remember_token`. As with the previous method, the `Authenticatable` implementation should be returned.
+A função `retrieveByToken` recupera um usuário pelo seu único `$identifier` e pelo `$token` "Lembre-me", armazenado em um campo `remember_token`. Como o método prévido, a implemtanção de `Authenticatable` deve ser retornado. 
 
-The `updateRememberToken` method updates the `$user` field `remember_token` with the new `$token`. The new token can be either a fresh token, assigned on successful "remember me" login attempt, or a null when user is logged out.
+O método `updateRememberToken` atualiza o campo `remember_token` do (usuário) `$user` com um novo `$token`. O novo token pode ser tanto um token recém gerado, atribuído em uma tentativa de login "Lembre-me" de sucesso, ou um usuário nulo é deslogado. 
 
-The `retrieveByCredentials` method receives the array of credentials passed to the `Auth::attempt` method when attempting to sign into an application. The method should then "query" the underlying persistent storage for the user matching those credentials. Typically, this method will run a query with a "where" condition on `$credentials['username']`. The method should then return an implementation of `UserInterface`. **This method should not attempt to do any password validation or authentication.**
+O método `retrieveByCredentials` recebe um arrya de credenciais passados para o método `Auth::attempt` quando se tenta entrar na aplicação. O método deve então "consultado(query)" o armazenamento persistente subjacente para verificar as credenciais. Tipicamente, este método irá executar uma query com a condição "where"(onde) no `$credentials['username']`. O método deve então retornar a implementação do `UserInterface`. ** Este método não deve tentar fazer qualquer avaliação de senha ou atenticação.**
 
-The `validateCredentials` method should compare the given `$user` with the `$credentials` to authenticate the user. For example, this method might compare the `$user->getAuthPassword()` string to a `Hash::make` of `$credentials['password']`. This method should only validate the user's credentials and return boolean.
+O método `validateCredentials` deve comparar o dado `$user`(usuário) com as `$credentials`(credenciais) para autenticar o usuário. Por exemplo, este método pode compara a string `$user->getAuthPassword()` ao `Hash::make` do `$credentials['password']`. Este método deve apenas validar as credenciais do usuário e retornar um boolean.
 
-Now that we have explored each of the methods on the `UserProvider`, let's take a look at the `Authenticatable`. Remember, the provider should return implementations of this interface from the `retrieveById` and `retrieveByCredentials` methods:
+Agora que nos temos explorado cada um dos méotodos no `UserProvider`, vamos dar uma olhada na `Authenticatable`. Lembre-se, o fornecedor deve retornar implementações desta interface a partir dos métodos `retrieveById` e `retrieveByCredentials`:
 
 	interface Authenticatable {
 
