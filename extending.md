@@ -3,7 +3,7 @@
 - [Gerenciadores & Factories(Fábricas)](#managers-and-factories)
 - [Cache](#cache)
 - [Session](#session)
-- [Authentication](#authentication)
+- [Autenticação](#authentication)
 - [Service Container Based Extension](#container-based-extension)
 
 <a name="managers-and-factories"></a>
@@ -102,18 +102,19 @@ Uma vez que o driver de sessão tiver sido registrado, nos podemos usar o driver
 > **Nota:** Lembre-se, se você escrever um manipulador de sessão customizado, compartilhe isso no Packagist!
 
 <a name="authentication"></a>
-## Authentication
+## Autenticação
 
-Authentication may be extended the same way as the cache and session facilities. Again, we will use the `extend` method we have become familiar with:
+Autenticação pode ser extendida do mesma forma que as instalações de cache e sessão. Novamente, no iremos usar o método `extend` que nós nos tornamos familiarizados com: 
 
 	Auth::extend('riak', function($app)
 	{
 		// Return implementation of Illuminate\Contracts\Auth\UserProvider
 	});
 
-The `UserProvider` implementations are only responsible for fetching a `Illuminate\Contracts\Auth\Authenticatable` implementation out of a persistent storage system, such as MySQL, Riak, etc. These two interfaces allow the Laravel authentication mechanisms to continue functioning regardless of how the user data is stored or what type of class is used to represent it.
 
-Let's take a look at the `UserProvider` contract:
+As implementações de `UserProvider` são apenas responsáveis por buscar a implementação `Illuminate\Contracts\Auth\Authenticatable` fora de um sistema de armazenamento persistente, como MySQL, Riak, etc. Estas duas interfaces permitem o mecanismo de autenticação do Laravel continuar funcionando independentemente da como os dados do usuário é armazenado ou que tipo de classe é usado para reprensentar isto.
+
+Vamos dar uma olhada no contrato `UserProvider`:
 
 	interface UserProvider {
 
