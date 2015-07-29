@@ -2,9 +2,9 @@
 
 - [Gerenciadores & Factories(Fábricas)](#managers-and-factories)
 - [Cache](#cache)
-- [Session](#session)
+- [Sessões](#session)
 - [Autenticação](#authentication)
-- [Service Container Based Extension](#container-based-extension)
+- [Conteiner de Serviço Baseado em Extensão](#container-based-extension)
 
 <a name="managers-and-factories"></a>
 ## Gerenciadores & Factories(Fábricas)
@@ -160,11 +160,12 @@ Finally, once we have implemented the `UserProvider`, we are ready to register o
 After you have registered the driver with the `extend` method, you switch to the new driver in your `config/auth.php` configuration file.
 
 <a name="container-based-extension"></a>
-## Service Container Based Extension
+## Conteiner de Serviço Baseado em Extensão
 
-Almost every service provider included with the Laravel framework binds objects into the service container. You can find a list of your application's service providers in the `config/app.php` configuration file. As you have time, you should skim through each of these provider's source code. By doing so, you will gain a much better understanding of what each provider adds to the framework, as well as what keys are used to bind various services into the service container.
+Quase todos os fornecedores de serviços incluídos com o famework Laravel combinam objetos em um container de serviços. Você pode achar a lista dos fornecedores de serviço da sua aplicação no seu arquivo de configuração `config/app.php`. Como você tem tempo, você deve percorrer pelo código fonte de cada um desses fornecedores de serviço. Ao fazer isto, você irá ganhar um melhor entendimento do que cada fornecedor adiciona ao framework, bem como quais chaves são usadas para combinar vários serviços em um container de serviço.
 
-For example, the `HashServiceProvider` binds a `hash` key into the service container, which resolves into a `Illuminate\Hashing\BcryptHasher` instance. You can easily extend and override this class within your own application by overriding this binding. For example:
+
+Por exemplo, o `HashServiceProvider` combina uma chave `hash` em um container de serviço, que resolve na instância de `Illuminate\Hashing\BcryptHasher`. Você pode facilmente extender e sobrescrever esta classe dentro da sua aplicação sobrescrevendo esta combinação. Por exemplo:
 
 	<?php namespace App\Providers;
 
@@ -182,6 +183,7 @@ For example, the `HashServiceProvider` binds a `hash` key into the service conta
 
 	}
 
-Note that this class extends the `HashServiceProvider`, not the default `ServiceProvider` base class. Once you have extended the service provider, swap out the `HashServiceProvider` in your `config/app.php` configuration file with the name of your extended provider.
+Note que esta classe extende a `HashServiceProvider`, e não a classe base padrão`ServiceProvider`. Uma vez que você tenha extendido o fornecedo de serviço, troque o
+`HashServiceProvider` no seu arquivo de configuração `config/app.php` com o nome do seu fornecedor de serviço extendido.
 
-This is the general method of extending any core class that is bound in the container. Essentially every core class is bound in the container in this fashion, and can be overridden. Again, reading through the included framework service providers will familiarize you with where various classes are bound into the container, and what keys they are bound by. This is a great way to learn more about how Laravel is put together.
+Isto é o método geral de extensão de qualquer classe do core(núcleo) que está ligada ao container. Essencialmente toda classe de core(núcleo) é ligada ao container desta forma, e pode ser sobrescrita. Novamente, a leitura através dos fornecedores de serviços incluídos no framework irão famialirizar você com onde várias classe são ligadas ao container, e quais chaves por quais eles estão ligados. Este é um grande método para aprender mais sobre como os componentes do Laravel são unidos.
