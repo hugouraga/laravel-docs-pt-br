@@ -1,23 +1,25 @@
 # Facades
 
-- [Introduction](#introduction)
-- [Explanation](#explanation)
-- [Practical Usage](#practical-usage)
-- [Creating Facades](#creating-facades)
-- [Mocking Facades](#mocking-facades)
-- [Facade Class Reference](#facade-class-reference)
+- [Introdução](#introduction)
+- [Explicação](#explanation)
+- [Uso Prático](#practical-usage)
+- [Criando Fachadas](#creating-facades)
+- [Imitando Fachadas (Mocking)](#mocking-facades)
+- [Referências de Calsse Fachada](#facade-class-reference)
 
 <a name="introduction"></a>
-## Introduction
+## Introdução
+
+Fachadas fornecem uma interface "estática" para classes que estão disponíveis no [container de serviço](/docs/{{version}}/container) das aplicações. Laravel já vem com várias fachadas, e você provavelmente você tem as usado sem ao menos conhece-las! "Fachadas" do Laravel servem como "proxies" para classes subjacentes no container de serviços, fornecendo o benefício de uma sintaxe concisa e expressiva enquanto é mantida mais testável e flexível do que os métodos estáticos tradicionais.
 
 Facades provide a "static" interface to classes that are available in the application's [service container](/docs/{{version}}/container). Laravel ships with many facades, and you have probably been using them without even knowing it! Laravel "facades" serve as "static proxies" to underlying classes in the service container, providing the benefit of a terse, expressive syntax while maintaining more testability and flexibility than traditional static methods.
 
-Occasionally, you may wish to create your own facades for your application's and packages, so let's explore the concept, development and usage of these classes.
+Ocasionalmente, você pode desejar criar sua própria fachada para sua aplicação e pacotes, então vamos explorar o conceito de desenvolvimento e uso dessas classes.
 
-> **Note:** Before digging into facades, it is strongly recommended that you become very familiar with the Laravel [service container](/docs/{{version}}/container).
+> **Nota:** Antes de mergulhar no mundo das fachda, é fortemente recomendado que você se familiarize com o [container de serviços](/docs/{{version}}/container) do Laravel. 
 
 <a name="explanation"></a>
-## Explanation
+## Explicação
 
 In the context of a Laravel application, a facade is a class that provides access to an object from the container. The machinery that makes this work is in the `Facade` class. Laravel's facades, and any custom facades you create, will extend the base `Facade` class.
 
@@ -26,7 +28,7 @@ Your facade class only needs to implement a single method: `getFacadeAccessor`. 
 So, when you make a facade call like `Cache::get`, Laravel resolves the Cache manager class out of the service container and calls the `get` method on the class. In technical terms, Laravel Facades are a convenient syntax for using the Laravel service container as a service locator.
 
 <a name="practical-usage"></a>
-## Practical Usage
+## Uso Prático
 
 In the example below, a call is made to the Laravel cache system. By glancing at this code, one might assume that the static method `get` is being called on the `Cache` class.
 
@@ -78,7 +80,7 @@ Remember, if you are using a facade in a controller that is namespaced, you will
 	}
 
 <a name="creating-facades"></a>
-## Creating Facades
+## Criando Fachadas
 
 Creating a facade for your own application or package is simple. You only need 3 things:
 
@@ -127,12 +129,12 @@ Finally, if we wish, we can add an alias for our facade to the `aliases` array i
 Classes in the `aliases` array are not available in some instances because [PHP will not attempt to autoload undefined type-hinted classes](https://bugs.php.net/bug.php?id=39003). If `\ServiceWrapper\ApiTimeoutException` is aliased to `ApiTimeoutException`, a `catch(ApiTimeoutException $e)` outside of the namespace `\ServiceWrapper` will never catch the exception, even if one is thrown. A similar problem is found in classes which have type hints to aliased classes. The only workaround is to forego aliasing and `use` the classes you wish to type hint at the top of each file which requires them.
 
 <a name="mocking-facades"></a>
-## Mocking Facades
+## Imitando Fachadas (Mocking)
 
 Unit testing is an important aspect of why facades work the way that they do. In fact, testability is the primary reason for facades to even exist. For more information, check out the [mocking facades](/docs/testing#mocking-facades) section of the documentation.
 
 <a name="facade-class-reference"></a>
-## Facade Class Reference
+## Referências de Calsse Fachada
 
 Below you will find every facade and its underlying class. This is a useful tool for quickly digging into the API documentation for a given facade root. The [service container binding](/docs/{{version}}/container) key is also included where applicable.
 
