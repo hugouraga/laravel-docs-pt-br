@@ -21,11 +21,11 @@ Ocasionalmente, você pode desejar criar sua própria fachada para sua aplicaç�
 <a name="explanation"></a>
 ## Explicação
 
-In the context of a Laravel application, a facade is a class that provides access to an object from the container. The machinery that makes this work is in the `Facade` class. Laravel's facades, and any custom facades you create, will extend the base `Facade` class.
+No contexto da aplicação Laravel, uma fachada é uma classe que forncece acesso para um objeto de um container. Toda a engenharia que faz este trabalho está na classe `Facade`. As fachadas do Laravel, e qualquer outra fachada customizada que você criar, irá extender da classe base `Facade`.
 
-Your facade class only needs to implement a single method: `getFacadeAccessor`. It's the `getFacadeAccessor` method's job to define what to resolve from the container. The `Facade` base class makes use of the `__callStatic()` magic-method to defer calls from your facade to the resolved object.
+Sua classe fachada apenas necessita implementar um único método `getFacadeAccessor`. É trabalho do método `getFacadeAccessor` definir o que resolver a partir do container. A classe base `Facade` fa uso do método-mágico `__callStatic()` para adiar as chamadas da sua classe fachada para resolver o objeto.
 
-So, when you make a facade call like `Cache::get`, Laravel resolves the Cache manager class out of the service container and calls the `get` method on the class. In technical terms, Laravel Facades are a convenient syntax for using the Laravel service container as a service locator.
+Então, quando você faz a chamada de uma fachada como por exemplo: `Cache::get`, o Laravel resolve a classe gerenciadora Cache de fora do container de serviços e chama o método `get` da classe. Em termos técnicos, Fachadas Laravel são uma sintaxe conveniente para usar o container de serviços Laravel como um localizador de serviços.
 
 <a name="practical-usage"></a>
 ## Uso Prático
