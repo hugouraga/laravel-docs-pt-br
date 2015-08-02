@@ -30,11 +30,12 @@ Então, quando você faz a chamada de uma fachada como por exemplo: `Cache::get`
 <a name="practical-usage"></a>
 ## Uso Prático
 
+No exemplo abaixo, a chamada é feita para o sistema de cache do Laravel. Ao olhar para este código, pode-se supor que o método estático  `get` é chamado na clsse `Cache`.
 In the example below, a call is made to the Laravel cache system. By glancing at this code, one might assume that the static method `get` is being called on the `Cache` class.
 
 	$value = Cache::get('key');
 
-However, if we look at that `Illuminate\Support\Facades\Cache` class, you'll see that there is no static method `get`:
+Contudo, se nos olharmos para classe `Illuminate\Support\Facades\Cache`, você verá que lá não existe um método estático `get`:
 
 	class Cache extends Facade {
 
