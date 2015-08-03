@@ -139,7 +139,7 @@ Teste unitário é importante aspecto do porque fachadas funcionam do jeito que 
 
 Abaixo você irá encontrar todas fachadas e suas classes subjacentes. Isto é uma ferramenta útil para rapidamente cavar mais fundo na documentação da API para uma determinada raiz da fachada. A chave [ligação do container de serviços](/docs/{{version}}/container) também é incluída aonde é aplicável.
 
-Facade  |  Class  |  Service Container Binding
+Fachadas  |  Classes  |  Ligação de Container de Serviços
 ------------- | ------------- | -------------
 App  |  [Illuminate\Foundation\Application](http://laravel.com/api/{{version}}/Illuminate/Foundation/Application.html)  | `app`
 Artisan  |  [Illuminate\Console\Application](http://laravel.com/api/{{version}}/Illuminate/Console/Application.html)  |  `artisan`
