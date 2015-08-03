@@ -138,7 +138,7 @@ Unit testing is an important aspect of why facades work the way that they do. In
 
 Below you will find every facade and its underlying class. This is a useful tool for quickly digging into the API documentation for a given facade root. The [service container binding](/docs/{{version}}/container) key is also included where applicable.
 
-Facade  |  Class  |  Service Container Binding
+Fahada  |  Classe  |  Ligação do Container de Serviços
 ------------- | ------------- | -------------
 App  |  [Illuminate\Foundation\Application](http://laravel.com/api/{{version}}/Illuminate/Foundation/Application.html)  | `app`
 Artisan  |  [Illuminate\Console\Application](http://laravel.com/api/{{version}}/Illuminate/Console/Application.html)  |  `artisan`
