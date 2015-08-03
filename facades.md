@@ -21,20 +21,21 @@ Ocasionalmente, você pode desejar criar sua própria fachada para sua aplicaç�
 <a name="explanation"></a>
 ## Explicação
 
-In the context of a Laravel application, a facade is a class that provides access to an object from the container. The machinery that makes this work is in the `Facade` class. Laravel's facades, and any custom facades you create, will extend the base `Facade` class.
+No contexto da aplicação Laravel, uma fachada é uma classe que forncece acesso para um objeto de um container. Toda a engenharia que faz este trabalho está na classe `Facade`. As fachadas do Laravel, e qualquer outra fachada customizada que você criar, irá extender da classe base `Facade`.
 
-Your facade class only needs to implement a single method: `getFacadeAccessor`. It's the `getFacadeAccessor` method's job to define what to resolve from the container. The `Facade` base class makes use of the `__callStatic()` magic-method to defer calls from your facade to the resolved object.
+Sua classe fachada apenas necessita implementar um único método `getFacadeAccessor`. É trabalho do método `getFacadeAccessor` definir o que resolver a partir do container. A classe base `Facade` fa uso do método-mágico `__callStatic()` para adiar as chamadas da sua classe fachada para resolver o objeto.
 
-So, when you make a facade call like `Cache::get`, Laravel resolves the Cache manager class out of the service container and calls the `get` method on the class. In technical terms, Laravel Facades are a convenient syntax for using the Laravel service container as a service locator.
+Então, quando você faz a chamada de uma fachada como por exemplo: `Cache::get`, o Laravel resolve a classe gerenciadora Cache de fora do container de serviços e chama o método `get` da classe. Em termos técnicos, Fachadas Laravel são uma sintaxe conveniente para usar o container de serviços Laravel como um localizador de serviços.
 
 <a name="practical-usage"></a>
 ## Uso Prático
 
+No exemplo abaixo, a chamada é feita para o sistema de cache do Laravel. Ao olhar para este código, pode-se supor que o método estático  `get` é chamado na clsse `Cache`.
 In the example below, a call is made to the Laravel cache system. By glancing at this code, one might assume that the static method `get` is being called on the `Cache` class.
 
 	$value = Cache::get('key');
 
-However, if we look at that `Illuminate\Support\Facades\Cache` class, you'll see that there is no static method `get`:
+Contudo, se nos olharmos para classe `Illuminate\Support\Facades\Cache`, você verá que lá não existe um método estático `get`:
 
 	class Cache extends Facade {
 
@@ -47,17 +48,17 @@ However, if we look at that `Illuminate\Support\Facades\Cache` class, you'll see
 
 	}
 
-The Cache class extends the base `Facade` class and defines a method `getFacadeAccessor()`. Remember, this method's job is to return the name of a service container binding.
+A classe Cache extende da classe base `Facade` e define o método  `getFacadeAccessor()`. Lembre-se, o objetivo deste método é retornar o nome da ligação do container de serviços.
 
-When a user references any static method on the `Cache` facade, Laravel resolves the `cache` binding from the service container and runs the requested method (in this case, `get`) against that object.
+Quando um usuário faz referência a qualquer método estático na fachada `Cache`, Laravel resolve a ligação `cache` a partir do container de serviços e executa o método requisitado (neste caso, `get`) contra esse objeto.
 
-So, our `Cache::get` call could be re-written like so:
+Então, nossa chamada `Cache::get` pode ser re-escrita assim:
 
 	$value = $app->make('cache')->get('key');
 
-#### Importing Facades
+#### Importando Fachadas 
 
-Remember, if you are using a facade in a controller that is namespaced, you will need to import the facade class into the namespace. All facades live in the global namespace:
+Lembre-se, se você está usando uma fachada em um controlador que faz um de namespace, você precisará importar a classe da fachada no namespace. Todas as fachadas estão localizadas no namespace global:
 
 	<?php namespace App\Http\Controllers;
 
@@ -82,13 +83,13 @@ Remember, if you are using a facade in a controller that is namespaced, you will
 <a name="creating-facades"></a>
 ## Criando Fachadas
 
-Creating a facade for your own application or package is simple. You only need 3 things:
+Criar fachadas para sua própria aplicação ou pacote é simples. Você apenas precisa de três coisas:
 
-- A service container binding.
-- A facade class.
-- A facade alias configuration.
+- Uma ligação de container de serviços
+- A classe Fachada.
+- Uma configuração "alias" da fachada
 
-Let's look at an example. Here, we have a class defined as `PaymentGateway\Payment`.
+Vamos dar uma olhada neste exemplo. Aqui, nos temos a classe definada como `PaymentGateway\Payment`.
 
 	namespace PaymentGateway;
 
@@ -100,17 +101,17 @@ Let's look at an example. Here, we have a class defined as `PaymentGateway\Payme
 		}
 
 	}
-
-We need to be able to resolve this class from the service container. So, let's add a binding to a service provider:
+Nos precisamos ser capazes de resolver esta classe a partir do container de serviços. Então, vamos adicionar a aligação para um fornecedor de serviços:
 
 	App::bind('payment', function()
 	{
 		return new \PaymentGateway\Payment;
 	});
 
-A great place to register this binding would be to create a new [service provider](/docs/{{version}}/container#service-providers) named `PaymentServiceProvider`, and add this binding to the `register` method. You can then configure Laravel to load your service provider from the `config/app.php` configuration file.
+Um ótimo lugar para registrar esta ligação seria criando um novo [fornecerdor de serviços](/docs/{{version}}/container#service-providers) chamado `PaymentServiceProvider`, e adicionar esta ligação ao método `register`. Você pode então configurar para que o Laravel carregue seu fornecedor de serviços a partir do arquivo de configuração `config/app.php`.
 
-Next, we can create our own facade class:
+Após isto, nos podemos criar nosa própria classe fachada:
+
 
 	use Illuminate\Support\Facades\Facade;
 
@@ -120,23 +121,23 @@ Next, we can create our own facade class:
 
 	}
 
-Finally, if we wish, we can add an alias for our facade to the `aliases` array in the `config/app.php` configuration file. Now, we can call the `process` method on an instance of the `Payment` class.
+Finalmente, se quisermos, nos podemos adicionar um alias(apelido) para nossa fachada ao array `aliases` no arquivos de configuração `config/app.php`. Agora, nos podemos chamar o método `process` na instância da classe `Payment`. 
 
 	Payment::process();
 
-### A Note On Auto-Loading Aliases
+### Uma nota sobre auto-loading Aliases (Apelidos auto-carregáveis)
 
-Classes in the `aliases` array are not available in some instances because [PHP will not attempt to autoload undefined type-hinted classes](https://bugs.php.net/bug.php?id=39003). If `\ServiceWrapper\ApiTimeoutException` is aliased to `ApiTimeoutException`, a `catch(ApiTimeoutException $e)` outside of the namespace `\ServiceWrapper` will never catch the exception, even if one is thrown. A similar problem is found in classes which have type hints to aliased classes. The only workaround is to forego aliasing and `use` the classes you wish to type hint at the top of each file which requires them.
+Classes no array `aliases` não estão disponíveis em algumas instâncias por que [PHP não irá tentar carregar automaticamente classes dom tipagens indefinidas](https://bugs.php.net/bug.php?id=39003). Se `\ServiceWrapper\ApiTimeoutException` é apelidado de `ApiTimeoutException`, a exeção `catch(ApiTimeoutException $e)` fora do namespace `\ServiceWrapper` nunca irá entrar na exeção, mesmo se uma for levantada. Um problema similar é encontrado em classes que tem tipagem para classes apelidadas (aliases). A única solução é não usar (aliasing, não apelidar classes) e `usar` as classes que você deseja tipando-as no começo de cada arquivo que as requisita.
 
 <a name="mocking-facades"></a>
 ## Imitando Fachadas (Mocking)
 
-Unit testing is an important aspect of why facades work the way that they do. In fact, testability is the primary reason for facades to even exist. For more information, check out the [mocking facades](/docs/testing#mocking-facades) section of the documentation.
+Teste unitário é importante aspecto do porque fachadas funcionam do jeito que são. Na verdade, testabilidade é a razão primária para fahadas sequer existam. Para mais informações, dê uma olhada na seção de documentação [imitando fachadas](/docs/testing#mocking-facades) 
 
 <a name="facade-class-reference"></a>
-## Referências de Calsse Fachada
+## Referências de Classe Fachada
 
-Below you will find every facade and its underlying class. This is a useful tool for quickly digging into the API documentation for a given facade root. The [service container binding](/docs/{{version}}/container) key is also included where applicable.
+Abaixo você irá encontrar todas fachadas e suas classes subjacentes. Isto é uma ferramenta útil para rapidamente cavar mais fundo na documentação da API para uma determinada raiz da fachada. A chave [ligação do container de serviços](/docs/{{version}}/container) também é incluída aonde é aplicável.
 
 Fachadas  |  Classes  |  Ligação de Container de Serviços
 ------------- | ------------- | -------------
