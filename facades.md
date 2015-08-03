@@ -48,17 +48,17 @@ Contudo, se nos olharmos para classe `Illuminate\Support\Facades\Cache`, você v
 
 	}
 
-The Cache class extends the base `Facade` class and defines a method `getFacadeAccessor()`. Remember, this method's job is to return the name of a service container binding.
+A classe Cache extende da classe base `Facade` e define o método  `getFacadeAccessor()`. Lembre-se, o objetivo deste método é retornar o nome da ligação do container de serviços.
 
-When a user references any static method on the `Cache` facade, Laravel resolves the `cache` binding from the service container and runs the requested method (in this case, `get`) against that object.
+Quando um usuário faz referência a qualquer método estático na fachada `Cache`, Laravel resolve a ligação `cache` a partir do container de serviços e executa o método requisitado (neste caso, `get`) contra esse objeto.
 
-So, our `Cache::get` call could be re-written like so:
+Então, nossa chamada `Cache::get` pode ser re-escrita assim:
 
 	$value = $app->make('cache')->get('key');
 
-#### Importing Facades
+#### Importando Fachadas 
 
-Remember, if you are using a facade in a controller that is namespaced, you will need to import the facade class into the namespace. All facades live in the global namespace:
+Lembre-se, se você está usando uma fachada em um controlador que faz um de namespace, você precisará importar a classe da fachada no namespace. Todas as fachadas estão localizadas no namespace global:
 
 	<?php namespace App\Http\Controllers;
 
@@ -83,13 +83,13 @@ Remember, if you are using a facade in a controller that is namespaced, you will
 <a name="creating-facades"></a>
 ## Criando Fachadas
 
-Creating a facade for your own application or package is simple. You only need 3 things:
+Criar fachadas para sua própria aplicação ou pacote é simples. Você apenas precisa de três coisas:
 
-- A service container binding.
-- A facade class.
-- A facade alias configuration.
+- Uma ligação de container de serviços
+- A classe Fachada.
+- Uma configuração "alias" da fachada
 
-Let's look at an example. Here, we have a class defined as `PaymentGateway\Payment`.
+Vamos dar uma olhada neste exemplo. Aqui, nos temos a classe definada como `PaymentGateway\Payment`.
 
 	namespace PaymentGateway;
 
@@ -101,17 +101,17 @@ Let's look at an example. Here, we have a class defined as `PaymentGateway\Payme
 		}
 
 	}
-
-We need to be able to resolve this class from the service container. So, let's add a binding to a service provider:
+Nos precisamos ser capazes de resolver esta classe a partir do container de serviços. Então, vamos adicionar a aligação para um fornecedor de serviços:
 
 	App::bind('payment', function()
 	{
 		return new \PaymentGateway\Payment;
 	});
 
-A great place to register this binding would be to create a new [service provider](/docs/{{version}}/container#service-providers) named `PaymentServiceProvider`, and add this binding to the `register` method. You can then configure Laravel to load your service provider from the `config/app.php` configuration file.
+Um ótimo lugar para registrar esta ligação seria criando um novo [fornecerdor de serviços](/docs/{{version}}/container#service-providers) chamado `PaymentServiceProvider`, e adicionar esta ligação ao método `register`. Você pode então configurar para que o Laravel carregue seu fornecedor de serviços a partir do arquivo de configuração `config/app.php`.
 
-Next, we can create our own facade class:
+Após isto, nos podemos criar nosa própria classe fachada:
+
 
 	use Illuminate\Support\Facades\Facade;
 
@@ -121,7 +121,7 @@ Next, we can create our own facade class:
 
 	}
 
-Finally, if we wish, we can add an alias for our facade to the `aliases` array in the `config/app.php` configuration file. Now, we can call the `process` method on an instance of the `Payment` class.
+Finalmente, se quisermos, nos podemos adicionar um alias(apelido) para nossa fachada ao array `aliases` no arquivos de configuração `config/app.php`. Agora, nos podemos chamar o método `process` na instância da classe `Payment`. 
 
 	Payment::process();
 
