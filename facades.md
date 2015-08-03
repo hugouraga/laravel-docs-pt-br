@@ -125,19 +125,19 @@ Finalmente, se quisermos, nos podemos adicionar um alias(apelido) para nossa fac
 
 	Payment::process();
 
-### A Note On Auto-Loading Aliases
+### Uma nota sobre auto-loading Aliases (Apelidos auto-carregáveis)
 
-Classes in the `aliases` array are not available in some instances because [PHP will not attempt to autoload undefined type-hinted classes](https://bugs.php.net/bug.php?id=39003). If `\ServiceWrapper\ApiTimeoutException` is aliased to `ApiTimeoutException`, a `catch(ApiTimeoutException $e)` outside of the namespace `\ServiceWrapper` will never catch the exception, even if one is thrown. A similar problem is found in classes which have type hints to aliased classes. The only workaround is to forego aliasing and `use` the classes you wish to type hint at the top of each file which requires them.
+Classes no array `aliases` não estão disponíveis em algumas instâncias por que [PHP não irá tentar carregar automaticamente classes dom tipagens indefinidas](https://bugs.php.net/bug.php?id=39003). Se `\ServiceWrapper\ApiTimeoutException` é apelidado de `ApiTimeoutException`, a exeção `catch(ApiTimeoutException $e)` fora do namespace `\ServiceWrapper` nunca irá entrar na exeção, mesmo se uma for levantada. Um problema similar é encontrado em classes que tem tipagem para classes apelidadas (aliases). A única solução é não usar (aliasing, não apelidar classes) e `usar` as classes que você deseja tipando-as no começo de cada arquivo que as requisita.
 
 <a name="mocking-facades"></a>
 ## Imitando Fachadas (Mocking)
 
-Unit testing is an important aspect of why facades work the way that they do. In fact, testability is the primary reason for facades to even exist. For more information, check out the [mocking facades](/docs/testing#mocking-facades) section of the documentation.
+Teste unitário é importante aspecto do porque fachadas funcionam do jeito que são. Na verdade, testabilidade é a razão primária para fahadas sequer existam. Para mais informações, dê uma olhada na seção de documentação [imitando fachadas](/docs/testing#mocking-facades) 
 
 <a name="facade-class-reference"></a>
-## Referências de Calsse Fachada
+## Referências de Classe Fachada
 
-Below you will find every facade and its underlying class. This is a useful tool for quickly digging into the API documentation for a given facade root. The [service container binding](/docs/{{version}}/container) key is also included where applicable.
+Abaixo você irá encontrar todas fachadas e suas classes subjacentes. Isto é uma ferramenta útil para rapidamente cavar mais fundo na documentação da API para uma determinada raiz da fachada. A chave [ligação do container de serviços](/docs/{{version}}/container) também é incluída aonde é aplicável.
 
 Facade  |  Class  |  Service Container Binding
 ------------- | ------------- | -------------
