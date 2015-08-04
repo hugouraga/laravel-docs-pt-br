@@ -29,7 +29,7 @@ Quando utilizando o driver `local`, observe que todas as operações com arquivo
 <a name="basic-usage"></a>
 ## Utilização básica
 
-The `Storage` facade may be used to interact with any of your configured disks. Alternatively, you may type-hint the `Illuminate\Contracts\Filesystem\Factory` contract on any class that is resolved via the Laravel [service container](/docs/{{version}}/container).
+A fachada `Storage` pode ser usada para interagir com qualquer um dos seus discos configurados. Alternativamente, você pode tipar o contrato `Illuminate\Contracts\Filesystem\Factory` em qualquer classe que é resolvida via [container de serviços](/docs/{{version}}/container) do Laravel.
 
 #### Obtendo um disco específico
 
@@ -109,17 +109,17 @@ The `Storage` facade may be used to interact with any of your configured disks. 
 	Storage::deleteDirectory($directory);
 
 <a name="custom-filesystems"></a>
-## Custom Filesystems
+## Sistemas de arquivos Customizados
 
-Laravel's Flysystem integration provides drivers for several "drivers" out of the box; however, Flysystem is not limited to these and has adapters for many other storage systems. You can create a custom driver if you want to use one of these additional adapters in your Laravel application. Don't worry, it's not too hard!
+A integração do sistema de arquivos do Laravel fornece drivers para vários "drivers" de fora da caixa, contudo, sistemas de arquivos não é limitado a esses e tem adaptadores para vários outros sistemas de armazenamento. Você pode criar um driver customizado se você desejar usar um desses adaptadores adicionais nas suas aplicações Laravel. Não se precupe, não é tão difícil. 
 
-In order to set up the custom filesystem you will need to create a service provider such as `DropboxFilesystemServiceProvider`. In the provider's `boot` method, you can inject an instance of the `Illuminate\Contracts\Filesystem\Factory` contract and call the `extend` method of the injected instance. Alternatively, you may use the `Disk` facade's `extend` method.
+A fim de criar o sistema de arquivos você precisará criar um fornecedor de serviços, tais como `DropboxFilesystemServiceProvider`. No método `boot` dos fornecedores, você pode injetar uma instância do contrato `Illuminate\Contracts\Filesystem\Factory` e chamar o método `extend` da instância injetada. Alternativamente, você pode usar o método `extend` da fachada `Disk`.
 
-The first argument of the `extend` method is the name of the driver and the second is a Closure that receives the `$app` and `$config` variables. The resolver Closure must return an instance of `League\Flysystem\Filesystem`.
+O primeiro argumento do método `extend` é o nome do driver e o segundo é uma é uma Closure(função anômima declarada dentro do escopo de outra.) que recebe as variáveis `$app`e `$config`. O resolvedor da Closure deve retornar a instância de `League\Flysystem\Filesystem`.
 
-> **Note:** The $config variable will already contain the values defined in `config/filesystems.php` for the specified disk.
+> **Nota** A variável $config já irá conter os valores definidos no arquivo `config/filesystems.php` para o disco especificado.
 
-#### Dropbox Example
+#### O Examplo do Dropbox
 
 	<?php namespace App\Providers;
 
