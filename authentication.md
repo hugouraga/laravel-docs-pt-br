@@ -153,7 +153,8 @@ Primeiro, você pode acessar o usuário a patir da fachada `Auth`:
 
 
 	<?php namespace App\Http\Controllers;
-
+	
+	use Auth;
 	use Illuminate\Routing\Controller;
 
 	class ProfileController extends Controller {

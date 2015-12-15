@@ -132,7 +132,7 @@ Classes no array `aliases` não estão disponíveis em algumas instâncias por q
 <a name="mocking-facades"></a>
 ## Imitando Fachadas (Mocking)
 
-Teste unitário é importante aspecto do porque fachadas funcionam do jeito que são. Na verdade, testabilidade é a razão primária para fahadas sequer existam. Para mais informações, dê uma olhada na seção de documentação [imitando fachadas](/docs/testing#mocking-facades) 
+Teste unitário é importante aspecto do porque fachadas funcionam do jeito que são. Na verdade, testabilidade é a razão primária para facades sequer existam. Para mais informações, dê uma olhada [imitando fachadas](/docs/testing#mocking-facades) na seção de documentação
 
 <a name="facade-class-reference"></a>
 ## Referências de Classe Fachada
@@ -147,7 +147,7 @@ Auth  |  [Illuminate\Auth\AuthManager](http://laravel.com/api/{{version}}/Illumi
 Auth (Instance)  |  [Illuminate\Auth\Guard](http://laravel.com/api/{{version}}/Illuminate/Auth/Guard.html)  |
 Blade  |  [Illuminate\View\Compilers\BladeCompiler](http://laravel.com/api/{{version}}/Illuminate/View/Compilers/BladeCompiler.html)  |  `blade.compiler`
 Bus  |  [Illuminate\Contracts\Bus\Dispatcher](http://laravel.com/api/{{version}}/Illuminate/Contracts/Bus/Dispatcher.html)  |
-Cache  |  [Illuminate\Cache\Repository](http://laravel.com/api/{{version}}/Illuminate/Cache/Repository.html)  |  `cache`
+Cache  |  [Illuminate\Cache\CacheManager](http://laravel.com/api/{{version}}/Illuminate/Cache/Repository.html)  |  `cache`
 Config  |  [Illuminate\Config\Repository](http://laravel.com/api/{{version}}/Illuminate/Config/Repository.html)  |  `config`
 Cookie  |  [Illuminate\Cookie\CookieJar](http://laravel.com/api/{{version}}/Illuminate/Cookie/CookieJar.html)  |  `cookie`
 Crypt  |  [Illuminate\Encryption\Encrypter](http://laravel.com/api/{{version}}/Illuminate/Encryption/Encrypter.html)  |  `encrypter`

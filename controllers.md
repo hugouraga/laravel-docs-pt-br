@@ -110,7 +110,7 @@ Laravel permite que você facilmente defina uma rota única para manipular açõ
 
 O método `controller` aceita dois argumentos. O primeiro é a URI base que o controlador manipula, enquando o segundo é o nome da classe do controlador. Em seguida, apenas adicione o método em seu controlador, prefixado com o verbo HTTP que o mesmo responde a:
 
-	class UserController extends BaseController {
+	class UserController extends Controller {
 
 		public function getIndex()
 		{
@@ -283,7 +283,7 @@ Se seu método do controlador também está esperando um parâmetro na rota, sim
 	class UserController extends Controller {
 
 		/**
-		 * Store a new user.
+		 * Update the specified user.
 		 *
 		 * @param  Request  $request
 		 * @param  int  $id

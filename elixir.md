@@ -67,7 +67,7 @@ elixir(function(mix) {
 
 ```javascript
 elixir(function(mix) {
-	mix.sass("app.sass");
+	mix.sass("app.scss");
 });
 ```
 Isto assume que seus arquivos Sass são armazenados no diretório `resources/assets/sass`.
@@ -138,7 +138,10 @@ elixir(function(mix) {
 ```
 Caminhos passados para este método são relativos ao diretório `resources/css`.
 
+
 #### Combinar Stylesheets e salvar a um Directório Personalizado
+
+Caminhos passados apra este método são relativo ao diretório `resources/assets/css`.
 
 ```javascript
 elixir(function(mix) {
@@ -181,7 +184,10 @@ elixir(function(mix) {
 ```
 Novamente, isto pressupõe que todos os caminhos são relativos ao diretório `resources/js`.
 
+
 #### Combine todos os scripts em um diretório
+
+Novamente, isto assume que todos os caminhos são relativos ao diretório `resources/assets/js`. 
 
 ```javascript
 elixir(function(mix) {
@@ -252,7 +258,9 @@ elixir(function(mix) {
 ```
 Quer requerer módulos no browser? Esperando usar EcmaScript 6(Javascript 6) mais cedo ou mais tarde? Precisa de um transformador JSX bulti-in(nativo)? Se sim, [Browserify](http://browserify.org/), juntamente com a tarefa Elixir `browserify`, isto irá lidar com esses trabalhos facilmente. 
 
-Esta tarefa assume que seus scripts estão armazenados no diretório `resources/js`, embora você seja livre para substituir o padrão. 
+
+Esta tarefa assume que seus scripts estão armazenados no diretório `resources/assets/js`, embora você seja livre para substituir o padrão. 
+
 
 #### Encademento de Métodos
 Claro que, você pode encadear quase todos os Métodos Elixir juntos para contruir sua receita:

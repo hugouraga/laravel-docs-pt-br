@@ -93,7 +93,7 @@ Now all AJAX requests will automatically include the CSRF token:
 
 #### X-XSRF-TOKEN
 
-Laravel also stores the CSRF token in a `XSRF-TOKEN` cookie. You can use the cookie value to set the `X-XSRF-TOKEN` request header. Some Javascript frameworks, like Angular, do this automatically for you.
+Laravel also stores the CSRF token in a `XSRF-TOKEN` cookie. You can use the cookie value to set the `X-XSRF-TOKEN` request header. Some JavaScript frameworks, like Angular, do this automatically for you.
 
 > Note: The difference between the `X-CSRF-TOKEN` and `X-XSRF-TOKEN` is that the first uses a plain text value and the latter uses an encrypted value, because cookies in Laravel are always encrypted. If you use the `csrf_token()` function to supply the token value, you probably want to use the `X-CSRF-TOKEN` header.
 
@@ -157,7 +157,7 @@ Of course, you can capture segments of the request URI within your route:
 	{
 		//
 	})
-	->where(['id' => '[0-9]+', 'name' => '[a-z]+'])
+	->where(['id' => '[0-9]+', 'name' => '[a-z]+']);
 
 #### Defining Global Patterns
 
@@ -362,7 +362,7 @@ There are two ways to manually trigger a 404 error from a route. First, you may 
 
 	abort(404);
 
-The `abort` helper simply throws a `Symfony\Component\HttpFoundation\Exception\HttpException` with the specified status code.
+The `abort` helper simply throws a `Symfony\Component\HttpKernel\Exception\HttpException` with the specified status code.
 
 Secondly, you may manually throw an instance of `Symfony\Component\HttpKernel\Exception\NotFoundHttpException`.
 

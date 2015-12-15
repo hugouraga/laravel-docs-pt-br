@@ -118,7 +118,7 @@ Assinantes de eventos são classes que podem subescrever para múltiplos eventos
 		 * Register the listeners for the subscriber.
 		 *
 		 * @param  Illuminate\Events\Dispatcher  $events
-		 * @return array
+		 * @return void
 		 */
 		public function subscribe($events)
 		{
