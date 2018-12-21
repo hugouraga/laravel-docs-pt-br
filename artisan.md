@@ -40,7 +40,7 @@ Você também pode ver a versão atual do instalação do seu Laravel utilizando
 <a name="calling-commands-outside-of-cli"></a>
 ## Chamando os Comandos de Fora do CLI
 
-Algumas vezes você pode desejar executatar o comando Artisan de fora do CLI. Por exemplo, vocẽ pode desejar executar o comando Artisan de uma rota HTTP. Apenas use a fachada `Artisan`:
+Algumas vezes você pode desejar executar o comando Artisan de fora do CLI. Por exemplo, vocẽ pode desejar executar o comando Artisan de uma rota HTTP. Apenas use a fachada `Artisan`:
 
 	Route::get('/foo', function()
 	{
